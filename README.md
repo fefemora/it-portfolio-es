@@ -4,9 +4,9 @@
 
 Bienvenido a mi portafolio profesional. Aquí documento cómo investigo problemas técnicos, organizo evidencias, evalúo riesgos y valido resultados. Mis proyectos reúnen **soporte y resolución de incidentes**, **operaciones seguras de TI** y **análisis de seguridad**.
 
-**[English version / Versión en inglés](https://github.com/fefemora/it-portfolio-en)** · **[Cómo trabajo — metodología](metodologia/README.md)** · **[Estado de la traducción](LOCALIZACION.md)**
+**[Versión en inglés / English version](https://github.com/fefemora/it-portfolio-en)** · **[Cómo trabajo — metodología](metodologia/README.md)** · **[Estado de la traducción](LOCALIZACION.md)**
 
-> **Transparencia de evidencias:** distingo los **casos reales**, los **escenarios simulados** y los **proyectos planificados**. Los ejercicios ficticios no se presentan como incidentes reales ni como controles implementados. **Estado de traducción:** los 47 archivos originales están replicados; 28 de los 32 documentos Markdown originales se han localizado al español. Los cuatro documentos extensos de Windows Security Hardening aún incluyen texto en inglés; existe un resumen técnico en español. Los SVG se adaptaron, pendientes de revisión visual.
+> **Transparencia de evidencias:** distingo los **casos reales**, los **escenarios simulados** y los **proyectos planificados**. Los ejercicios ficticios no se presentan como incidentes reales ni como controles implementados. **Estado de localización:** los 47 archivos originales fueron replicados y los 32 documentos Markdown originales ya están en español. Los 11 SVG tienen textos técnicos adaptados y controles estructurales revisados. La verificación visual renderizada a distintos tamaños todavía está pendiente.
 
 ## Explora el portafolio
 
@@ -22,7 +22,7 @@ Bienvenido a mi portafolio profesional. Aquí documento cómo investigo problema
 | **[Gestión de incidentes de mesa de ayuda L2](IT-Support/Service-Desk-Incident-Management/README.md)** | Microsoft 365/MFA, DNS, VPN y escalamiento | Tres escenarios simulados | **Documentados** |
 | **[Evaluación de riesgos de seguridad empresarial](Information-Security/Enterprise-Risk-Assessment/README.md)** | Inventario, matriz de riesgos, NIST CSF 2.0, CIS IG1 y plan de tratamiento | Empresa ficticia | **Documentación completada** |
 | **[Análisis de eventos de seguridad de Windows](Cybersecurity/Windows-Security-Event-Analysis/README.md)** | Eventos 4624/4672, política de auditoría, correlación y límites de retención | Investigación real de solo lectura | **Evaluación inicial completada** |
-| **[Evaluación de seguridad de Windows](Cybersecurity/Windows-Security-Hardening/RESUMEN-ES.md)** | Línea base, Defender, firewall, auditoría, cambios y validación | Evidencia real, 30 pasos documentados | **Evaluación finalizada; mejoras pendientes** |
+| **[Evaluación de seguridad de Windows](Cybersecurity/Windows-Security-Hardening/README.md)** | Línea base, Defender, firewall, auditoría, cambios y validación | Evidencia real, 30 pasos documentados | **Evaluación finalizada; mejoras pendientes** |
 
 ## Casos y resultados relevantes
 
