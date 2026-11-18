@@ -1,101 +1,97 @@
-# Security Control Mapping — Emerald Technologies
+# Mapeo de controles de seguridad — Emerald Technologies
 
-![Security control mapping overview](control-mapping-overview.svg)
+![Resumen visual del mapeo de controles](control-mapping-overview.svg)
 
-**Case study:** Emerald Technologies — fictional 50-person organization  
-**Assessment scope:** Eight hypothetical inherent risks (R-001 to R-008)  
-**References:** NIST CSF 2.0 and CIS Controls v8.1, Implementation Group 1 (IG1)  
-**Status:** Proposed controls only — not implemented, tested, or audited
+**Caso de estudio:** Emerald Technologies, organización ficticia de 50 personas  
+**Alcance:** Ocho riesgos inherentes hipotéticos (R-001 a R-008)  
+**Referencias:** NIST CSF 2.0 y CIS Controls v8.1, Implementation Group 1 (IG1)  
+**Estado:** Controles solo propuestos; no implementados, probados ni auditados
 
-> **Important:** This is a portfolio exercise. The mappings are analyst-selected associations between risk scenarios, CSF outcomes, and candidate CIS safeguards. They are **not** an official NIST-to-CIS crosswalk, an attestation of compliance, or proof of control effectiveness. Verify current framework text and safeguard applicability before using the mappings in a real assessment.
+> **Importante:** ejercicio de portafolio. Las asociaciones entre escenarios, resultados CSF y salvaguardas CIS fueron seleccionadas por el analista. **No constituyen una correspondencia oficial NIST/CIS, acreditación de cumplimiento ni prueba de eficacia.** Verificar textos vigentes y aplicabilidad antes de utilizarlas en producción.
 
-## 1. How to Read This Mapping
+## 1. Cómo interpretar el mapeo
 
-- **Risk ID:** A scenario from the [Risk Register](../risk-register/risk-register.md).
-- **NIST CSF 2.0:** Relevant Functions and Categories representing intended cybersecurity outcomes.
-- **CIS v8.1 IG1:** Candidate baseline safeguards to help achieve those outcomes.
-- **Validation evidence:** What an authorized assessor should request or test before marking a safeguard as implemented.
-- **Status:** All controls remain **Proposed / Not verified**.
+- **ID de riesgo:** escenario del [registro de riesgos](../risk-register/risk-register.md).
+- **NIST CSF 2.0:** funciones y categorías que expresan resultados de seguridad esperados.
+- **CIS v8.1 IG1:** salvaguardas candidatas para alcanzarlos.
+- **Evidencia de validación:** documentación o pruebas que un evaluador autorizado debería solicitar.
+- **Estado:** todos los controles están **Propuestos / No verificados**.
 
-The NIST CSF organizes outcomes; the CIS Controls provide actionable safeguards. They serve complementary purposes. This document does not treat the CSF as a prescriptive checklist or the CIS IG1 baseline as a guarantee of security.
+NIST CSF organiza resultados y CIS Controls propone medidas concretas. Se complementan: CSF no se interpreta como checklist prescriptivo ni IG1 como garantía de seguridad.
 
-## 2. Risk-to-Control Matrix
+## 2. Matriz de riesgo y controles
 
-| Risk | Risk scenario | NIST CSF 2.0 category | Candidate CIS Controls v8.1 IG1 safeguards | Proposed control objective | Status |
+| Riesgo | Escenario | Categoría NIST CSF 2.0 | Salvaguardas CIS v8.1 candidatas | Objetivo del control | Estado |
 |---|---|---|---|---|---|
-| **R-001** | Account takeover | **PR.AA** — Identity Management, Authentication, and Access Control; **DE.CM** — Continuous Monitoring | **5.1** Establish and Maintain an Inventory of Accounts; **6.3** Require MFA for Externally-Exposed Applications; **6.5** Require MFA for Administrative Access | Inventory accounts, protect sign-ins, monitor suspicious access | Proposed |
-| **R-002** | Unrecoverable data after ransomware | **PR.DS** — Data Security; **RC.RP** — Incident Recovery Plan Execution | **11.1** Establish and Maintain a Data Recovery Process; **11.2** Perform Automated Backups; **11.5** Test Data Recovery | Ensure recoverable, tested copies of business data | Proposed |
-| **R-003** | Ransomware on endpoints | **PR.PS** — Platform Security; **DE.CM** — Continuous Monitoring | **4.1** Establish and Maintain a Secure Configuration Process; **7.3** Perform Automated Operating System Patch Management; **10.1** Deploy and Maintain Anti-Malware Software | Reduce endpoint attack surface and malicious execution | Proposed |
-| **R-004** | Business email compromise | **PR.AT** — Awareness and Training; **PR.AA** — Identity Management, Authentication, and Access Control | **14.2** Train Workforce Members to Recognize Social Engineering Attacks; **6.3** Require MFA for Externally-Exposed Applications | Reduce phishing susceptibility and unauthorized mailbox access | Proposed |
-| **R-005** | Unauthorized cloud document access | **PR.AA** — Identity Management, Authentication, and Access Control; **PR.DS** — Data Security | **3.3** Configure Data Access Control Lists; **6.1** Establish an Access Granting Process; **6.2** Establish an Access Revoking Process | Apply least-privilege sharing and managed access | Proposed |
-| **R-006** | Unauthorized VPN access | **PR.AA** — Identity Management, Authentication, and Access Control | **6.4** Require MFA for Remote Network Access; **5.1** Establish and Maintain an Inventory of Accounts | Authenticate remote users and govern VPN entitlement | Proposed |
-| **R-007** | Exploitation of unpatched endpoints | **PR.PS** — Platform Security | **7.3** Perform Automated Operating System Patch Management; **7.4** Perform Automated Application Patch Management | Maintain timely OS and application updates | Proposed |
-| **R-008** | Internal file share outage | **PR.IR** — Technology Infrastructure Resilience; **RC.RP** — Incident Recovery Plan Execution | **11.1** Establish and Maintain a Data Recovery Process; **11.5** Test Data Recovery | Improve service restoration readiness and recoverability | Proposed |
+| **R-001** | Apropiación de cuentas | **PR.AA** — Gestión de identidades, autenticación y acceso; **DE.CM** — Monitoreo continuo | **5.1** Inventario de cuentas; **6.3** MFA en aplicaciones expuestas; **6.5** MFA en accesos administrativos | Inventariar cuentas, proteger accesos y detectar anomalías | Propuesto |
+| **R-002** | Datos irrecuperables tras ransomware | **PR.DS** — Seguridad de datos; **RC.RP** — Ejecución de recuperación | **11.1** Proceso de recuperación; **11.2** Respaldos automáticos; **11.5** Pruebas de recuperación (medida adicional IG2/IG3) | Copias recuperables y probadas | Propuesto |
+| **R-003** | Ransomware en endpoints | **PR.PS** — Seguridad de plataformas; **DE.CM** — Monitoreo continuo | **4.1** Proceso de configuración segura; **7.3** Parches automáticos del sistema operativo; **10.1** Protección antimalware | Reducir superficie de ataque y ejecución maliciosa | Propuesto |
+| **R-004** | Compromiso del correo empresarial | **PR.AT** — Concientización y capacitación; **PR.AA** — Identidad y acceso | **14.2** Capacitación contra ingeniería social; **6.3** MFA en aplicaciones expuestas | Reducir phishing y accesos a buzones no autorizados | Propuesto |
+| **R-005** | Acceso indebido a documentos cloud | **PR.AA** — Identidad y acceso; **PR.DS** — Seguridad de datos | **3.3** ACL de datos; **6.1** Proceso de concesión de acceso; **6.2** Revocación de acceso | Mínimo privilegio y compartición controlada | Propuesto |
+| **R-006** | Acceso VPN no autorizado | **PR.AA** — Identidad y acceso | **6.4** MFA para acceso remoto a redes; **5.1** Inventario de cuentas | Autenticar usuarios remotos y administrar autorizaciones | Propuesto |
+| **R-007** | Explotación de equipos sin parches | **PR.PS** — Seguridad de plataformas | **7.3** Parches automáticos del SO; **7.4** Parches automáticos de aplicaciones | Mantener actualizaciones oportunas | Propuesto |
+| **R-008** | Caída de archivos compartidos | **PR.IR** — Resiliencia de infraestructura; **RC.RP** — Ejecución de recuperación | **11.1** Proceso de recuperación; **11.5** Pruebas de recuperación (IG2/IG3) | Mejorar recuperación de servicios | Propuesto |
 
-**Mapping granularity:** CSF **Category** codes are used deliberately; this is not a claim that every subcategory is satisfied. Safeguard applicability and implementation-group membership should be checked against the published CIS Controls v8.1 reference before production adoption.
+**Granularidad:** se utilizan códigos de **categoría** CSF, no se afirma cumplimiento de todas las subcategorías. Confirmar aplicabilidad y pertenencia a grupos de implementación usando el texto oficial CIS v8.1.
 
-## 3. Visual Treatment Workflow
+## 3. Flujo de tratamiento
 
 ```mermaid
 flowchart LR
-    A["Risk scenario<br/>R-001 to R-008"] --> B["CSF 2.0 outcome<br/>Function / Category"]
-    B --> C["CIS v8.1 IG1<br/>Candidate safeguards"]
-    C --> D["Control owner<br/>and action"]
-    D --> E["Evidence review<br/>and validation"]
-    E --> F{"Effective?"}
-    F -->|Yes| G["Reassess residual risk"]
-    F -->|No| H["Improve or escalate"]
+    A["Escenario de riesgo<br/>R-001 a R-008"] --> B["Resultado CSF 2.0<br/>Función / Categoría"]
+    B --> C["CIS v8.1 IG1<br/>Salvaguardas candidatas"]
+    C --> D["Responsable<br/>y acción"]
+    D --> E["Revisión de evidencia<br/>y validación"]
+    E --> F{"¿Es eficaz?"}
+    F -->|Sí| G["Reevaluar riesgo residual"]
+    F -->|No| H["Mejorar o escalar"]
     H --> D
-    style A fill:#FCE8EA,stroke:#DC3545,color:#14283F
-    style B fill:#E9F2F6,stroke:#14283F,color:#14283F
-    style C fill:#D1FAE5,stroke:#059669,color:#14283F
-    style G fill:#D1FAE5,stroke:#059669,color:#14283F
 ```
 
-## 4. Proposed Validation Evidence
+## 4. Evidencia de validación propuesta
 
-| Risk | Proposed control owner (role) | Evidence to request | Example validation criterion |
+| Riesgo | Responsable técnico propuesto | Evidencia a solicitar | Criterio ilustrativo |
 |---|---|---|---|
-| R-001 | IT Administrator | Account inventory, MFA policy, sign-in review procedure | Active accounts reconciled; applicable MFA enforcement confirmed for sampled accounts |
-| R-002 | Infrastructure Administrator | Backup policy, job reports, protected-copy configuration, restore-test report | Authorized restore test completes within approved recovery objectives |
-| R-003 | IT Support / Security | Endpoint policy, malware protection status, patch compliance report | Sampled endpoints meet the organization's approved protection and patch baseline |
-| R-004 | M365 Administrator / HR | Awareness training record, MFA configuration, incident-reporting process | Sampled staff have completed training; mailbox access controls are verified |
-| R-005 | M365 Administrator / Data Owner | Sharing policy, access reviews, granting/revoking tickets | Sampled repositories follow approved access and sharing decisions |
-| R-006 | Network Administrator | VPN access policy, account entitlement list, MFA settings | Sampled remote-access accounts meet approved access and MFA requirements |
-| R-007 | IT Support | OS/application update deployment reports, exception list | Exceptions are tracked; sampled devices meet approved patch deadlines |
-| R-008 | Infrastructure Administrator | Recovery procedure, service dependency record, restore-test evidence | A documented recovery exercise meets approved business recovery targets |
+| R-001 | Administrador TI | Inventario de cuentas, política MFA y proceso de revisión | Cuentas activas conciliadas, MFA verificado en muestra |
+| R-002 | Administrador de Infraestructura | Política de respaldo, reportes de trabajos, copias protegidas y prueba de restauración | Restauración autorizada dentro de objetivos acordados |
+| R-003 | Soporte TI / Seguridad | Política de endpoints, antimalware y reporte de parches | Equipos muestreados cumplen línea base aprobada |
+| R-004 | Administrador M365 / RR. HH. | Registro de capacitaciones, MFA y proceso de reporte | Personal seleccionado capacitado, protección de acceso a buzón comprobada |
+| R-005 | Administrador M365 / Propietario de datos | Políticas de compartición, revisiones, tickets de altas/bajas | Permisos coherentes con aprobaciones |
+| R-006 | Administrador de Redes | Política VPN, autorizaciones y MFA | Cuentas muestreadas cumplen requisitos de acceso remoto |
+| R-007 | Soporte TI | Informes de actualización y excepciones | Excepciones controladas y plazos de parcheo cumplidos |
+| R-008 | Administrador de Infraestructura | Procedimientos, dependencias y restauraciones | Ejercicio documentado dentro de objetivos de recuperación |
 
-These are **proposed tests**, not completed test results. Actual thresholds, sample sizes, and recovery targets must be agreed with business and technical owners.
+**Estas son pruebas propuestas, no resultados reales.** Umbrales, muestras y objetivos deben acordarse con responsables técnicos y de negocio.
 
-## 5. Prioritization
+## 5. Priorización
 
-**First priority — Critical inherent risks:** R-001 (account takeover) and R-002 (unrecoverable data).  
-**Second priority — High inherent risks:** R-003 to R-006.  
-**Third priority — Moderate inherent risks:** R-007 and R-008.
+**Primera prioridad:** riesgos críticos R-001 y R-002.  
+**Segunda prioridad:** riesgos altos R-003 a R-006.  
+**Tercera prioridad:** riesgos moderados R-007 y R-008.
 
-Priorities reflect the scenario's assumed inherent risk scores. They may change after verifying existing controls, business impact, and implementation dependencies.
+Las prioridades derivan de puntajes inherentes supuestos y podrían cambiar tras evaluar controles, impacto y dependencias.
 
-## 6. What This Document Does Not Claim
+## 6. Afirmaciones fuera del alcance
 
-- No live Microsoft 365, Windows, VPN, or backup configuration was inspected.
-- No control was deployed or tested.
-- No residual risk was calculated.
-- No regulatory compliance or framework certification was established.
-- No official NIST/CIS crosswalk was reproduced.
+- No se revisaron configuraciones reales de Microsoft 365, Windows, VPN o respaldos.
+- No se desplegaron ni probaron controles.
+- No se calculó riesgo residual.
+- No se verificó cumplimiento legal o de un marco.
+- No se reprodujo una matriz oficial de correspondencia NIST/CIS.
 
-## 7. Next Deliverable
+## 7. Entregable siguiente
 
-Prepare the [Risk Treatment Plan](../treatment/risk-treatment-plan.md) with accountable owners, recommended actions, priorities, timeframes, and measurable acceptance criteria. The plan will retain **proposed** status until implementation and validation evidence exists.
+El [plan de tratamiento](../treatment/risk-treatment-plan.md) define responsables, medidas, prioridades, plazos y criterios de aceptación. Mantiene estado **propuesto** hasta que exista evidencia de implementación y eficacia.
 
-**Implementation-group clarification:** CIS Safeguard **11.5 — Test Data Recovery** belongs to **IG2/IG3**, not IG1. Restore testing is still a valuable proposed **additional measure beyond IG1**. CIS 11.1–11.4 are IG1.
+**Aclaración importante:** la salvaguarda CIS **11.5 — Test Data Recovery** corresponde a **IG2/IG3**, no a IG1. La prueba de restauración se propone como medida **adicional a IG1**. Las salvaguardas CIS 11.1–11.4 sí pertenecen a IG1.
 
-## References & Official Documentation
+## Referencias
 
 - [NIST Cybersecurity Framework 2.0](https://www.nist.gov/cyberframework)
-- [CIS Controls v8.1 Navigator — safeguard IDs and IG membership](https://www.cisecurity.org/controls/cis-controls-navigator)
+- [CIS Controls v8.1 Navigator](https://www.cisecurity.org/controls/cis-controls-navigator)
 
-*These sources support control selection, not claims of implementation or compliance.*
+*Referencias de selección de controles, no pruebas de cumplimiento o implementación.*
 
 ---
 
-*Fictional case study for educational and professional portfolio use.*
+*Caso ficticio con fines educativos y de portafolio profesional.*
