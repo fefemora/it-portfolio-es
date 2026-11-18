@@ -1,162 +1,106 @@
-# Incident Report Template
+# Plantilla de informe de incidente
 
-> **Portfolio Template:** This document provides a standardized format for simulated IT service desk incidents. All sample data must be fictional or appropriately anonymized.
+> **Plantilla del portafolio:** formato estandarizado para escenarios de soporte TI. Los datos de ejemplo deben ser ficticios o estar anonimizados.
 
-## 1. Incident Information
+## 1. Información general
 
-| Field | Description |
+| Campo | Valor o descripción |
 |---|---|
-| Incident ID | INC-XXX |
-| Incident Title | Brief description |
-| Date Reported | YYYY-MM-DD |
-| Reported By | Fictional user or department |
-| Assigned Support Level | L1 / L2 / L3 |
-| Category | Hardware / Software / Network / Identity / Security |
-| Affected Service | Service or application |
-| Impact | Low / Medium / High |
-| Urgency | Low / Medium / High |
-| Priority | P1 / P2 / P3 / P4 |
-| Status | Open / In Progress / Pending / Resolved / Closed |
+| ID del incidente | INC-XXX |
+| Título | Descripción breve |
+| Fecha de reporte | AAAA-MM-DD |
+| Reportado por | Usuario o departamento ficticio |
+| Nivel de soporte | L1 / L2 / L3 |
+| Categoría | Hardware / Software / Redes / Identidades / Seguridad |
+| Servicio afectado | Servicio o aplicación |
+| Impacto | Bajo / Medio / Alto |
+| Urgencia | Baja / Media / Alta |
+| Prioridad | P1 / P2 / P3 / P4 |
+| Estado | Abierto / En progreso / Pendiente / Resuelto / Cerrado |
 
-## 2. Incident Description
+## 2. Descripción del incidente
 
-**Reported Issue:**
+**Problema reportado:** describir síntomas proporcionados por el usuario.
 
-Describe the symptoms reported by the user.
+**Comportamiento esperado:** explicar el funcionamiento normal del servicio.
 
-**Expected Behavior:**
+**Comportamiento observado:** registrar el fallo real o informado.
 
-Describe how the affected service should normally operate.
+## 3. Impacto en el negocio
 
-**Actual Behavior:**
+Registrar cantidad de usuarios afectados, servicios implicados, consecuencias operativas, alternativas temporales y posibles implicancias de seguridad.
 
-Describe the observed or reported malfunction.
+## 4. Prioridad y SLA
 
-## 3. Business Impact
+**Impacto:** [Bajo / Medio / Alto]  
+**Urgencia:** [Baja / Media / Alta]  
+**Prioridad asignada:** [P1 / P2 / P3 / P4]
 
-Document:
+**Justificación:** explicar por qué se eligió esa prioridad.
 
-- Number of affected users.
-- Affected business services.
-- Operational consequences.
-- Available workarounds.
-- Potential security implications.
+**SLA aplicable:** documentar objetivos de respuesta y resolución acordados, solo si están disponibles. **No inventar compromisos contractuales.**
 
-## 4. Priority and SLA Assessment
+## 5. Diagnóstico inicial
 
-**Impact:** [Low / Medium / High]
-
-**Urgency:** [Low / Medium / High]
-
-**Assigned Priority:** [P1 / P2 / P3 / P4]
-
-**Priority Justification:**
-
-Explain why the incident has been assigned this priority.
-
-**Applicable SLA:**
-
-Document the organization's agreed response and resolution targets, if known.
-
-Do not invent contractual SLA commitments.
-
-## 5. Initial Troubleshooting
-
-| Step | Diagnostic Action | Expected Result | Actual Finding |
+| Paso | Acción de diagnóstico | Resultado esperado | Hallazgo real |
 |---|---|---|---|
-| 1 | Initial verification | Expected behavior | Not tested |
-| 2 | Basic diagnostic checks | Expected behavior | Not tested |
-| 3 | Advanced troubleshooting | Expected behavior | Not tested |
+| 1 | Verificación inicial | Comportamiento esperado | No probado |
+| 2 | Comprobaciones básicas | Comportamiento esperado | No probado |
+| 3 | Diagnóstico avanzado | Comportamiento esperado | No probado |
 
-## 6. Root Cause Analysis
+## 6. Análisis de causa raíz
 
-**Initial Hypothesis:**
+**Hipótesis inicial:** describir la causa sospechada.
 
-Describe the suspected cause.
+**Evidencia de respaldo:** registrar eventos, errores y resultados relevantes.
 
-**Supporting Evidence:**
+**Causa raíz confirmada:** completar solo cuando exista evidencia suficiente; en caso contrario, marcar **No confirmada**.
 
-Record relevant findings, logs, error messages, or test results.
+## 7. Procedimiento de resolución
 
-**Confirmed Root Cause:**
+Registrar cronológicamente las acciones correctivas propuestas o realizadas. Identificar cada una como:
 
-Document only if supported by evidence.
+- Propuesta.
+- Simulada.
+- Ejecutada y verificada.
 
-Otherwise, mark as **Unconfirmed**.
+## 8. Escalamiento
 
-## 7. Resolution Procedure
+**¿Requiere escalamiento?:** Sí / No  
+**Equipo:** L2 / L3 / Redes / Infraestructura / Seguridad / Proveedor
 
-Document the proposed or executed corrective actions in chronological order.
+**Motivo:** explicar si faltan permisos, autorización o conocimientos especializados.
 
-For each action, indicate whether it was:
+## 9. Validación y pruebas
 
-- Proposed
-- Simulated
-- Executed and verified
-
-## 8. Escalation
-
-**Escalation Required:** Yes / No
-
-**Escalation Team:** L2 / L3 / Network / Infrastructure / Security / Vendor
-
-**Reason for Escalation:**
-
-Explain why the issue requires additional technical expertise, permissions, or authorization.
-
-## 9. Validation and Testing
-
-| Validation Check | Expected Result | Actual Result |
+| Comprobación | Resultado esperado | Resultado real |
 |---|---|---|
-| Service availability | Service restored | Not tested |
-| User functionality | Normal operation | Not tested |
-| Security controls | Remain enforced | Not tested |
-| User confirmation | User confirms resolution | Not obtained |
+| Disponibilidad del servicio | Servicio recuperado | No probado |
+| Funcionalidad del usuario | Operación normal | No probado |
+| Controles de seguridad | Permanecen habilitados | No probado |
+| Confirmación del usuario | Usuario confirma recuperación | No obtenida |
 
-## 10. User Communication
+## 10. Comunicación con el usuario
 
-**Initial Update:**
+**Aviso inicial:** acuse de recibo y pasos siguientes.
 
-Summarize the issue acknowledgement and next steps.
+**Actualización:** estado de investigación y próximos pasos.
 
-**Progress Update:**
+**Comunicación de cierre:** solución y confirmación, cuando corresponda.
 
-Describe the current investigation status.
+## 11. Cierre del incidente
 
-**Closure Communication:**
+**Estado final:** [Abierto / Resuelto / Cerrado / Simulado]  
+**Resumen de resolución:** describir el resultado.
+**Lecciones aprendidas:** mejoras al diagnóstico, monitoreo o documentación.
+**Prevención:** recomendaciones para disminuir recurrencias.
 
-Summarize the resolution and confirmation, if applicable.
+## 12. Evidencia y documentación
 
-## 11. Incident Closure
+Agregar, cuando exista: capturas de pantalla, eventos, salidas de comandos, informes técnicos y documentación de fabricante.
 
-**Final Status:** [Open / Resolved / Closed / Simulated]
-
-**Resolution Summary:**
-
-Describe the outcome.
-
-**Lessons Learned:**
-
-Identify improvements to troubleshooting, documentation, monitoring, or prevention.
-
-**Preventive Recommendations:**
-
-Document recommended actions to reduce recurrence.
-
-## 12. Evidence and Documentation
-
-List any supporting materials:
-
-- Screenshots
-- Event logs
-- Command outputs
-- Diagnostic reports
-- Vendor documentation
-
-All sensitive information must be removed or redacted before publication.
+Toda información sensible debe anonimizarse antes de publicarse.
 
 ---
 
-## Disclaimer
-
-This template is intended for educational and portfolio use. Simulated results must not be represented as verified production outcomes.
+**Advertencia:** plantilla educativa y de portafolio. Los resultados simulados nunca deben presentarse como hallazgos productivos verificados.
