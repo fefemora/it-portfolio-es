@@ -1,141 +1,135 @@
+# INC-001 — Diagnóstico de Windows Update y actualizaciones de aplicaciones
 
-# INC-001 — Windows Update and Application Troubleshooting
+[← Soporte TI](../README.md) · [Portafolio principal](../../README.md)
 
-[← IT Support Hub](../README.md) · [Portfolio Home](../../README.md)
+![Recuperación de espacio en disco verificada](storage-recovery.svg)
 
-![Verified disk space recovery](storage-recovery.svg)
-
-**Project:** Windows Troubleshooting Lab
-
-**Category:** IT Support / Windows Troubleshooting  
-**Difficulty:** Intermediate  
-**Status:** Resolved  
-**Environment:** Windows 11 Pro, Version 25H2  
-**Tools:** PowerShell, Event Viewer, Windows Update, Microsoft Store
+**Proyecto:** Laboratorio de troubleshooting de Windows  
+**Categoría:** Soporte TI / Diagnóstico de Windows  
+**Dificultad:** Intermedia  
+**Estado:** Resuelto  
+**Entorno:** Windows 11 Pro, versión 25H2  
+**Herramientas:** PowerShell, Visor de eventos, Windows Update y Microsoft Store
 
 ---
 
-## Incident Workflow Visualization
+## Flujo de resolución del incidente
 
 ```mermaid
 flowchart LR
-    A[Update failures reported] --> B[Review Windows Update events]
-    B --> C[Error 0x80073D02 identified]
-    C --> D[Check storage and services]
-    D --> E[Free disk space and restart]
-    E --> F[Retry updates]
-    F --> G[Updates successful]
-    G --> H[Functional resolution verified]
+    A[Se reportan fallos de actualización] --> B[Revisar eventos de Windows Update]
+    B --> C[Identificar error 0x80073D02]
+    C --> D[Comprobar almacenamiento y servicios]
+    D --> E[Liberar espacio y reiniciar]
+    E --> F[Reintentar actualizaciones]
+    F --> G[Actualizaciones correctas]
+    G --> H[Validar recuperación funcional]
 ```
 
-**Verified case:** Available disk space increased from 18.6 GiB to 63.1 GiB (approximately 44.5 GiB recovered). The exact root cause was not conclusively established.
+**Caso real verificado:** el almacenamiento disponible aumentó de **18,6 GiB a 63,1 GiB** (aproximadamente **44,5 GiB recuperados**). La causa raíz exacta no pudo establecerse de forma concluyente.
 
-## 1. Overview
+## 1. Presentación del caso
 
-This project documents a real troubleshooting scenario involving recurring Windows and application update failures.
+Este proyecto documenta una situación real de diagnóstico técnico relacionada con fallos recurrentes de actualización de Windows y sus aplicaciones.
 
-The workstation repeatedly requested updates, but some application updates failed to install successfully.
+El equipo solicitaba actualizaciones en repetidas ocasiones, pero varias aplicaciones no lograban completar el proceso. La investigación buscó identificar los errores, revisar el estado del sistema y de los servicios y aplicar una corrección de bajo riesgo.
 
-The investigation focused on identifying the errors, reviewing system health, checking Windows Update services, and applying a safe troubleshooting procedure.
+El problema se resolvió funcionalmente después de limpiar espacio en disco, reiniciar el equipo y repetir las actualizaciones.
 
-The issue was resolved following disk cleanup, a system restart, and another update attempt.
+## 2. Descripción del problema
 
-## 2. Problem Description
+Se informó que Windows solicitaba actualizaciones repetidamente y que algunas no finalizaban correctamente.
 
-The user reported that Windows repeatedly requested updates and did not successfully complete the update process.
+No se reportaron problemas importantes de rendimiento, conectividad Wi-Fi u otras fallas generales del equipo.
 
-No significant performance issues, Wi-Fi connectivity problems, or other system failures were reported.
+**Objetivo:** identificar las posibles causas de los errores y restaurar el funcionamiento de las actualizaciones.
 
-The main objective was to identify the cause of the update failures and restore normal update functionality.
+## 3. Entorno técnico
 
-## 3. Technical Environment
-
-| Component | Details |
+| Componente | Detalle |
 |---|---|
-| Operating System | Windows 11 Pro |
-| Version | 25H2 |
-| OS Build | 26200.9711 |
-| Architecture | 64-bit |
-| Storage | KIOXIA 512 GB NVMe SSD |
-| File System | NTFS |
-| Storage Health | Healthy |
-| Primary Diagnostic Tool | Windows PowerShell |
+| Sistema operativo | Windows 11 Pro |
+| Versión | 25H2 |
+| Compilación | 26200.9711 |
+| Arquitectura | 64 bits |
+| Almacenamiento | SSD NVMe KIOXIA de 512 GB |
+| Sistema de archivos | NTFS |
+| Estado del almacenamiento | Healthy |
+| Herramienta de diagnóstico principal | Windows PowerShell |
 
-## 4. Initial Assessment
+## 4. Evaluación inicial
 
-The troubleshooting process started with a general system assessment.
+El diagnóstico comenzó con una comprobación general del sistema.
 
-### 4.1 System Information
+### 4.1 Información del sistema
 
 ```powershell
 Get-ComputerInfo | Select-Object WindowsProductName, WindowsVersion, OsBuildNumber, OsArchitecture
 ```
 
-An additional registry query was used to verify the Windows version:
+También se consultó el Registro para comprobar la versión:
 
 ```powershell
 Get-ItemProperty 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion' |
 Select-Object ProductName, DisplayVersion, CurrentBuild, UBR
 ```
 
-**Findings:**
+**Hallazgos:**
 
-- Windows 11, version 25H2
-- OS build 26200.9711
-- 64-bit architecture
+- Windows 11, versión 25H2.
+- Compilación 26200.9711.
+- Arquitectura de 64 bits.
 
-Some system information fields displayed a legacy Windows 10 product name, while the build number and version identified Windows 11.
+Algunos campos informaron un nombre de producto heredado de Windows 10, pero la versión y la compilación identificaban Windows 11.
 
-### 4.2 Storage Assessment
+### 4.2 Evaluación del almacenamiento
 
 ```powershell
 Get-Volume |
 Select-Object DriveLetter, FileSystem, HealthStatus, SizeRemaining, Size
 ```
 
-Initial storage results:
+**Resultados iniciales:**
 
-| Metric | Initial Value |
+| Métrica | Valor inicial |
 |---|---|
-| Total C: volume capacity | 475.9 GiB |
-| Available storage | 18.6 GiB |
-| Free space | 3.9% |
-| Volume health | Healthy |
+| Capacidad total de C: | 475,9 GiB |
+| Espacio disponible | 18,6 GiB |
+| Porcentaje libre | 3,9 % |
+| Estado del volumen | Healthy |
 
-The system drive had limited available storage, potentially affecting update installation and general system maintenance.
+El volumen del sistema tenía poco espacio disponible, lo que podía afectar las actualizaciones y el mantenimiento.
 
-Physical storage health was also checked:
+También se evaluó el estado del disco físico:
 
 ```powershell
 Get-PhysicalDisk |
 Select-Object FriendlyName, MediaType, HealthStatus, OperationalStatus, Size
 ```
 
-The NVMe SSD reported a Healthy status and normal operational state.
+El SSD NVMe informó estado **Healthy** y funcionamiento normal.
 
-## 5. Windows Update Investigation
+## 5. Investigación de Windows Update
 
-### 5.1 Checking Update Services
+### 5.1 Comprobación de servicios
 
 ```powershell
 Get-Service wuauserv, bits, cryptsvc, usosvc |
 Select-Object Name, Status, StartType
 ```
 
-Results:
-
-| Service | Status | Startup Type |
+| Servicio | Estado observado | Tipo de inicio |
 |---|---|---|
 | BITS | Running | Automatic |
-| Cryptographic Services | Running | Automatic |
+| Servicios criptográficos | Running | Automatic |
 | Update Orchestrator Service | Running | Automatic |
 | Windows Update | Stopped | Manual |
 
-The Windows Update service was stopped but configured for manual startup, which is not necessarily abnormal because Windows can start this service on demand.
+Aunque Windows Update estaba detenido, su configuración de inicio manual no demuestra por sí sola un problema: Windows puede iniciarlo cuando es necesario.
 
-No obvious service configuration issue was identified.
+**No se identificó una anomalía evidente en los parámetros consultados.**
 
-### 5.2 Reviewing Installed Updates
+### 5.2 Revisión de actualizaciones instaladas
 
 ```powershell
 Get-HotFix |
@@ -143,11 +137,11 @@ Sort-Object InstalledOn -Descending |
 Select-Object -First 10 HotFixID, Description, InstalledOn
 ```
 
-The system showed recently installed security updates, indicating that at least some Windows updates had been installed successfully.
+Se observaron actualizaciones de seguridad instaladas recientemente. Esto mostraba que algunas actualizaciones habían terminado correctamente.
 
-### 5.3 Reviewing Event Logs
+### 5.3 Análisis de eventos
 
-The following PowerShell command was used to identify recent Windows Update errors:
+Se consultaron los errores recientes de Windows Update mediante:
 
 ```powershell
 Get-WinEvent -FilterHashtable @{
@@ -160,148 +154,115 @@ Select-Object TimeCreated, Id, Message |
 Format-List
 ```
 
-Five update failures were identified.
+Se identificaron **cinco fallos de actualización** con el código común `0x80073D02`.
 
-**Common error code:** `0x80073D02`
-
-Affected applications included:
-
-| Application | Failed Events |
+| Aplicación | Eventos de error |
 |---|---|
 | Windows Web Experience Pack | 2 |
 | Microsoft Office Hub | 2 |
 | Microsoft Phone Link | 1 |
 
-The error code is commonly associated with application package updates that cannot complete because required resources are currently in use.
+Este código suele asociarse a actualizaciones de paquetes de aplicaciones que no pueden terminar porque algunos recursos necesarios están en uso.
 
-This suggested a possible application update conflict rather than a complete Windows Update service failure.
+La evidencia era compatible con un posible conflicto de actualización de aplicaciones, pero no demostraba un fallo general del servicio Windows Update.
 
-## 6. Troubleshooting Hypotheses
+## 6. Hipótesis de diagnóstico
 
-Two primary hypotheses were considered:
+**Hipótesis 1 — Recursos de aplicaciones en uso:** procesos o aplicaciones en segundo plano podrían haber impedido actualizar los paquetes afectados.
 
-**Hypothesis 1: Application resources in use**
+**Hipótesis 2 — Espacio insuficiente:** el volumen C: tenía solamente un 3,9 % de espacio libre, lo que podía perjudicar el funcionamiento de las actualizaciones.
 
-Background processes or applications could have prevented Windows from updating the affected application packages.
+El espacio disponible limitado constituía un factor de riesgo, pero **no se demostró que fuera la causa directa** de `0x80073D02`.
 
-**Hypothesis 2: Limited available storage**
+## 7. Procedimiento de resolución
 
-The system drive had only 3.9% free space, potentially affecting update operations.
+Se adoptó una estrategia conservadora, evitando modificar innecesariamente servicios y componentes críticos de Windows.
 
-Although limited storage was a relevant risk factor, the available evidence did not establish it as the direct cause of error 0x80073D02.
+### Paso 1 — Recuperar almacenamiento
 
-## 7. Resolution Procedure
+Se eliminaron archivos innecesarios para liberar espacio. No fue necesario borrar manualmente archivos críticos del sistema.
 
-A conservative troubleshooting approach was selected to avoid unnecessary changes to Windows services or system components.
+### Paso 2 — Reiniciar el equipo
 
-### Step 1: Free Up Disk Space
+Se reinició Windows para finalizar procesos activos y liberar recursos que pudieran estar bloqueando las actualizaciones.
 
-Unnecessary files were removed to recover storage capacity.
+### Paso 3 — Reintentar
 
-No manual deletion of critical Windows system files was required.
+Se repitieron las actualizaciones mediante Microsoft Store y se comprobaron las tareas pendientes de Windows Update.
 
-### Step 2: Restart Windows
-
-The workstation was restarted to allow running processes to close and release potentially locked application resources.
-
-### Step 3: Retry Updates
-
-After restarting, application updates were retried through Microsoft Store, and pending updates were checked through Windows Update.
-
-### Step 4: Validate Storage
+### Paso 4 — Validar el almacenamiento
 
 ```powershell
 Get-Volume -DriveLetter C |
 Select-Object DriveLetter, HealthStatus, SizeRemaining, Size
 ```
 
-Final storage results:
-
-| Metric | Before | After |
+| Métrica | Antes | Después |
 |---|---|---|
-| Available storage | 18.6 GiB | 63.1 GiB |
-| Free space | 3.9% | 13.3% |
-| Volume health | Healthy | Healthy |
+| Espacio disponible | 18,6 GiB | 63,1 GiB |
+| Espacio libre | 3,9 % | 13,3 % |
+| Estado del volumen | Healthy | Healthy |
 
-Approximately **44.5 GiB** of storage was recovered.
+Se recuperaron aproximadamente **44,5 GiB**.
 
-## 8. Results and Validation
+## 8. Resultados y validación
 
-Following disk cleanup and a system restart:
+Después de la limpieza y del reinicio:
 
-- Application updates completed successfully.
-- Windows Update no longer reported the previous recurring issue.
-- Available storage increased significantly.
-- The system continued operating normally.
+- Las actualizaciones de aplicaciones finalizaron correctamente.
+- Windows Update dejó de presentar el problema recurrente informado.
+- El espacio disponible aumentó significativamente.
+- El equipo continuó funcionando normalmente.
 
-**Final status: Resolved**
+**Estado final: Resuelto.**
 
-The issue was considered functionally resolved based on successful update attempts and the absence of the previously reported problem.
+La recuperación funcional se verificó con actualizaciones exitosas y desaparición del síntoma informado. Sin embargo, **no fue posible aislar una única causa raíz**. Tanto la liberación de recursos durante el reinicio como la mejora del espacio disponible pudieron contribuir al resultado.
 
-The exact root cause was not conclusively isolated. Both the release of application resources during restart and the increased available storage may have contributed to the successful outcome.
+## 9. Evidencia técnica
 
-## 9. Technical Evidence
-
-The following files contain sanitized technical evidence collected during the troubleshooting process.
-
-| Evidence | Description |
+| Archivo | Contenido |
 |---|---|
-| [System Information](evidence/system-information.txt) | Initial and post-remediation Windows version and build information. |
-| [Storage Validation](evidence/storage-validation.txt) | Storage capacity, available space, and volume health verification. |
-| [Update Error Events](evidence/update-errors.txt) | Historical Windows Update error events associated with error 0x80073D02. |
-| [Validation Notes](evidence/validation-notes.md) | Functional validation, findings, root cause assessment, and limitations. |
+| [Información del sistema](evidence/system-information.txt) | Versión de Windows y compilación antes y después |
+| [Validación de almacenamiento](evidence/storage-validation.txt) | Capacidad, espacio libre y estado del volumen |
+| [Eventos de error](evidence/update-errors.txt) | Fallos históricos asociados a `0x80073D02` |
+| [Notas de validación](evidence/validation-notes.md) | Recuperación funcional, hipótesis, limitaciones y conclusiones |
 
-All evidence has been reviewed to avoid exposing personal information or sensitive system identifiers.
+La evidencia está anonimizada para evitar exponer identificadores sensibles. Las salidas originales de la consola se conservan sin traducir para mantener su integridad.
 
-The evidence includes historical diagnostic findings and post-remediation observations. It does not establish a single confirmed root cause.
+## 10. Consideraciones de seguridad
 
+- No se modificaron servicios de Windows sin necesidad.
+- No se deshabilitaron controles de seguridad.
+- No se eliminaron manualmente archivos críticos del sistema.
+- Se utilizaron herramientas integradas de diagnóstico.
+- Se priorizaron acciones de bajo riesgo y reversibles.
+- Se evitó publicar información sensible.
 
-## 10. Security Considerations
+## 11. Lecciones aprendidas
 
-The troubleshooting process followed several security and operational principles:
+1. Revisar códigos de error y eventos antes de aplicar soluciones.
+2. Correlacionar los registros técnicos con el síntoma informado.
+3. No asumir que un servicio detenido implica una avería.
+4. Considerar los riesgos operativos del almacenamiento insuficiente.
+5. Comenzar con cambios de bajo impacto.
+6. Diferenciar resolución confirmada de hipótesis sobre causa raíz.
+7. Documentar tanto los resultados como sus limitaciones.
 
-- Avoided unnecessary modifications to Windows services.
-- Did not disable security controls.
-- Avoided manually deleting critical system files.
-- Used built-in Windows diagnostic tools.
-- Prioritized low-risk and reversible troubleshooting actions.
-- Avoided exposing sensitive system or user information.
+## 12. Competencias demostradas
 
-## 11. Lessons Learned
+Diagnóstico de Windows 11 · PowerShell · Visor de eventos · Windows Update · Servicios del sistema · Evaluación de almacenamiento · Investigación de causa raíz · Documentación técnica · Validación de incidentes.
 
-This lab reinforced several important troubleshooting practices:
+## Referencias oficiales
 
-1. Always investigate error messages and event logs before applying fixes.
-2. Correlate technical events with the symptoms reported by the user.
-3. A stopped Windows service does not automatically indicate a failure.
-4. Low disk space can create operational risks even when storage health is normal.
-5. Start with low-risk troubleshooting actions before attempting invasive repairs.
-6. Verify the outcome and distinguish confirmed findings from technical hypotheses.
-7. Document both successful actions and diagnostic limitations.
+- [Solucionador de problemas de Windows Update](https://support.microsoft.com/en-us/windows/windows-update-troubleshooter-19bc41ca-ad72-ae67-af3c-89ce169755dd)
+- [Get-WinEvent](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.diagnostics/get-winevent)
+- [Get-Volume](https://learn.microsoft.com/en-us/powershell/module/storage/get-volume)
+- [Get-Service](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.management/get-service)
 
-## 12. Skills Demonstrated
-
-- Windows 11 troubleshooting
-- PowerShell diagnostics
-- Windows Event Log analysis
-- Windows Update troubleshooting
-- Service status verification
-- Storage health assessment
-- Root cause investigation
-- Technical documentation
-- Incident resolution and validation
-
-## References & Official Documentation
-
-- [Windows Update troubleshooting (Microsoft Support)](https://support.microsoft.com/en-us/windows/windows-update-troubleshooter-19bc41ca-ad72-ae67-af3c-89ce169755dd)
-- [Get-WinEvent — PowerShell reference](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.diagnostics/get-winevent)
-- [Get-Volume — PowerShell reference](https://learn.microsoft.com/en-us/powershell/module/storage/get-volume)
-- [Get-Service — PowerShell reference](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.management/get-service)
-
-*These references support the methodology and technical procedures; they do not independently validate execution, findings, or control effectiveness.*
+*Las referencias apoyan los procedimientos, pero no constituyen evidencia independiente de ejecución ni eficacia de los controles.*
 
 ---
 
-**Project Status:** Completed  
-**Incident ID:** INC-001  
-**Category:** IT Support / Windows Troubleshooting
+**Estado del proyecto:** Completado  
+**Identificador:** INC-001  
+**Área:** Soporte TI / Diagnóstico de Windows
