@@ -1,35 +1,26 @@
+# Administración de sistemas
 
-# Systems Administration
+Esta sección aborda la administración de sistemas, gestión de infraestructura, identidades y mantenimiento de servicios de TI mediante ejercicios prácticos y laboratorios.
 
-This section focuses on system administration, infrastructure management, identity management, and the maintenance of IT services.
+## Áreas de enfoque
 
-It documents practical exercises and labs related to managing operating systems, user accounts, servers, and enterprise IT environments.
+- Administración de Windows Server.
+- Fundamentos y operación de Active Directory.
+- Gestión de usuarios y grupos.
+- Gestión de identidades y accesos (IAM).
+- Mantenimiento y monitoreo de servidores.
+- Entornos locales e híbridos.
+- Fundamentos de Microsoft Entra ID.
 
-## Areas of Focus
+## Proyectos
 
-- Windows Server administration
-- Active Directory fundamentals
-- User and group management
-- Identity and access management
-- Server maintenance and monitoring
-- On-premises and hybrid environments
-- Microsoft Entra ID fundamentals
-
-## Projects
-
-| Project | Description | Status |
+| Proyecto | Descripción | Estado |
 |---|---|---|
-| Active Directory & Identity Management Lab | User, group, and access management in a Windows domain environment. | Planned |
-| Windows Server Administration Lab | Basic server configuration, administration, and maintenance. | Planned |
+| Laboratorio de Active Directory e identidades | Gestión de usuarios, grupos, roles y permisos en un dominio Windows. | Planificado para documentar |
+| Laboratorio de administración de Windows Server | Configuración, administración y mantenimiento de servidores. | Planificado |
 
-## Methodology
+## Metodología
 
-Each project will include:
+Los laboratorios incluirán entorno, configuración, objetivos, pasos de implementación, pruebas y validación, diagnóstico, consideraciones de seguridad y lecciones aprendidas.
 
-- Environment and configuration
-- Technical objectives
-- Implementation steps
-- Validation and testing
-- Troubleshooting
-- Security considerations
-- Lessons learned
+[Volver al portafolio](../README.md)
