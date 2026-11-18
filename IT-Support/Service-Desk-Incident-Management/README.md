@@ -1,70 +1,69 @@
-# Service Desk Incident Management — L2 Case Studies
+# Gestión de incidentes de mesa de ayuda — Casos L2
 
-[← IT Support Hub](../README.md) · [Portfolio Home](../../README.md)
+[← Soporte TI](../README.md) · [Portafolio principal](../../README.md)
 
-![Service desk incident overview](incident-overview.svg)
+![Resumen visual de incidentes de mesa de ayuda](incident-overview.svg)
 
-**Scope:** Three fictional L2 incident scenarios; diagnostic plans only, not executed.
+**Alcance:** tres escenarios ficticios de incidentes L2. Se documentan planes de diagnóstico y escalamiento, **no acciones ejecutadas**.
 
-> **Portfolio simulation:** All incidents and organizations described in this project are fictional. The scenarios demonstrate technical troubleshooting methodology and do not represent actual customer tickets.
+> **Simulación del portafolio:** los incidentes y organizaciones descritos son ficticios. Los casos demuestran una metodología técnica, pero no representan tickets reales de clientes.
 
-## Project Overview
+## Presentación del proyecto
 
-This project demonstrates a structured approach to IT Service Desk Incident Management, focusing on Level 2 (L2) technical support, troubleshooting, incident prioritization, security awareness, and professional documentation.
+Este proyecto demuestra un enfoque estructurado de **gestión de incidentes de mesa de ayuda**, soporte de segundo nivel (L2), diagnóstico técnico, priorización, conciencia de seguridad y documentación profesional.
 
-The incident management workflow follows ITIL 4-aligned practices, emphasizing service restoration, business impact assessment, and effective communication.
+El proceso sigue prácticas alineadas con **ITIL 4**, priorizando la restauración del servicio, la evaluación del impacto en el negocio y la comunicación con usuarios y equipos responsables.
 
-## Project Objectives
+## Objetivos
 
-- Document and classify IT incidents.
-- Assess incident impact, urgency, and priority.
-- Apply structured troubleshooting methodologies.
-- Identify potential security risks.
-- Document escalation and resolution procedures.
-- Demonstrate professional technical communication.
+- Registrar y clasificar incidentes de TI.
+- Evaluar impacto, urgencia y prioridad.
+- Aplicar métodos estructurados de troubleshooting.
+- Identificar riesgos de seguridad asociados.
+- Definir criterios de resolución y escalamiento.
+- Demostrar comunicación técnica profesional.
 
-## Incident Scenarios
+## Escenarios
 
-| Incident ID | Description | Technology | Status |
+| Incidente | Descripción | Tecnología | Estado |
 |---|---|---|---|
-| [INC-002](incidents/INC-002-M365-Authentication.md) | Microsoft 365 Authentication Failure | Microsoft 365 / Entra ID | Documented — simulated |
-| [INC-003](incidents/INC-003-DNS-Resolution.md) | DNS Resolution Failure | Windows / DNS / Networking | Documented — simulated |
-| [INC-004](incidents/INC-004-VPN-Connectivity.md) | VPN Connectivity Failure | VPN / Remote Access | Documented — simulated |
+| [INC-002](incidents/INC-002-M365-Authentication.md) | Error de autenticación en Microsoft 365 | Microsoft 365 / Entra ID | Documentado · Simulado |
+| [INC-003](incidents/INC-003-DNS-Resolution.md) | Fallo de resolución de nombres | Windows / DNS / Redes | Documentado · Simulado |
+| [INC-004](incidents/INC-004-VPN-Connectivity.md) | Fallo de acceso a través de VPN | VPN / Acceso remoto | Documentado · Simulado |
 
-## Technical Deep Dives
+## Análisis técnicos complementarios
 
-- [INC-002 — Entra ID Sign-in Log Analysis](incidents/INC-002-Technical-Analysis.md)
-- [INC-003 — DNS Decision Tree](incidents/INC-003-DNS-Decision-Tree.md)
-- [Reusable Incident Report Template](templates/incident-report-template.md)
+- [INC-002 — Análisis de inicios de sesión en Entra ID](incidents/INC-002-Technical-Analysis.md)
+- [INC-003 — Árbol de decisión de DNS](incidents/INC-003-DNS-Decision-Tree.md)
+- [Plantilla reutilizable de informe de incidente](templates/incident-report-template.md)
 
-## Incident Management Workflow
+## Flujo de gestión de incidentes
 
-1. **Incident Logging:** Record the issue and collect relevant information.
-2. **Classification and Prioritization:** Evaluate impact, urgency, and business consequences.
-3. **Investigation and Diagnosis:** Identify possible causes and perform troubleshooting.
-4. **Escalation:** Involve specialized teams when necessary.
-5. **Resolution and Validation:** Document corrective actions and verify service restoration.
-6. **Incident Closure:** Record findings, user communication, and preventive recommendations.
+1. **Registro:** recibir el reporte y recopilar antecedentes.
+2. **Clasificación y prioridad:** evaluar impacto, urgencia y consecuencias para el negocio.
+3. **Investigación y diagnóstico:** formular hipótesis y realizar comprobaciones autorizadas.
+4. **Escalamiento:** involucrar equipos especializados cuando corresponda.
+5. **Resolución y validación:** registrar medidas correctivas y comprobar la recuperación del servicio.
+6. **Cierre:** documentar conclusiones, comunicación con el usuario y acciones preventivas.
 
-## Skills Demonstrated
+## Competencias demostradas
 
-- IT Support L1/L2
-- ITIL 4-aligned Incident Management
-- Microsoft 365 and Identity Troubleshooting
-- Network Troubleshooting
-- Security Awareness
-- Technical Documentation
-- Incident Escalation
-- Root Cause Analysis Fundamentals
+- Soporte TI L1/L2.
+- Gestión de incidentes alineada con ITIL 4.
+- Microsoft 365 e identidades.
+- Diagnóstico de redes, DNS y VPN.
+- Documentación y comunicación técnica.
+- Escalamiento y análisis preliminar de causa raíz.
+- Seguridad operativa y mínimo privilegio.
 
-## Project Disclaimer
+## Limitaciones
 
-This project is based on simulated enterprise IT incidents. Diagnostic procedures and proposed resolutions are documented for educational and portfolio purposes. They should be tested in an authorized environment before production use.
+Este proyecto utiliza **escenarios corporativos simulados**. Los procedimientos y soluciones propuestos no fueron validados en producción y deben probarse únicamente en sistemas autorizados.
 
-## References & Official Documentation
+## Referencias oficiales
 
-- [ITIL 4 — PeopleCert overview](https://www.peoplecert.org/browse-certifications/it-governance-and-service-management/ITIL-1)
-- [Microsoft Entra sign-in logs](https://learn.microsoft.com/en-us/entra/identity/monitoring-health/concept-sign-ins)
-- [Resolve-DnsName — PowerShell reference](https://learn.microsoft.com/en-us/powershell/module/dnsclient/resolve-dnsname)
+- [ITIL 4 — PeopleCert](https://www.peoplecert.org/browse-certifications/it-governance-and-service-management/ITIL-1)
+- [Registros de inicio de sesión de Microsoft Entra](https://learn.microsoft.com/en-us/entra/identity/monitoring-health/concept-sign-ins)
+- [Resolve-DnsName — PowerShell](https://learn.microsoft.com/en-us/powershell/module/dnsclient/resolve-dnsname)
 
-*These references support the methodology and technical procedures; they do not independently validate execution, findings, or control effectiveness.*
+*Las referencias respaldan la metodología, pero no constituyen evidencia de ejecución ni de eficacia de controles.*
