@@ -6,13 +6,13 @@
 ## Resumen de migración
 
 - **47/47 archivos originales replicados:** se conservan estructura, rutas, documentos fuente, archivos de evidencia y diagramas.
-- **11/11 archivos SVG adaptados:** se tradujeron sus etiquetas y textos principales conservando los elementos gráficos y conexiones. **Revisión visual de desbordamiento y legibilidad pendiente.**
+- **11/11 archivos SVG adaptados:** se tradujeron sus etiquetas y textos principales conservando los elementos gráficos y conexiones. **Auditoría de código y maquetación completada; comprobación visual rasterizada en navegador aún pendiente.**
 - **32/32 archivos Markdown originales localizados al español:** portada, áreas generales, todos los incidentes de Soporte TI, la evaluación de riesgos, el análisis de eventos de Windows y los 30 pasos de Windows Hardening. Los cuatro documentos extensos del último laboratorio fueron reorganizados para facilitar la consulta, preservando comandos, resultados y hallazgos verificables.
 - **0/32 documentos Markdown originales pendientes:** localización documental completada. Queda una revisión visual manual de los diagramas y, si corresponde, ajustes editoriales menores.
 - **Tres archivos .txt de evidencia:** se mantienen exactamente como los registros originales, sin alterar la salida de los comandos ni los datos observados.
 - **LICENSE:** se conserva el texto legal original.
 
-**Importante:** la traducción documental está completa, pero la comprobación visual de todos los SVG todavía está pendiente. Los comandos, datos de consola y hallazgos reales se mantuvieron sin inventar resultados. La organización y extensión de las explicaciones en español pueden diferir de las del original, sin cambiar la evidencia.
+**Importante:** la traducción documental y el control estructural de los 11 SVG están completos. La revisión visual de su renderizado en escritorio y móvil todavía está pendiente. Los comandos, datos de consola y hallazgos reales se mantuvieron sin inventar resultados. La organización y extensión de las explicaciones en español pueden diferir de las del original, sin cambiar la evidencia.
 
 ## Archivos Markdown ya localizados
 
@@ -73,6 +73,10 @@ Se agregaron [Cómo trabajo — Metodología](metodologia/README.md), una [plant
 6. Verificar al finalizar los flujos Mermaid, los SVG y los enlaces entre repositorios.
 7. Registrar cualquier cambio funcional o de estado por separado de la traducción.
 
+## Auditoría de recursos y enlaces
+
+El [informe de auditoría de recursos visuales](AUDITORIA-VISUAL.md) describe los 11 SVG examinados, correcciones aplicadas, terminología técnica, enlaces Markdown comprobados y el límite de validación: **sin capturas rasterizadas en navegador no se certifica un ajuste visual píxel a píxel**.
+
 ## Próxima prioridad
 
-Realizar una **revisión visual manual de los 11 SVG** y verificar su legibilidad a distintos tamaños; continuar con mantenimiento bilingüe y referencias cruzadas. Mantener íntegros los comandos, salidas y límites de las evidencias originales.
+Completar la **revisión de los 11 SVG renderizados** en resoluciones de escritorio y móvil, ajustar cualquier texto que se recorte y continuar con mantenimiento bilingüe y referencias cruzadas. Mantener íntegros los comandos, salidas y límites de las evidencias originales.
