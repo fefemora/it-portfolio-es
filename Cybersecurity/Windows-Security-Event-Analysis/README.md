@@ -1,53 +1,100 @@
-# Windows Security Event Analysis Lab
+# Laboratorio de análisis de eventos de seguridad de Windows
 
-**Area:** Cybersecurity / Blue Team  
-**Status:** Initial read-only assessment documented and reviewed; proposed monitoring improvements remain unimplemented  
-**Environment:** Windows workstation, local Security event log, Windows PowerShell. No SIEM or additional virtual machines required.
+**Área:** Ciberseguridad / Blue Team  
+**Estado:** Evaluación inicial de solo lectura documentada y revisada; mejoras de monitoreo pendientes de implementación.  
+**Entorno:** Estación de trabajo Windows, registro local Security y Windows PowerShell. No se requiere SIEM ni nuevas máquinas virtuales.
 
-[Portfolio home](../../README.md) · **[Executive summary](docs/executive-summary.md)** · [Technical findings](docs/event-analysis.md) · [Step-by-step lab guide](docs/lab-guide.md) · [Recommendations](docs/monitoring-recommendations.md)
+[Portafolio](../../README.md) · **[Resumen ejecutivo](docs/executive-summary.md)** · [Hallazgos técnicos](docs/event-analysis.md) · [Guía del laboratorio](docs/lab-guide.md) · [Recomendaciones](docs/monitoring-recommendations.md)
 
-## Objective
+## Objetivo
 
-Investigate native Windows Security events with read-only PowerShell commands, interpret the results without assuming malicious activity, and produce reproducible, privacy-safe evidence for an entry-level security monitoring workflow.
+Investigar eventos nativos del registro Security de Windows mediante comandos PowerShell de solo lectura, interpretar resultados sin asumir actividad maliciosa y elaborar evidencias reproducibles y seguras para un proceso inicial de monitoreo defensivo.
 
-## Investigation workflow
+## Proceso de investigación
 
-1. Verify Security log configuration (**completed after correcting an initial paste-order error**).
-2. Count selected event IDs over a seven-day lookback (**completed; retained data covers only about 2.03 days**).
-3. Verify oldest/newest retained timestamps (**completed**).
-4. Sample and classify 100 recent successful logons by logon type (**completed: all 100 were type 5 / Service**).
-5. Classify built-in account SIDs on a five-record 4624 sample (**completed: 5 of 5 LocalSystem / S-1-5-18**).
-6. Review current advanced audit policy with `auditpol /get /category:*` (**completed; read-only**).
-7. Check five recent 4688 event timestamps (**completed: 2026-11-16 14:30:43**).
-8. Search for retained 4719 audit-policy-change events (**completed: no matching events returned**).
-9. Collect five recent 4672 timestamps and record IDs (**completed**).
-10. Classify accounts and privilege names in three bounded 4672 records (**completed: 3 LocalSystem records with the same 12 privileges**).
-11. Correlate one recent 4672 with a 4624 using a local logon ID (**completed: one match found within a bounded time window**).
-12. Classify a matched 4624 logon by type and account category (**completed: Type 5 / LocalSystem in a later query**).
-13. Produce an evidence-backed case summary (**completed: executive report, proposed actions, and visualization**).
+1. **Configuración del registro Security:** verificada después de corregir inicialmente un error en el orden de pegado del comando.
+2. **Conteo de identificadores de evento:** realizado con ventana de búsqueda de siete días, aunque los datos retenidos solo abarcaban aproximadamente **2,03 días**.
+3. **Fechas del evento más antiguo y reciente:** verificadas.
+4. **Clasificación de los 100 eventos 4624 más recientes:** todos correspondían a **Logon Type 5 / Service**.
+5. **Clasificación de cinco eventos 4624 por SID:** los cinco correspondían a **LocalSystem / S-1-5-18**.
+6. **Revisión de política de auditoría:** completada con `auditpol /get /category:*`.
+7. **Fecha de cinco eventos 4688:** registros observados con fecha **2026-11-16 14:30:43**.
+8. **Búsqueda de eventos 4719:** no se recuperaron registros coincidentes.
+9. **Recuperación de cinco marcas de tiempo e identificadores de eventos 4672:** completada.
+10. **Clasificación acotada de tres eventos 4672:** los tres eran LocalSystem y contenían los mismos **12 privilegios**.
+11. **Correlación de eventos 4672/4624 por Logon ID:** se verificó **una coincidencia** en una ventana acotada.
+12. **Clasificación posterior de una sesión correlacionada:** se observó `MatchFound=True`, `LogonType=5` y `AccountCategory=LocalSystem`.
+13. **Informe y recomendaciones:** se prepararon el resumen ejecutivo, el análisis técnico y recursos visuales.
 
-## Executive overview
+## Resumen ejecutivo
 
-[![Windows event investigation dashboard](diagrams/security-review-overview.svg)](docs/executive-summary.md)
+[![Resumen visual del análisis de eventos de Windows](diagrams/security-review-overview.svg)](docs/executive-summary.md)
 
-**Read the [executive summary](docs/executive-summary.md)** for the recruiter-friendly outcome, **[technical analysis](docs/event-analysis.md)** for verifiable results, **[lab guide](docs/lab-guide.md)** for reproducible commands, and **[monitoring recommendations](docs/monitoring-recommendations.md)** for proposed next steps. The assessment is complete as an **initial triage case study**; it does not claim a security incident was discovered.
+La [síntesis ejecutiva](docs/executive-summary.md) presenta los resultados principales, el [análisis técnico](docs/event-analysis.md) registra la evidencia, la [guía](docs/lab-guide.md) documenta las consultas y las [recomendaciones](docs/monitoring-recommendations.md) presentan mejoras propuestas.
 
-## Initial findings
+El resultado es **un análisis inicial de registros**, no el descubrimiento de un incidente confirmado.
 
-The first successful query returned **1,302 matching records** for four IDs: 4624 (638), 4634 (37), 4672 (614), and 4688 (13). The queried IDs 4625 and 1102 were not returned. These are **event records, not unique users or confirmed incidents**. A separate, later sample of the 100 most recent 4624 events returned **100 service logons (Logon Type 5)**. This is a recent sample, **not** the distribution of all 638 earlier records. An additional, bounded five-event check classified all five as the built-in **LocalSystem** security principal (`S-1-5-18`); this does not establish the account category of all 100 earlier records. The current audit policy enables **success and failure logon auditing**, **success special-logon auditing**, and **success logoff auditing**, but **process creation auditing is disabled** at inspection time. Five recent 4688 records were dated **2026-11-16 14:30:43**, with consecutive record IDs **2266582–2266586**. The cause of their presence while process auditing is currently disabled is **not established**; a prior policy change is only a hypothesis. A subsequent query for event 4719 returned `NoMatchingEventsFound`; this does not rule out historical or unretained changes. Five recent event 4672 records were observed on **2026-11-17 between 20:44:56 and 21:00:46**; a separate later sample of three 4672 records was classified as **LocalSystem** and each carried the same **12 named privileges**. The sample includes a newer event at **21:05:00**. Privilege assignment does not demonstrate privilege use. A later bounded correlation returned **one matching 4624** for a selected event 4672 timestamped **2026-11-17 21:08:51**, comparing `SubjectLogonId` with `TargetLogonId` locally and exposing only a boolean and count. This establishes one observed session linkage, not misuse of privileges. A separate, later correlation-and-classification run returned `MatchFound=True`, `LogonType=5`, and `AccountCategory=LocalSystem`; the specific event timestamp was not output, so it must **not** be asserted to be the exact earlier 21:08:51 session. No malicious activity has been established.
+## Hallazgos iniciales
 
-Read the [step-by-step guide](docs/lab-guide.md) and [initial event analysis](docs/event-analysis.md) for commands, observed output, caveats, and next steps.
+La primera consulta exitosa recuperó **1.302 eventos** de cuatro identificadores:
 
-## Evidence status
+| Evento | Descripción | Registros |
+|---|---|---:|
+| 4624 | Inicio de sesión exitoso | 638 |
+| 4672 | Privilegios especiales asignados a un nuevo inicio de sesión | 614 |
+| 4634 | Cierre de sesión | 37 |
+| 4688 | Creación de proceso | 13 |
 
-Initial counts were provided as copied PowerShell console output; independent log export and exact collection timestamp have not yet been recorded. Do not interpret absent IDs as proof that the underlying activity never occurred. The log-configuration query was subsequently completed: enabled, 33,898 records, 20 MiB maximum size, circular retention. The oldest retained event is dated **2026-11-15 20:02:39** and newest **2026-11-17 20:40:43** (local timestamps in the user's console); the 2.03-day span is not a guarantee of continuous collection. This constrains interpretation of the earlier seven-day lookback.
+Los identificadores **4625** y **1102** no se recuperaron en esa consulta. Los conteos corresponden a **registros**, no a usuarios únicos ni incidentes confirmados.
 
-## References & Official Documentation
+Una consulta posterior de 100 eventos 4624 identificó **100 inicios de sesión de tipo 5 / Service**. Esto no significa que los 638 registros de la consulta anterior fueran de ese tipo.
 
-- [Microsoft Learn — auditpol /get](https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/auditpol-get)
-- [Microsoft Learn — Audit Process Creation](https://learn.microsoft.com/en-us/windows/security/threat-protection/auditing/audit-process-creation)
-- [Microsoft Learn — Get-WinEvent](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.diagnostics/get-winevent)
-- [Microsoft Learn — Windows security auditing](https://learn.microsoft.com/en-us/windows/security/threat-protection/auditing/basic-security-audit-policies)
-- [MITRE ATT&CK — Enterprise tactics](https://attack.mitre.org/tactics/enterprise/)
+Un análisis independiente de cinco eventos 4624 clasificó los cinco como **LocalSystem (S-1-5-18)**. El resultado no permite inferir la categoría de cuenta de los otros eventos.
 
-External references support interpretation and methods, not proof of execution.
+### Auditoría y eventos de proceso
+
+La política de auditoría consultada registraba aciertos y errores de inicio de sesión, auditoría de inicios de sesión especiales exitosos y cierres de sesión exitosos. Sin embargo, la subcategoría **Creación del proceso** figuraba como **Sin auditoría** al realizar la comprobación.
+
+Se observaron cinco eventos 4688 con fecha **2026-11-16 14:30:43**, cuyos identificadores de registro eran consecutivos (**2266582–2266586**). No se estableció por qué había eventos 4688 históricos a pesar de la configuración actual de no auditoría. **Un cambio de política anterior es solamente una hipótesis**, no un hecho probado.
+
+La búsqueda posterior de eventos 4719 arrojó `NoMatchingEventsFound`, pero esto no descarta cambios históricos cuyos eventos ya no estén retenidos.
+
+### Eventos 4672 y correlación
+
+Se observaron cinco registros 4672 con marcas de tiempo comprendidas entre las **20:44:56 y las 21:00:46 del 17/11/2026**. Una muestra separada de tres eventos correspondía a LocalSystem y contenía los mismos **12 privilegios**. Esa muestra incluía un evento posterior a las **21:05:00**.
+
+**La asignación de privilegios no demuestra su utilización.**
+
+Una comprobación acotada encontró **una coincidencia 4624** para un evento 4672 del **17/11/2026 a las 21:08:51**, correlacionando localmente `SubjectLogonId` con `TargetLogonId` y mostrando solo el resultado booleano y el conteo.
+
+Otra consulta posterior de correlación y clasificación devolvió `MatchFound=True`, `LogonType=5` y `AccountCategory=LocalSystem`. Como esa consulta **no mostró la marca de tiempo**, no puede afirmarse que se refiera exactamente a la sesión anterior de las 21:08:51.
+
+**No se confirmó actividad maliciosa.**
+
+## Estado y limitaciones de evidencia
+
+Los conteos iniciales provienen de resultados reales de PowerShell copiados desde la consola. No se realizó una exportación independiente y todavía no se registró la hora exacta de todas las consultas.
+
+La comprobación posterior del canal Security informó:
+
+- **Habilitado.**
+- **33.898 registros** en ese momento.
+- Tamaño máximo **20 MiB**.
+- Modo de retención **Circular**.
+- Evento más antiguo: **2026-11-15 20:02:39**.
+- Evento más reciente: **2026-11-17 20:40:43**.
+- Intervalo observado: **2,03 días**.
+
+Este intervalo no garantiza una política mínima de retención ni prueba que hayan existido eventos durante siete días completos.
+
+**Relación con el proyecto posterior:** [Windows Security Hardening](../Windows-Security-Hardening/README.md) documentó más adelante un cambio autorizado que aumentó el límite del registro Security de 20 a 128 MiB. Esta investigación conserva sus **mediciones originales anteriores al cambio**.
+
+## Referencias oficiales
+
+- [auditpol /get — Microsoft Learn](https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/auditpol-get)
+- [Auditoría de creación de procesos](https://learn.microsoft.com/en-us/windows/security/threat-protection/auditing/audit-process-creation)
+- [Get-WinEvent](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.diagnostics/get-winevent)
+- [Auditoría de seguridad de Windows](https://learn.microsoft.com/en-us/windows/security/threat-protection/auditing/basic-security-audit-policies)
+- [MITRE ATT&CK — Tácticas empresariales](https://attack.mitre.org/tactics/enterprise/)
+
+*Las referencias sustentan la interpretación y los métodos, pero no prueban ejecución. La evidencia real procede de las consultas documentadas.*
