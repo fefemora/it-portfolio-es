@@ -7,8 +7,8 @@
 
 - **47/47 archivos originales replicados:** se conservan estructura, rutas, documentos fuente, archivos de evidencia y diagramas.
 - **11/11 archivos SVG adaptados:** se tradujeron sus etiquetas y textos principales conservando los elementos gráficos y conexiones. **Revisión visual de desbordamiento y legibilidad pendiente.**
-- **26/32 archivos Markdown traducidos al español:** portada, secciones generales, toda la documentación de Soporte TI y **toda la evaluación de riesgos empresariales**, además del resumen ejecutivo y las recomendaciones del análisis de eventos de Windows.
-- **6/32 Markdown restantes:** el contenido original en inglés se mantiene temporalmente para evitar pérdidas mientras se localiza.
+- **28/32 archivos Markdown originales traducidos al español:** portada, secciones generales, toda la documentación de Soporte TI y **toda la evaluación de riesgos empresariales**, incluidas ahora también la guía de laboratorio y el análisis técnico de eventos de Windows.
+- **4/32 Markdown originales restantes:** el contenido original en inglés se mantiene temporalmente para evitar pérdidas mientras se localiza.
 - **Tres archivos .txt de evidencia:** se mantienen exactamente como los registros originales, sin alterar la salida de los comandos ni los datos observados.
 - **LICENSE:** se conserva el texto legal original.
 
@@ -42,6 +42,8 @@
 24. `Information-Security/Enterprise-Risk-Assessment/controls/control-mapping.md`
 25. `Information-Security/Enterprise-Risk-Assessment/reports/executive-summary.md`
 26. `Information-Security/Enterprise-Risk-Assessment/treatment/risk-treatment-plan.md`
+27. `Cybersecurity/Windows-Security-Event-Analysis/docs/event-analysis.md`
+28. `Cybersecurity/Windows-Security-Event-Analysis/docs/lab-guide.md`
 
 ## Traducciones de documentos técnicos pendientes
 
@@ -50,12 +52,14 @@
 **Localización finalizada.** Los incidentes reales y simulados, procedimientos, formularios, flujos Mermaid y notas de validación están disponibles en español. Las salidas originales de consola permanecen sin modificaciones.
 
 ### Ciberseguridad y seguridad de la información
-- `Cybersecurity/Windows-Security-Event-Analysis/docs/event-analysis.md`
-- `Cybersecurity/Windows-Security-Event-Analysis/docs/lab-guide.md`
 - `Cybersecurity/Windows-Security-Hardening/README.md`
 - `Cybersecurity/Windows-Security-Hardening/docs/baseline-guide.md`
 - `Cybersecurity/Windows-Security-Hardening/docs/security-assessment.md`
 - `Cybersecurity/Windows-Security-Hardening/docs/validation-plan.md`
+
+## Documentación adicional en español
+
+Se agregaron [Cómo trabajo — Metodología](metodologia/README.md), una [plantilla de investigación](metodologia/plantilla-investigacion.md), los [criterios de evidencia](metodologia/evidencia-y-validacion.md) y un [resumen técnico del laboratorio Windows Security Hardening](Cybersecurity/Windows-Security-Hardening/RESUMEN-ES.md). Estos archivos no formaban parte del conjunto de 32 Markdown originales.
 
 ## Criterios de calidad
 
@@ -69,4 +73,4 @@
 
 ## Próxima prioridad
 
-Traducir los dos anexos técnicos del análisis de eventos y los cuatro documentos extensos del laboratorio Windows Security Hardening. La evaluación de riesgos de seguridad de la información ya está completamente localizadа. Mantener íntegros los comandos y las salidas originales.
+Traducir íntegramente los **cuatro documentos extensos** del laboratorio Windows Security Hardening; mientras tanto, utilizar el resumen técnico en español. Las dos guías de análisis de eventos, los casos de Soporte TI y la evaluación de riesgos ya están localizados. Comprobar además el aspecto visual y ajuste de textos de los 11 SVG. Mantener íntegros los comandos y las salidas originales.
