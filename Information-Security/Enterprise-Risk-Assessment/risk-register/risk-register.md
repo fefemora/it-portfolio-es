@@ -1,94 +1,94 @@
-# Risk Register — Emerald Technologies
+# Registro de riesgos — Emerald Technologies
 
-![Risk assessment heatmap](risk-heatmap.svg)
+![Mapa de calor de riesgos](risk-heatmap.svg)
 
-![Distribution of eight fictional risk scenarios](../reports/risk-distribution.svg)
+![Distribución de ocho escenarios de riesgo ficticios](../reports/risk-distribution.svg)
 
-**Assessment:** Fictional enterprise information security risk assessment  
-**Method:** Project-defined qualitative 5 × 5 likelihood × impact  
-**Status:** Scenario analysis only — no technical testing or stakeholder validation
+**Evaluación:** Riesgos de seguridad de la información empresarial (**ficticia**)  
+**Método:** Matriz cualitativa de probabilidad × impacto de 5 × 5 definida por el proyecto  
+**Estado:** Análisis simulado, sin pruebas técnicas ni validación de partes interesadas
 
-## At a Glance
+## Resumen
 
-| Total risks | Critical | High | Moderate | Low |
+| Total | Críticos | Altos | Moderados | Bajos |
 |---:|---:|---:|---:|---:|
 | **8** | **2** | **4** | **2** | **0** |
 
-> **Interpretation:** The scores below are illustrative **inherent risk estimates** based on explicitly hypothetical scenarios, before evaluating the effectiveness of any existing safeguards. They are not evidence of confirmed vulnerabilities, measured incident frequencies, or an actual organization's risk exposure.
+> **Interpretación:** las puntuaciones son estimaciones **ilustrativas de riesgo inherente** basadas en escenarios hipotéticos, antes de evaluar la eficacia de controles. No prueban vulnerabilidades, frecuencia real de incidentes ni exposición de una empresa existente.
 
-## 1. Scoring Method
+## 1. Método de puntuación
 
-**Risk score = Likelihood (1–5) × Impact (1–5)**.
+**Puntaje = Probabilidad (1–5) × Impacto (1–5).**
 
-- Likelihood: 1 Rare · 2 Unlikely · 3 Possible · 4 Likely · 5 Almost certain.
-- Impact: 1 Negligible · 2 Minor · 3 Moderate · 4 Major · 5 Severe.
-- Low: **1–4**; Moderate: **5–9**; High: **10–16**; Critical: **17–25**.
+- Probabilidad: 1 Rara · 2 Poco probable · 3 Posible · 4 Probable · 5 Casi segura.
+- Impacto: 1 Insignificante · 2 Menor · 3 Moderado · 4 Mayor · 5 Severo.
+- Bajo: **1–4**; Moderado: **5–9**; Alto: **10–16**; Crítico: **17–25**.
 
-This scale is **defined for this portfolio exercise**. NIST CSF 2.0 and CIS Controls v8.1 IG1 are used to structure security outcomes and treatment recommendations, **not** as the source of this scoring formula.
+Esta escala es **propia del ejercicio**. NIST CSF 2.0 y CIS Controls v8.1 IG1 se utilizan para estructurar resultados y recomendaciones, **no** como fuente de la fórmula de puntuación.
 
-## 2. Risk Register
+## 2. Registro de riesgos
 
-| Risk ID | Scenario | Affected assets | L | I | Score | Rating | Proposed business owner |
+| ID | Escenario | Activos afectados | P | I | Puntaje | Categoría | Responsable de negocio propuesto |
 |---|---|---|---:|---:|---:|---|---|
-| **R-001** | Account takeover via compromised credentials | AST-001, AST-003 | 4 | 5 | **20** | **Critical** | Operations Manager |
-| **R-002** | Unrecoverable data following ransomware | AST-005, AST-007 | 4 | 5 | **20** | **Critical** | Operations Manager |
-| **R-003** | Ransomware on employee endpoints | AST-002, AST-005 | 4 | 4 | **16** | **High** | Department Managers |
-| **R-004** | Business email compromise and payment fraud | AST-003 | 3 | 5 | **15** | **High** | Operations Manager |
-| **R-005** | Unauthorized access to cloud documents | AST-001, AST-004 | 3 | 4 | **12** | **High** | Department Managers |
-| **R-006** | Unauthorized remote access via VPN | AST-001, AST-006 | 3 | 4 | **12** | **High** | Operations Manager |
-| **R-007** | Unpatched workstation exploitation | AST-002 | 3 | 3 | **9** | **Moderate** | Department Managers |
-| **R-008** | Internal file share availability outage | AST-005 | 2 | 4 | **8** | **Moderate** | Operations Manager |
+| **R-001** | Apropiación de cuentas por credenciales comprometidas | AST-001, AST-003 | 4 | 5 | **20** | **Crítico** | Gerente de Operaciones |
+| **R-002** | Pérdida irrecuperable de información tras ransomware | AST-005, AST-007 | 4 | 5 | **20** | **Crítico** | Gerente de Operaciones |
+| **R-003** | Ransomware en endpoints de empleados | AST-002, AST-005 | 4 | 4 | **16** | Alto | Jefaturas de área |
+| **R-004** | Compromiso de correo empresarial y fraude de pagos | AST-003 | 3 | 5 | **15** | Alto | Gerente de Operaciones |
+| **R-005** | Acceso no autorizado a documentos cloud | AST-001, AST-004 | 3 | 4 | **12** | Alto | Jefaturas de área |
+| **R-006** | Acceso remoto no autorizado mediante VPN | AST-001, AST-006 | 3 | 4 | **12** | Alto | Gerente de Operaciones |
+| **R-007** | Explotación de equipo sin parches | AST-002 | 3 | 3 | **9** | Moderado | Jefaturas de área |
+| **R-008** | Indisponibilidad de carpeta compartida interna | AST-005 | 2 | 4 | **8** | Moderado | Gerente de Operaciones |
 
-**L = Likelihood; I = Impact.** Asset IDs refer to the [Asset Inventory](../assets/asset-inventory.md). Owner roles are assumed for the case study.
+**P = Probabilidad; I = Impacto.** Los activos se identifican en el [inventario](../assets/asset-inventory.md). Los responsables son roles ficticios.
 
-## 3. Scenario Rationale and Preliminary Treatment
+## 3. Justificación y tratamiento preliminar
 
-| Risk ID | Why this score was selected (illustrative) | Initial treatment direction |
+| Riesgo | Justificación ilustrativa | Tratamiento inicial propuesto |
 |---|---|---|
-| R-001 | Phishing or credential reuse could permit unauthorized sign-in; MFA effectiveness is unverified. | Review MFA enrollment, privileged access and account recovery; monitor sign-ins. |
-| R-002 | Malware could encrypt shared data while untested or insufficient backups delay restoration. | Verify backup coverage, protection, restore tests and recovery objectives. |
-| R-003 | Malicious execution and uncertain patch/endpoint protection coverage could interrupt operations. | Strengthen endpoint configuration, protection, patching and recovery. |
-| R-004 | A spoofed or hijacked mailbox could trigger fraudulent instructions or disclosure. | Improve email security awareness, verification procedures and account protection. |
-| R-005 | Overly broad sharing or compromised accounts could expose confidential files. | Review sharing permissions, access governance and data classification. |
-| R-006 | Weak remote access policy or compromised credentials could expose internal services. | Review VPN access policy, MFA, device posture and gateway logs. |
-| R-007 | Unverified patch compliance may leave exploitable software vulnerabilities. | Establish monitored patch and vulnerability remediation procedures. |
-| R-008 | Infrastructure failure or configuration error could interrupt access to shared files. | Review availability dependencies, recovery procedures and change controls. |
+| R-001 | Phishing o reutilización de credenciales podrían permitir acceso no autorizado; eficacia de MFA no verificada | Revisar MFA, accesos privilegiados y recuperación de cuentas; monitorear inicios de sesión |
+| R-002 | Malware podría cifrar datos compartidos mientras respaldos insuficientes o no probados retrasan restauración | Validar cobertura, protección, pruebas de restauración y objetivos de recuperación |
+| R-003 | Ejecución maliciosa y cobertura desconocida de parches y seguridad podrían interrumpir operación | Reforzar configuración, protección, actualización y recuperación de endpoints |
+| R-004 | Buzón suplantado o comprometido podría originar instrucciones fraudulentas o divulgación | Mejorar concientización, procedimientos de verificación y protección de cuentas |
+| R-005 | Permisos amplios o cuentas comprometidas podrían revelar documentos sensibles | Revisar compartición, gestión de acceso y clasificación de datos |
+| R-006 | Política de acceso remoto débil o credenciales comprometidas podrían exponer servicios internos | Revisar política VPN, MFA, estado del dispositivo y registros del gateway |
+| R-007 | Ausencia de evidencia de cumplimiento de parches podría dejar vulnerabilidades explotables | Establecer procedimiento supervisado de parches y mitigación |
+| R-008 | Falla de infraestructura o configuración podría interrumpir acceso a archivos | Revisar dependencias, recuperación y control de cambios |
 
-These are **proposed control improvements**, not assertions that safeguards are missing or ineffective.
+Son **mejoras propuestas**, no afirmaciones de que falten controles o sean ineficaces.
 
-## 4. Risk Heatmap
+## 4. Mapa de calor
 
-The visual above plots each risk by likelihood (horizontal axis) and impact (vertical axis). Where multiple risks share the same cell, both identifiers are shown. Cell background colors represent the **project-defined score bands**.
+El gráfico muestra cada riesgo con probabilidad en el eje horizontal e impacto en el vertical. Si dos riesgos comparten celda, aparecen ambos identificadores. Los colores representan las bandas **definidas para este proyecto**.
 
-### Distribution
+### Distribución
 
 ```mermaid
 pie showData
-    title Inherent risk ratings — 8 fictional scenarios
-    "Critical" : 2
-    "High" : 4
-    "Moderate" : 2
+    title Riesgo inherente — 8 escenarios ficticios
+    "Crítico" : 2
+    "Alto" : 4
+    "Moderado" : 2
 ```
 
-## 5. Assessment Limitations
+## 5. Limitaciones
 
-- No interviews, vulnerability scans, control testing, incident records, or actual loss data were collected.
-- The probability and severity values are judgment-based assumptions for a fictional business.
-- No residual scores are assigned: control existence and effectiveness have not been assessed.
-- Risk acceptance, tolerance, and treatment approval would require authorized business stakeholders.
-- Priority may change after asset validation, control testing, and business impact analysis.
+- No se entrevistaron responsables ni se recopilaron escaneos, pruebas de controles, incidentes reales o pérdidas efectivas.
+- Probabilidad e impacto son supuestos de criterio profesional aplicados a una empresa ficticia.
+- **No se calculó riesgo residual**, porque no se evaluó existencia ni eficacia de controles.
+- Aceptación, tolerancia y tratamiento requieren responsables de negocio autorizados.
+- Las prioridades podrían cambiar tras validar activos, probar controles y analizar impacto de negocio.
 
-## 6. Next Step
+## 6. Paso siguiente
 
-Map each risk to relevant **NIST CSF 2.0** outcomes and **CIS Controls v8.1 IG1** safeguards, then produce an owner-assigned treatment plan with measurable validation criteria.
+Vincular cada riesgo con resultados **NIST CSF 2.0** y salvaguardas **CIS Controls v8.1 IG1**, y proponer un plan con responsables y criterios verificables.
 
-## References & Official Documentation
+## Referencias oficiales
 
-- [NIST SP 800-30 Rev. 1 — Guide for Conducting Risk Assessments](https://csrc.nist.gov/pubs/sp/800/30/r1/final)
+- [NIST SP 800-30 Rev. 1 — Guía para evaluación de riesgos](https://csrc.nist.gov/pubs/sp/800/30/r1/final)
 - [NIST Cybersecurity Framework 2.0](https://www.nist.gov/cyberframework)
 
-*These references support the methodology and technical procedures; they do not independently validate execution, findings, or control effectiveness.*
+*Las referencias respaldan la metodología, no prueban ejecución ni eficacia en este caso.*
 
 ---
 
-*Fictional portfolio scenario. No real enterprise has been assessed.*
+*Caso de estudio ficticio; no se evaluó ninguna organización real.*
