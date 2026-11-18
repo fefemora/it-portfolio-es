@@ -1,181 +1,170 @@
-# Enterprise Information Security Risk Assessment
+# Evaluación de riesgos de seguridad de la información empresarial
 
-![Emerald Technologies asset inventory overview](assets/asset-overview.svg)
+![Inventario de activos de Emerald Technologies](assets/asset-overview.svg)
 
-**Framework references:** NIST Cybersecurity Framework (CSF) 2.0 · CIS Controls v8.1, Implementation Group 1 (IG1)  
-**Organization:** Emerald Technologies (fictional)  
-**Project type:** Portfolio case study — simulated assessment  
-**Status:** Documentation complete — simulated; no controls implemented or validated
+**Referencias de marco:** NIST Cybersecurity Framework (CSF) 2.0 · CIS Controls v8.1, Implementation Group 1 (IG1)  
+**Organización:** Emerald Technologies (**ficticia**)  
+**Tipo:** Caso de estudio simulado para portafolio  
+**Estado:** Documentación completada; **no se implementaron ni validaron controles reales**
 
-## Executive Overview
+## Resumen ejecutivo
 
-This project develops a practical, qualitative information security risk assessment for **Emerald Technologies**, a fictional 50-person organization. The assessment focuses on identity and access, Windows endpoints, email threats, backups, and remote access.
+Este proyecto desarrolla una evaluación cualitativa de riesgos de seguridad de la información para **Emerald Technologies**, una organización ficticia de 50 personas. El alcance se centra en identidad y acceso, endpoints Windows, correo electrónico, respaldos y acceso remoto.
 
-The goal is to demonstrate how an IT and cybersecurity professional can identify important assets, assess risk, prioritize security improvements, and communicate actionable recommendations to business stakeholders.
+El objetivo es demostrar cómo un profesional de TI y ciberseguridad puede identificar activos, evaluar riesgos, priorizar mejoras y comunicar recomendaciones a responsables de negocio.
 
-> **Evidence disclaimer:** All organizational details, asset inventories, ratings, and findings are fictional. No production environment was assessed. This is an educational portfolio exercise, not a certification or compliance audit.
+> **Transparencia:** todos los datos de la empresa, inventarios, calificaciones y hallazgos son ficticios. No se evaluó ninguna infraestructura real. Este ejercicio no constituye auditoría de cumplimiento ni certificación.
 
-## Visual Organization Overview
+## Panorama del ejercicio
 
-> **Illustrative figures:** Emerald Technologies is fictional. The 50 employees and the five security domains below are assumptions for this portfolio case study, not observed operational metrics.
-
-| 👥 Employees | 🛡️ Security domains | 📋 Assessment approach | 📚 Frameworks |
+| 👥 Personas | 🛡️ Áreas de seguridad | 📋 Método | 📚 Marcos |
 |:---:|:---:|:---:|:---:|
-| **50** | **5** | **5 × 5** risk matrix | **2** |
-| Assumed headcount | Identity · Endpoints · Email · Backup · VPN | Project-defined scoring | NIST CSF 2.0 · CIS v8.1 IG1 |
+| **50** | **5** | **Matriz 5 × 5** | **2** |
+| Supuesto | Identidad · Endpoints · Correo · Respaldos · VPN | Evaluación definida para el proyecto | NIST CSF 2.0 · CIS v8.1 IG1 |
 
-### Illustrative Technology Landscape
+### Entorno tecnológico ilustrativo
 
 ```mermaid
 flowchart TB
-    E["Emerald Technologies<br/>50 employees (fictional)"]
-    E --> I["Identity & Access<br/>Microsoft 365 / Entra ID"]
-    E --> W["Endpoints<br/>Windows workstations"]
-    E --> M["Email & Collaboration<br/>Microsoft 365"]
-    E --> B["Business Data<br/>Files & backups"]
-    E --> V["Remote Access<br/>Corporate VPN"]
-    I --> R["Risk assessment<br/>Identify · Score · Treat · Review"]
+    E["Emerald Technologies<br/>50 personas (ficticio)"]
+    E --> I["Identidad y acceso<br/>Microsoft 365 / Entra ID"]
+    E --> W["Endpoints<br/>Equipos Windows"]
+    E --> M["Correo y colaboración<br/>Microsoft 365"]
+    E --> B["Datos de negocio<br/>Archivos y respaldos"]
+    E --> V["Acceso remoto<br/>VPN corporativa"]
+    I --> R["Evaluación de riesgos<br/>Identificar · Evaluar · Tratar · Revisar"]
     W --> R
     M --> R
     B --> R
     V --> R
-    style E fill:#d1fae5,stroke:#059669,color:#064e3b
-    style R fill:#d1fae5,stroke:#059669,color:#064e3b
 ```
 
-### Assessment Workflow
+### Flujo de evaluación
 
 ```mermaid
 flowchart LR
-    A["Asset inventory"] --> B["Threat scenarios"]
-    B --> C["Likelihood × Impact"]
-    C --> D["NIST CSF / CIS IG1 mapping"]
-    D --> E["Treatment plan"]
-    E --> F["Executive reporting"]
-    style A fill:#d1fae5,stroke:#059669,color:#064e3b
-    style F fill:#d1fae5,stroke:#059669,color:#064e3b
+    A[Inventario de activos] --> B[Escenarios de amenaza]
+    B --> C[Probabilidad × Impacto]
+    C --> D[Mapeo NIST CSF / CIS IG1]
+    D --> E[Plan de tratamiento]
+    E --> F[Informe ejecutivo]
 ```
 
-## Business Context and Scope
+## Contexto y alcance
 
-### Assumed environment
+### Entorno supuesto
 
-- Approximately 50 employees using Windows workstations.
-- Microsoft 365 for email, collaboration, and identity services.
-- Remote access for selected staff through a corporate VPN.
-- Business files stored in approved cloud and/or on-premises services.
-- A small internal IT function responsible for user support and administration.
+- Aproximadamente 50 empleados con equipos Windows.
+- Microsoft 365 para correo, colaboración e identidades.
+- Acceso remoto mediante VPN para determinados cargos.
+- Archivos empresariales en servicios cloud o locales autorizados.
+- Un pequeño equipo interno de TI para soporte y administración.
 
-### In scope
+### Incluido
 
-- Identity and authentication controls.
-- Endpoint configuration, patching, and protection.
-- Phishing and email-related threats.
-- Business data backup and recovery.
-- Remote access and privileged access.
+- Identidades y autenticación.
+- Configuración, actualización y protección de endpoints.
+- Amenazas de phishing y correo electrónico.
+- Respaldos y recuperación de datos.
+- Acceso remoto y acceso privilegiado.
 
-### Out of scope
+### Excluido
 
-- Physical penetration testing or offensive security testing.
-- Formal legal or regulatory compliance certification.
-- Live vulnerability scanning or access to real customer systems.
-- Quantitative financial loss modeling.
+- Pruebas de penetración física u ofensivas.
+- Certificaciones formales legales o regulatorias.
+- Escaneo de vulnerabilidades en producción.
+- Acceso a sistemas reales de clientes.
+- Modelación cuantitativa de pérdidas financieras.
 
-## Assessment Approach
+## Metodología de evaluación
 
-This case study uses a **qualitative 5 × 5 risk matrix** defined specifically for this project. NIST CSF 2.0 is used to organize cybersecurity outcomes, and CIS Controls v8.1 IG1 is used to identify practical baseline safeguards. Neither framework is presented as prescribing this particular scoring model.
+Se utiliza una **matriz cualitativa de 5 × 5**, definida específicamente para este proyecto. NIST CSF 2.0 organiza resultados de ciberseguridad y CIS Controls v8.1 IG1 ayuda a seleccionar salvaguardas de higiene cibernética esencial. **Ninguno de estos marcos impone la escala de puntuación usada aquí.**
 
-1. Identify business processes, information assets, and asset owners.
-2. Describe relevant threats, vulnerabilities, and potential business consequences.
-3. Score inherent likelihood and impact on a 1–5 scale.
-4. Calculate an initial risk score: **Likelihood × Impact**.
-5. Identify existing *assumed* controls and relevant gaps.
-6. Map proposed improvements to NIST CSF 2.0 outcomes and applicable CIS IG1 safeguards.
-7. Recommend risk treatment, owners, target dates, and validation evidence.
-8. Reassess residual risk only when controls and assumptions are sufficiently documented.
+1. Identificar procesos de negocio, activos de información y propietarios.
+2. Describir amenazas, vulnerabilidades y consecuencias potenciales.
+3. Calificar probabilidad e impacto inherentes en una escala de 1 a 5.
+4. Calcular el puntaje de riesgo inicial: **Probabilidad × Impacto**.
+5. Identificar controles existentes **supuestos** y brechas.
+6. Asociar medidas propuestas con resultados NIST CSF 2.0 y salvaguardas CIS IG1 pertinentes.
+7. Recomendar tratamiento, responsables, plazos y evidencia de validación.
+8. Reevaluar riesgo residual solamente con controles y supuestos documentados de manera suficiente.
 
-### Risk scoring (project-defined)
+### Escala de riesgo
 
-| Score | Rating | Interpretation |
+| Puntaje | Categoría | Interpretación |
 |---|---|---|
-| 1–4 | Low | Monitor and manage through routine controls |
-| 5–9 | Moderate | Plan proportionate improvements |
-| 10–16 | High | Prioritize treatment and management review |
-| 17–25 | Critical | Prompt management attention and risk treatment planning |
+| 1–4 | Bajo | Gestionar mediante controles habituales |
+| 5–9 | Moderado | Planificar mejoras proporcionales |
+| 10–16 | Alto | Priorizar tratamiento y revisión de dirección |
+| 17–25 | Crítico | Requiere atención temprana y planificación del tratamiento |
 
-**Likelihood scale:** 1 = Rare, 2 = Unlikely, 3 = Possible, 4 = Likely, 5 = Almost certain.  
-**Impact scale:** 1 = Negligible, 2 = Minor, 3 = Moderate, 4 = Major, 5 = Severe.
+**Probabilidad:** 1 = Rara; 2 = Poco probable; 3 = Posible; 4 = Probable; 5 = Casi segura.  
+**Impacto:** 1 = Insignificante; 2 = Menor; 3 = Moderado; 4 = Mayor; 5 = Severo.
 
-Scores are illustrative and should not be interpreted as measured probabilities or financial losses. Risk acceptance requires an authorized business decision.
+Los puntajes son **ilustrativos**, no probabilidades medidas ni pérdidas financieras calculadas. Aceptar un riesgo requiere una decisión autorizada de negocio.
 
-## Framework Usage
+## Uso de marcos
 
 ### NIST CSF 2.0
 
-The six CSF Functions — **Govern, Identify, Protect, Detect, Respond, and Recover** — provide a structure for organizing cybersecurity outcomes and communicating priorities. Relevant Categories and Subcategories will be cited in the control mapping as the assessment develops.
+Las seis funciones —**Govern, Identify, Protect, Detect, Respond y Recover**— ofrecen una estructura para organizar resultados y comunicar prioridades. El mapeo de controles documenta categorías y subcategorías pertinentes.
 
-### CIS Controls v8.1 — Implementation Group 1
+### CIS Controls v8.1 — Implementation Group 1 (IG1)
 
-IG1 is a prioritized baseline of essential cyber hygiene safeguards. The treatment plan will map applicable recommendations to specific IG1 safeguards rather than claiming that implementing IG1 alone guarantees security or compliance.
+IG1 proporciona una línea base priorizada de salvaguardas esenciales. Se identifican medidas aplicables sin afirmar que IG1 garantice seguridad o cumplimiento por sí mismo.
 
-## Risk Assessment Preview
+## Vista previa de riesgos
 
-[![Inherent risk heatmap](risk-register/risk-heatmap.svg)](risk-register/risk-register.md)
+[![Mapa de calor de riesgos inherentes](risk-register/risk-heatmap.svg)](risk-register/risk-register.md)
 
-*Eight fictional scenarios: 2 Critical, 4 High, 2 Moderate. Scores are assumptions, not verified findings.*
+*Ocho escenarios ficticios: dos críticos, cuatro altos y dos moderados. Los valores son supuestos, no hallazgos medidos.*
 
-## Security Control Mapping Preview
+## Mapeo de controles
 
-[![Security control mapping overview](controls/control-mapping-overview.svg)](controls/control-mapping.md)
+[![Resumen de mapeo de controles](controls/control-mapping-overview.svg)](controls/control-mapping.md)
 
-*Candidate safeguards only; no control implementation or effectiveness has been verified.*
+*Solo salvaguardas propuestas; no se verificó su implementación ni eficacia.*
 
-## Risk Treatment Roadmap Preview
+## Plan de tratamiento
 
-[![Proposed 90-day risk treatment roadmap](treatment/risk-treatment-roadmap.svg)](treatment/risk-treatment-plan.md)
+[![Hoja de ruta de tratamiento a 90 días](treatment/risk-treatment-roadmap.svg)](treatment/risk-treatment-plan.md)
 
-*Proposed sequencing only. No controls have been implemented or verified.*
+*Secuencia propuesta. No se implementaron ni validaron controles.*
 
-## Risk Distribution
+## Distribución de riesgos
 
-[![Distribution of eight fictional risks](reports/risk-distribution.svg)](risk-register/risk-register.md)
+[![Distribución de ocho riesgos ficticios](reports/risk-distribution.svg)](risk-register/risk-register.md)
 
-*25% Critical, 50% High and 25% Moderate among the eight illustrative scenarios.*
+*25 % críticos, 50 % altos y 25 % moderados dentro de la muestra ilustrativa de ocho escenarios.*
 
-## Executive Dashboard
+## Panel ejecutivo
 
-[![Executive risk dashboard](reports/executive-dashboard.svg)](reports/executive-summary.md)
+[![Panel ejecutivo de riesgos](reports/executive-dashboard.svg)](reports/executive-summary.md)
 
-*Management-facing summary of eight fictional scenarios and a proposed 90-day response.*
+*Resumen para la dirección, basado en ocho escenarios y una propuesta de tratamiento de 90 días.*
 
-## Project Deliverables
+## Entregables
 
-| Deliverable | Purpose | Status |
+| Documento | Propósito | Estado |
 |---|---|---|
-| [Asset Inventory](assets/asset-inventory.md) | Identify assets, business value, and ownership | **Completed — simulated** |
-| [Risk Register](risk-register/risk-register.md) | Document scenarios and inherent risk scores | **Completed — simulated** |
-| [Control Mapping](controls/control-mapping.md) | Map risk treatment to CSF 2.0 and CIS IG1 | **Completed — proposed** |
-| [Risk Treatment Plan](treatment/risk-treatment-plan.md) | Assign mitigation actions and validation criteria | **Completed — proposed** |
-| [Executive Summary](reports/executive-summary.md) | Communicate priorities to management | **Completed — simulated** |
+| [Inventario de activos](assets/asset-inventory.md) | Identificar activos, valor y propiedad | Completado · Simulado |
+| [Registro de riesgos](risk-register/risk-register.md) | Documentar escenarios y puntajes inherentes | Completado · Simulado |
+| [Mapeo de controles](controls/control-mapping.md) | Asociar tratamiento con NIST CSF y CIS IG1 | Completado · Propuesto |
+| [Plan de tratamiento](treatment/risk-treatment-plan.md) | Asignar medidas, responsables y criterios de validación | Completado · Propuesto |
+| [Resumen ejecutivo](reports/executive-summary.md) | Comunicar prioridades a la dirección | Completado · Simulado |
 
-## Intended Skills Demonstrated
+## Competencias demostradas
 
-- Information security risk assessment
-- Business impact and likelihood analysis
-- Asset identification and ownership
-- NIST CSF 2.0 outcome mapping
-- CIS Controls v8.1 IG1 safeguard selection
-- Risk treatment prioritization
-- Security documentation and executive communication
+Evaluación de riesgos de información · Análisis de impacto y probabilidad · Inventario de activos · NIST CSF 2.0 · CIS Controls IG1 · Priorización de tratamiento · Informes ejecutivos · Documentación técnica.
 
-## References & Official Documentation
+## Referencias oficiales
 
 - [NIST Cybersecurity Framework 2.0](https://www.nist.gov/cyberframework)
-- [CIS Controls v8.1 Navigator — safeguard and implementation-group details](https://www.cisecurity.org/controls/cis-controls-navigator)
-- [NIST SP 800-30 Rev. 1 — Guide for Conducting Risk Assessments](https://csrc.nist.gov/pubs/sp/800/30/r1/final)
+- [CIS Controls v8.1 Navigator](https://www.cisecurity.org/controls/cis-controls-navigator)
+- [NIST SP 800-30 Rev. 1 — Evaluación de riesgos](https://csrc.nist.gov/pubs/sp/800/30/r1/final)
 
-*These references support the methodology and technical procedures; they do not independently validate execution, findings, or control effectiveness.*
+*Estas referencias apoyan el marco metodológico y no prueban ejecución de controles.*
 
 ---
 
-*This repository documents a fictional assessment for learning and portfolio demonstration. It does not claim an actual organizational assessment, implemented controls, or verified compliance.*
+**Caso ficticio para aprendizaje y portafolio.** No se declara una evaluación organizacional real, controles implementados ni cumplimiento verificado.
