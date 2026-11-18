@@ -1,36 +1,26 @@
+# Redes y conectividad
 
-# Networking
+Esta sección presenta ejercicios sobre conectividad, servicios de red, diagnóstico de infraestructura y fundamentos de redes.
 
-This section documents practical networking exercises focused on connectivity, network services, infrastructure troubleshooting, and network fundamentals.
+## Áreas de enfoque
 
-The goal is to demonstrate the ability to understand network behavior, identify connectivity issues, and apply structured troubleshooting techniques.
+- Fundamentos de TCP/IP, IPv4 e IPv6.
+- DNS y DHCP.
+- Enrutamiento y switching.
+- VLAN y segmentación.
+- Resolución de problemas de conectividad.
+- VPN y acceso remoto.
+- Monitoreo y diagnóstico de redes.
 
-## Areas of Focus
+## Proyectos
 
-- TCP/IP networking fundamentals
-- IPv4 and IPv6 addressing
-- DNS and DHCP services
-- Routing and switching fundamentals
-- VLAN concepts
-- Network connectivity troubleshooting
-- VPN and remote access fundamentals
-- Network monitoring and diagnostics
-
-## Projects
-
-| Project | Description | Status |
+| Proyecto | Descripción | Estado |
 |---|---|---|
-| Network Troubleshooting Lab | Practical exercises involving connectivity, DNS, DHCP, and network diagnostics. | Planned |
-| Network Fundamentals Lab | Exercises covering IP addressing, subnetting, routing, and switching concepts. | Planned |
+| Laboratorio de troubleshooting de red | Diagnóstico de conectividad, DNS, DHCP y servicios relacionados. | Planificado |
+| Laboratorio de fundamentos de redes | Direccionamiento IP, subnetting, routing y switching. | Planificado |
 
-## Methodology
+## Metodología
 
-Each project will include:
+Cada proyecto documentará topología, entorno, objetivos técnicos, configuración y pruebas, proceso diagnóstico, resultados, validación, consideraciones de seguridad y lecciones aprendidas.
 
-- Network topology and environment
-- Technical objectives
-- Configuration and testing
-- Troubleshooting process
-- Results and validation
-- Security considerations
-- Lessons learned
+[Volver al portafolio](../README.md)
