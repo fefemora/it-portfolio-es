@@ -7,8 +7,8 @@
 
 - **47/47 archivos originales replicados:** se conservan estructura, rutas, documentos fuente, archivos de evidencia y diagramas.
 - **11/11 archivos SVG adaptados:** se tradujeron sus etiquetas y textos principales conservando los elementos gráficos y conexiones. **Revisión visual de desbordamiento y legibilidad pendiente.**
-- **21/32 archivos Markdown traducidos al español:** portada, secciones generales, **todos los documentos de Soporte TI**, el resumen ejecutivo y las recomendaciones del análisis real de eventos de Windows, y la presentación de la evaluación de riesgos.
-- **11/32 Markdown restantes:** el contenido original en inglés se mantiene temporalmente para evitar pérdidas mientras se localiza.
+- **26/32 archivos Markdown traducidos al español:** portada, secciones generales, toda la documentación de Soporte TI y **toda la evaluación de riesgos empresariales**, además del resumen ejecutivo y las recomendaciones del análisis de eventos de Windows.
+- **6/32 Markdown restantes:** el contenido original en inglés se mantiene temporalmente para evitar pérdidas mientras se localiza.
 - **Tres archivos .txt de evidencia:** se mantienen exactamente como los registros originales, sin alterar la salida de los comandos ni los datos observados.
 - **LICENSE:** se conserva el texto legal original.
 
@@ -37,6 +37,11 @@
 19. `Information-Security/Enterprise-Risk-Assessment/README.md`
 20. `Cybersecurity/Windows-Security-Event-Analysis/docs/executive-summary.md`
 21. `Cybersecurity/Windows-Security-Event-Analysis/docs/monitoring-recommendations.md`
+22. `Information-Security/Enterprise-Risk-Assessment/assets/asset-inventory.md`
+23. `Information-Security/Enterprise-Risk-Assessment/risk-register/risk-register.md`
+24. `Information-Security/Enterprise-Risk-Assessment/controls/control-mapping.md`
+25. `Information-Security/Enterprise-Risk-Assessment/reports/executive-summary.md`
+26. `Information-Security/Enterprise-Risk-Assessment/treatment/risk-treatment-plan.md`
 
 ## Traducciones de documentos técnicos pendientes
 
@@ -51,11 +56,6 @@
 - `Cybersecurity/Windows-Security-Hardening/docs/baseline-guide.md`
 - `Cybersecurity/Windows-Security-Hardening/docs/security-assessment.md`
 - `Cybersecurity/Windows-Security-Hardening/docs/validation-plan.md`
-- `Information-Security/Enterprise-Risk-Assessment/assets/asset-inventory.md`
-- `Information-Security/Enterprise-Risk-Assessment/controls/control-mapping.md`
-- `Information-Security/Enterprise-Risk-Assessment/reports/executive-summary.md`
-- `Information-Security/Enterprise-Risk-Assessment/risk-register/risk-register.md`
-- `Information-Security/Enterprise-Risk-Assessment/treatment/risk-treatment-plan.md`
 
 ## Criterios de calidad
 
@@ -69,4 +69,4 @@
 
 ## Próxima prioridad
 
-Continuar con las investigaciones de eventos y el laboratorio de Windows Hardening, y posteriormente con la evaluación de riesgos de seguridad de la información. Mantener íntegros los comandos y las salidas originales.
+Traducir los dos anexos técnicos del análisis de eventos y los cuatro documentos extensos del laboratorio Windows Security Hardening. La evaluación de riesgos de seguridad de la información ya está completamente localizadа. Mantener íntegros los comandos y las salidas originales.
