@@ -1,132 +1,110 @@
-# INC-002 — Microsoft 365 Authentication Failure
+# INC-002 — Fallo de autenticación en Microsoft 365
 
-[← Service Desk Overview](../README.md) · [IT Support Hub](../../README.md) · [Portfolio Home](../../../README.md)
+[← Mesa de ayuda](../README.md) · [Soporte TI](../../README.md) · [Portafolio](../../../README.md)
 
-**Incident Type:** User Authentication Issue  
-**Category:** Identity and Access Management  
-**Priority:** P3 — Medium (proposed; subject to organizational SLA)  
-**Support Level:** L2 Helpdesk  
-**Environment:** Microsoft 365 / Microsoft Entra ID  
-**Status:** Simulated — Investigation and Resolution Plan
+**Tipo:** Error de autenticación de usuario  
+**Categoría:** Gestión de identidades y accesos (IAM)  
+**Prioridad:** P3 — Media (provisional, sujeta al impacto y SLA)  
+**Nivel de soporte:** Mesa de ayuda L2  
+**Entorno:** Microsoft 365 / Microsoft Entra ID  
+**Estado:** Simulado — Plan de investigación y resolución
 
-## Authentication Recovery Workflow
+## Flujo de recuperación de autenticación
 
 ```mermaid
 flowchart TD
-    A[User reports Microsoft 365 sign-in failure] --> B[Verify user identity]
-    B --> C[Review Entra ID sign-in logs]
-    C --> D{Failure category?}
-    D -->|MFA method unavailable| E[Follow approved MFA recovery]
-    D -->|Conditional Access block| F[Review policy and escalate]
-    D -->|Suspicious activity| G[Escalate to Security]
-    E --> H[Register approved authentication method]
-    H --> I[Validate Outlook and Teams access]
-    I --> J[Document and close after confirmation]
+    A[Usuario informa error de acceso a Microsoft 365] --> B[Verificar identidad]
+    B --> C[Revisar registros de inicio de sesión de Entra ID]
+    C --> D{Categoría del fallo}
+    D -->|Método MFA no disponible| E[Seguir recuperación de MFA autorizada]
+    D -->|Bloqueo por acceso condicional| F[Revisar política y escalar]
+    D -->|Actividad sospechosa| G[Escalar a Seguridad]
+    E --> H[Registrar método autorizado]
+    H --> I[Validar acceso a Outlook y Teams]
+    I --> J[Documentar y cerrar previa confirmación]
 ```
 
-> **Simulation:** This is a proposed diagnostic workflow. No Microsoft 365 tenant or sign-in logs were accessed. MFA and Conditional Access should not be disabled as troubleshooting shortcuts.
+> **Simulación:** flujo diagnóstico propuesto. No se accedió a un tenant real de Microsoft 365 ni a registros de inicio de sesión. MFA y Conditional Access no deben deshabilitarse como atajo.
 
-## 1. Incident Description
+## 1. Descripción del incidente
 
-A fictional employee reports being unable to access Microsoft 365 applications, including Outlook and Microsoft Teams, after replacing their mobile phone.
+Un empleado ficticio informa que no puede acceder a Outlook ni a Microsoft Teams después de cambiar su teléfono. Puede iniciar sesión en su estación de trabajo Windows, pero no logra completar la autenticación de Microsoft 365.
 
-The employee can successfully sign in to their Windows workstation but cannot complete the Microsoft 365 authentication process.
+**Error informado:** «No se pudo completar la solicitud de autenticación».
 
-**Reported error:** "Authentication request could not be completed."
+## 2. Impacto en el negocio
 
-## 2. Business Impact
+- Un empleado no puede acceder a Microsoft 365.
+- Se interrumpen el correo y las herramientas de colaboración.
+- No se ha informado una interrupción generalizada.
+- El equipo Windows sigue operativo.
 
-- One employee is unable to access Microsoft 365 services.
-- Email communication and collaboration are disrupted.
-- No organization-wide outage has been reported.
-- The employee's Windows workstation remains operational.
+**Prioridad inicial:** P3 — Media, suponiendo impacto normal sobre una sola persona y sin actividad crítica inmediata.
 
-**Initial priority assessment:** P3 — Medium, assuming standard business impact and no time-critical activity.
+## 3. Diagnóstico inicial
 
-## 3. Initial Troubleshooting
+El técnico L2 debe:
 
-The L2 technician should:
+1. Verificar la identidad mediante un procedimiento autorizado.
+2. Identificar las aplicaciones afectadas y el error específico.
+3. Confirmar si comenzó tras el cambio de teléfono.
+4. Revisar el estado de la cuenta en Microsoft Entra ID.
+5. Consultar los registros de inicio de sesión.
+6. Evaluar si el fallo corresponde a MFA, Conditional Access u otro requisito.
+7. Comprobar si existe otro método de autenticación registrado.
 
-1. Verify the employee's identity using an approved verification procedure.
-2. Confirm the affected applications and authentication error.
-3. Determine whether the issue began after the mobile device replacement.
-4. Check the user's account status in Microsoft Entra ID.
-5. Review Microsoft Entra sign-in logs for authentication failures.
-6. Identify whether the failure is related to MFA, Conditional Access, or another authentication requirement.
-7. Confirm whether the user has an alternative registered authentication method.
+## 4. Hipótesis
 
-## 4. Diagnostic Hypothesis
+**Hipótesis principal:** el registro de Microsoft Authenticator corresponde al teléfono anterior y el empleado no dispone de él para completar MFA.
 
-**Primary hypothesis:** The employee's Microsoft Authenticator registration is associated with their previous mobile device, preventing successful MFA verification.
+**Causas alternativas:** requisitos de acceso condicional; cuenta bloqueada o deshabilitada; registro incorrecto de métodos de autenticación; interrupción temporal del servicio.
 
-**Alternative causes:**
+**Causa raíz:** no confirmada. Requiere evidencia de los registros de inicio de sesión.
 
-- Conditional Access policy requirements.
-- Account lockout or disabled account.
-- Authentication method registration issues.
-- Temporary Microsoft 365 service disruption.
+## 5. Resolución propuesta
 
-The root cause remains unconfirmed until the relevant sign-in evidence is reviewed.
+Si la evidencia confirma que el usuario perdió acceso al método registrado:
 
-## 5. Proposed Resolution Procedure
+1. Completar la verificación de identidad exigida por la organización.
+2. Aplicar el proceso autorizado de recuperación de MFA.
+3. Si está permitido, utilizar un Temporary Access Pass (TAP) o un flujo aprobado de reinscripción.
+4. Registrar Microsoft Authenticator en el nuevo dispositivo.
+5. Confirmar que MFA funciona correctamente.
+6. Verificar acceso a Outlook y Teams.
+7. Documentar las acciones y comunicar el resultado.
 
-If investigation confirms that the employee no longer has access to their registered authentication method:
+**Seguridad:** no deshabilitar MFA ni omitir Conditional Access para recuperar el acceso. Escalar cualquier solicitud fuera del procedimiento aprobado.
 
-1. Complete the organization's approved identity verification process.
-2. Follow the authorized MFA recovery procedure.
-3. If permitted, issue a Temporary Access Pass or require re-registration of authentication methods using an approved recovery workflow.
-4. Register Microsoft Authenticator on the new mobile device.
-5. Confirm successful MFA authentication.
-6. Verify access to Outlook and Microsoft Teams.
-7. Document the changes and notify the employee.
+## 6. Criterios de validación
 
-**Security consideration:** Do not disable MFA or bypass Conditional Access solely to restore access. Escalate requests that fall outside approved recovery procedures.
+El incidente podría cerrarse cuando se cumplan todas estas condiciones:
 
-## 6. Validation Criteria
+- El usuario se autentica correctamente.
+- El método MFA queda registrado y funcional.
+- Outlook y Teams son accesibles.
+- El usuario confirma la recuperación del servicio.
+- El ticket incluye el diagnóstico, la recuperación y la evidencia correspondiente.
 
-The incident can be considered resolved when:
+## 7. Criterios de escalamiento
 
-- The employee successfully authenticates to Microsoft 365.
-- The new MFA method is registered and functioning.
-- Outlook and Microsoft Teams are accessible.
-- The employee confirms service restoration.
-- The incident record contains the relevant troubleshooting and recovery details.
+Escalar al equipo de Identidades o Seguridad si se detectan intentos sospechosos, si el usuario no supera la verificación de identidad, si se requiere cambiar Conditional Access, si se sospechan modificaciones MFA no autorizadas o si el técnico carece de permisos.
 
-## 7. Escalation Criteria
+## 8. Cierre del incidente
 
-Escalate to the Identity or Security team when:
+**Resultado:** no ejecutado; caso simulado.  
+**Solución propuesta:** recuperar mediante el procedimiento autorizado el método MFA y validar el acceso.  
+**Causa raíz:** hipótesis de registro o disponibilidad de MFA; no verificada.
 
-- Suspicious sign-in activity is detected.
-- The employee cannot pass identity verification.
-- Conditional Access policies require modification.
-- Unauthorized MFA registration changes are suspected.
-- The technician lacks permission to perform the recovery.
+**Lecciones aprendidas:** validar identidad antes de recuperar MFA, utilizar registros de autenticación para diferenciar causas y documentar adecuadamente cambios y escalamiento.
 
-## 8. Incident Closure
+## Advertencia sobre la simulación
 
-**Outcome:** Not executed — simulated incident.
+No se modificó ninguna cuenta real ni se ejecutaron acciones de recuperación en producción.
 
-**Proposed resolution:** Recover the employee's approved authentication method and validate Microsoft 365 access.
+## Referencias oficiales
 
-**Root cause:** Hypothesized MFA registration issue; not independently verified.
+- [Métodos de autenticación en Microsoft Entra](https://learn.microsoft.com/en-us/entra/identity/authentication/concept-authentication-methods-manage)
+- [Registros de inicio de sesión](https://learn.microsoft.com/en-us/entra/identity/monitoring-health/concept-sign-ins)
+- [Conditional Access](https://learn.microsoft.com/en-us/entra/identity/conditional-access/overview)
 
-**Lessons Learned:**
-
-- Identity verification is essential during MFA recovery.
-- Authentication logs help distinguish MFA failures from policy or account issues.
-- Security controls must remain enforced during incident resolution.
-- Accurate documentation improves escalation and future troubleshooting.
-
----
-
-## Portfolio Disclaimer
-
-This incident is a fictional enterprise support scenario. No real Microsoft 365 tenant was accessed, no user account was modified, and no production remediation was performed.
-
-## References & Official Documentation
-
-- [Manage authentication methods in Microsoft Entra](https://learn.microsoft.com/en-us/entra/identity/authentication/concept-authentication-methods-manage)
-- [Microsoft Entra sign-in logs](https://learn.microsoft.com/en-us/entra/identity/monitoring-health/concept-sign-ins)
-- [Microsoft Entra Conditional Access overview](https://learn.microsoft.com/en-us/entra/identity/conditional-access/overview)
-
-*These references support the methodology and technical procedures; they do not independently validate execution, findings, or control effectiveness.*
+*Las referencias documentan prácticas técnicas; no prueban ejecución ni eficacia en este caso.*
