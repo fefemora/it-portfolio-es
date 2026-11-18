@@ -1,55 +1,55 @@
-# INC-003 — DNS Troubleshooting Decision Tree
+# INC-003 — Árbol de decisión para diagnóstico de DNS
 
-[← INC-003 Case](INC-003-DNS-Resolution.md) · [Service Desk Overview](../README.md) · [IT Support Hub](../../README.md)
+[← INC-003](INC-003-DNS-Resolution.md) · [Mesa de ayuda](../README.md) · [Soporte TI](../../README.md)
 
-**Related incident:** [INC-003 — Corporate DNS Resolution Failure](INC-003-DNS-Resolution.md)  
-**Support level:** L2 Helpdesk  
-**Status:** Simulated — diagnostic reference; not executed
+**Incidente relacionado:** [INC-003 — Fallo corporativo de DNS](INC-003-DNS-Resolution.md)  
+**Nivel de soporte:** L2  
+**Estado:** Simulado — referencia diagnóstica; no ejecutado
 
-## Diagnostic Flow
+## Flujo diagnóstico
 
 ```mermaid
 flowchart TD
-    A[User reports hostname access failure] --> B[Inspect IP and DNS settings]
-    B --> C{Configuration valid?}
-    C -->|No| D[Investigate adapter, DHCP, VPN or DNS settings]
-    C -->|Yes| E[Query approved DNS resolver]
-    E --> F{Expected DNS response?}
-    F -->|Yes| G[Investigate application, proxy, TLS or cache]
-    F -->|No| H[Compare affected and known-good hostnames]
-    H --> I{Internal names only?}
-    I -->|Yes| J[Investigate internal zones, VPN DNS, suffixes]
-    I -->|No| K[Investigate resolver, forwarding or filtering]
-    D --> L[Document, resolve or escalate]
+    A[Usuario informa fallo de acceso por nombre] --> B[Revisar configuración IP y DNS]
+    B --> C{Configuración válida}
+    C -->|No| D[Investigar adaptador, DHCP, VPN o DNS]
+    C -->|Sí| E[Consultar resolver DNS autorizado]
+    E --> F{Respuesta DNS esperada}
+    F -->|Sí| G[Investigar aplicación, proxy, TLS o caché]
+    F -->|No| H[Comparar nombres afectados con otros funcionales]
+    H --> I{Solo nombres internos}
+    I -->|Sí| J[Investigar zonas internas, DNS de VPN y sufijos]
+    I -->|No| K[Investigar resolución, reenvío o filtrado]
+    D --> L[Documentar, resolver o escalar]
     G --> L
     J --> L
     K --> L
 ```
 
-## Decision Guide
+## Guía de decisiones
 
-| Check | Command | Interpretation |
+| Comprobación | Comando | Interpretación |
 |---|---|---|
-| Client configuration | `ipconfig /all` | Review addresses, gateway, DNS server and suffixes |
-| Name resolution | `Resolve-DnsName www.microsoft.com` | Check whether the configured resolver returns the expected response |
-| Approved resolver comparison | `Resolve-DnsName www.microsoft.com -Server <APPROVED_DNS_IP>` | Compare results only with an authorized resolver |
-| DNS service TCP reachability | `Test-NetConnection <APPROVED_DNS_IP> -Port 53` | TCP 53 check only; DNS also commonly uses UDP, so failure is not conclusive |
-| Client DNS cache | `ipconfig /displaydns` | Inspect cached results before considering a flush |
+| Configuración del cliente | `ipconfig /all` | Revisar IP, gateway, servidores DNS y sufijos |
+| Resolución de nombres | `Resolve-DnsName www.microsoft.com` | Comprobar respuesta del resolver configurado |
+| Comparación autorizada | `Resolve-DnsName www.microsoft.com -Server <APPROVED_DNS_IP>` | Comparar solo con un servidor autorizado |
+| Conectividad TCP al servicio DNS | `Test-NetConnection <APPROVED_DNS_IP> -Port 53` | Comprueba TCP 53; DNS también utiliza UDP, por lo que un fallo no es concluyente |
+| Caché de DNS | `ipconfig /displaydns` | Revisar resultados antes de considerar vaciar la caché |
 
-Replace placeholder addresses with approved organizational values. Never expose internal hostnames to unauthorized public DNS resolvers.
+Reemplazar los marcadores con direcciones permitidas por la organización. **No enviar nombres internos a resolvers públicos no autorizados.**
 
-## Escalation
+## Escalamiento
 
-Escalate when corporate DNS services are unavailable, multiple users are affected, zone or forwarding changes are needed, or security controls may be involved.
+Escalar cuando el DNS corporativo esté indisponible, afecte a varias personas, se requieran cambios de zona o reenvío, o intervengan controles de seguridad.
 
-## Evidence and Limitations
+## Evidencia y limitaciones
 
-This is a proposed diagnostic workflow, not a log of executed commands. Record actual outputs and validate any corrective action in an authorized environment before marking a real incident resolved.
+Se trata de un flujo diagnóstico **propuesto**, no de una bitácora de comandos ejecutados. Los resultados reales y la validación de cualquier corrección deberán recopilarse en un entorno autorizado.
 
-## References & Official Documentation
+## Referencias oficiales
 
-- [Resolve-DnsName — PowerShell reference](https://learn.microsoft.com/en-us/powershell/module/dnsclient/resolve-dnsname)
-- [Test-NetConnection — PowerShell reference](https://learn.microsoft.com/en-us/powershell/module/nettcpip/test-netconnection)
-- [DNS overview — Microsoft Learn](https://learn.microsoft.com/en-us/windows-server/networking/dns/dns-overview)
+- [Resolve-DnsName](https://learn.microsoft.com/en-us/powershell/module/dnsclient/resolve-dnsname)
+- [Test-NetConnection](https://learn.microsoft.com/en-us/powershell/module/nettcpip/test-netconnection)
+- [DNS en Windows Server](https://learn.microsoft.com/en-us/windows-server/networking/dns/dns-overview)
 
-*These references support the methodology and technical procedures; they do not independently validate execution, findings, or control effectiveness.*
+*Las referencias respaldan el método, no la ejecución de pruebas de este escenario.*
