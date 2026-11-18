@@ -1,102 +1,102 @@
-# INC-004 — Corporate VPN Connectivity Failure
+# INC-004 — Fallo de conectividad mediante VPN corporativa
 
-[← Service Desk Overview](../README.md) · [IT Support Hub](../../README.md) · [Portfolio Home](../../../README.md)
+[← Mesa de ayuda](../README.md) · [Soporte TI](../../README.md) · [Portafolio](../../../README.md)
 
-**Incident Type:** Remote Access / Network Connectivity  
-**Category:** Networking and Remote Access  
-**Priority:** P3 — Medium (proposed; subject to business impact and organizational SLA)  
-**Support Level:** L2 Helpdesk  
-**Environment:** Windows 11 / Corporate VPN / Internal Business Applications  
-**Status:** Simulated — Investigation and Resolution Plan
+**Tipo:** Acceso remoto / Conectividad de red  
+**Categoría:** Redes y acceso remoto  
+**Prioridad:** P3 — Media, provisional según impacto y SLA  
+**Nivel:** Mesa de ayuda L2  
+**Entorno:** Windows 11 / VPN corporativa / Aplicaciones internas  
+**Estado:** Simulado — Plan de investigación y resolución
 
-> **Portfolio simulation:** This is a fictional support incident. No production VPN connection, corporate network, or user account was accessed.
+> **Simulación:** caso ficticio de soporte técnico. No se accedió a ninguna VPN, red corporativa ni cuenta de usuario real.
 
-## Incident at a Glance
+## Resumen del incidente
 
-| Field | Details |
+| Campo | Descripción |
 |---|---|
-| Incident ID | INC-004 |
-| Reported by | Fictional remote employee |
-| Symptom | VPN client reports connected, but internal applications are inaccessible |
-| Scope | One remote user; broader impact not established |
-| Impact | Medium — business applications unavailable |
-| Urgency | Medium — assuming no time-critical business interruption |
-| Priority | P3 — Medium (provisional) |
-| Assigned team | L2 Service Desk |
-| Root cause | Unconfirmed |
-| Resolution | Proposed; not executed |
-| Validation | Not performed |
+| ID | INC-004 |
+| Reportado por | Empleado remoto ficticio |
+| Síntoma | La VPN aparece conectada, pero no permite acceder a aplicaciones internas |
+| Alcance | Un usuario; impacto adicional no establecido |
+| Impacto | Medio: aplicaciones corporativas inaccesibles |
+| Urgencia | Media, suponiendo ausencia de actividades críticas inmediatas |
+| Prioridad | P3 — Media (provisional) |
+| Equipo responsable | Mesa de ayuda L2 |
+| Causa raíz | No confirmada |
+| Resolución | Propuesta; no ejecutada |
+| Validación | No realizada |
 
-## 1. Incident Description
+## 1. Descripción
 
-A fictional remote employee reports that the corporate VPN client displays **Connected**, but internal web applications and a corporate file share cannot be reached.
+Un empleado ficticio informa que el cliente VPN indica **Conectado**, pero no logra acceder a aplicaciones web internas ni a una carpeta compartida corporativa.
 
-The employee can browse public websites normally. The issue reportedly began after reconnecting to the VPN from a home network.
+Puede navegar por sitios públicos sin problemas. El incidente habría comenzado después de reconectar la VPN desde una red doméstica.
 
-The VPN client's connected status alone does not prove that the correct routes, DNS settings, access permissions, or application connectivity are working.
+**Importante:** que el cliente indique *Conectado* no demuestra que funcionen las rutas, el DNS, los permisos de acceso o las aplicaciones internas.
 
-## 2. Business Impact
+## 2. Impacto en el negocio
 
-- One remote employee cannot access required internal services.
-- Public internet connectivity appears available.
-- No widespread VPN outage has been confirmed.
-- Priority should be reassessed if additional users or business-critical services are affected.
+- Un empleado no puede acceder a servicios necesarios.
+- La conectividad pública a Internet parece funcionar.
+- No se ha confirmado una caída generalizada de VPN.
+- Debe reevaluarse la prioridad si aparecen más afectados o servicios críticos.
 
-## 3. Diagnostic Workflow
+## 3. Flujo de diagnóstico
 
 ```mermaid
 flowchart TD
-    A[Remote user reports internal access failure] --> B[Verify identity and collect symptoms]
-    B --> C[Check VPN connection status and client logs]
-    C --> D{VPN tunnel established?}
-    D -->|No| E[Investigate authentication, MFA, client, gateway]
-    D -->|Yes| F[Review IP configuration and route table]
-    F --> G{Expected corporate routes present?}
-    G -->|No| H[Investigate split tunnel, route policy, VPN profile]
-    G -->|Yes| I[Check authorized internal DNS resolution]
-    I --> J{Hostname resolves correctly?}
-    J -->|No| K[Investigate VPN DNS and suffix settings]
-    J -->|Yes| L[Test approved internal service endpoint]
-    L --> M{Service reachable?}
-    M -->|No| N[Investigate firewall, ACL, service, authorization]
-    M -->|Yes| O[Investigate application or user-specific issue]
-    E --> P[Document and resolve or escalate]
+    A[Empleado remoto informa fallo de acceso interno] --> B[Verificar identidad y recopilar síntomas]
+    B --> C[Revisar estado y registros del cliente VPN]
+    C --> D{Túnel VPN establecido}
+    D -->|No| E[Investigar autenticación, MFA, cliente o gateway]
+    D -->|Sí| F[Revisar configuración IP y tabla de rutas]
+    F --> G{Existen rutas corporativas esperadas}
+    G -->|No| H[Investigar split tunnel, políticas o perfil VPN]
+    G -->|Sí| I[Comprobar DNS interno autorizado]
+    I --> J{Resuelve el nombre correctamente}
+    J -->|No| K[Investigar servidores y sufijos DNS de VPN]
+    J -->|Sí| L[Probar endpoint interno autorizado]
+    L --> M{Servicio accesible}
+    M -->|No| N[Investigar firewall, ACL, servicio y autorización]
+    M -->|Sí| O[Investigar aplicación o caso específico]
+    E --> P[Documentar, resolver o escalar]
     H --> P
     K --> P
     N --> P
     O --> P
 ```
 
-*Illustrative diagnostic flow; branches are hypotheses, not observed results.*
+*Flujo ilustrativo: sus decisiones son hipótesis, no resultados observados.*
 
-## 4. Initial Troubleshooting
+## 4. Diagnóstico inicial
 
-### Step 1 — Confirm the Scope and Security Context
+### Paso 1 — Confirmar alcance y contexto de seguridad
 
-- Verify the employee's identity using the approved helpdesk process.
-- Record the VPN client, reported error, connection timestamp, and affected applications.
-- Determine whether other users or devices are affected.
-- Check whether the user recently changed devices, networks, credentials, or MFA methods.
-- Review the organization's VPN service status and approved incident communications.
+- Verificar identidad mediante el proceso autorizado de mesa de ayuda.
+- Registrar cliente VPN, mensaje de error, hora de conexión y aplicaciones afectadas.
+- Determinar si hay otras personas o equipos afectados.
+- Comprobar cambios recientes de dispositivo, red, credenciales o MFA.
+- Revisar estado del servicio VPN y comunicaciones de incidentes de la organización.
 
-**Execution status:** Not tested.
+**Estado:** no probado.
 
-### Step 2 — Inspect Network Configuration
+### Paso 2 — Revisar configuración de red
 
-Run on the authorized Windows endpoint:
+En el equipo Windows autorizado:
 
 ```powershell
 ipconfig /all
 Get-NetIPConfiguration
 ```
 
-**Objective:** Review VPN adapter addressing, DNS server assignments, and the physical network configuration.
+**Objetivo:** revisar la dirección asignada al adaptador VPN, los servidores DNS y la red física.
 
-**Interpretation:** An active VPN adapter does not by itself establish reachability to internal resources.
+Un adaptador VPN activo **no garantiza** conectividad con los servicios internos.
 
-**Execution status:** Not tested.
+**Estado:** no probado.
 
-### Step 3 — Review Routes
+### Paso 3 — Revisar rutas
 
 ```powershell
 route print
@@ -105,142 +105,133 @@ Get-NetRoute -AddressFamily IPv4 |
     Select-Object DestinationPrefix, NextHop, InterfaceAlias, RouteMetric
 ```
 
-**Objective:** Determine whether routes for authorized internal networks are present and associated with the expected interface.
+**Objetivo:** determinar si las rutas hacia redes internas autorizadas están presentes y vinculadas a la interfaz esperada.
 
-**Important:** Split-tunnel VPNs do not necessarily route all traffic through the VPN. Compare routes against the organization's approved design rather than assuming a default route is required.
+**Consideración:** una VPN con *split tunneling* no dirige necesariamente todo el tráfico por el túnel; la comparación debe realizarse contra el diseño corporativo aprobado.
 
-**Execution status:** Not tested.
+**Estado:** no probado.
 
-### Step 4 — Test Internal DNS Resolution
+### Paso 4 — Comprobar resolución DNS interna
 
-Replace the placeholder with an approved internal hostname:
+Reemplazar el nombre ficticio por uno interno autorizado:
 
 ```powershell
 Resolve-DnsName intranet.example.test
 ```
 
-**Objective:** Check whether the endpoint resolves an internal resource using the intended corporate DNS path.
+**Objetivo:** confirmar si el equipo resuelve el recurso mediante el DNS corporativo correspondiente.
 
-**Interpretation:** DNS failure may indicate VPN DNS assignment, suffix search, conditional forwarding, or resolver reachability problems. A successful response does not guarantee application access.
+Un error podría relacionarse con servidores asignados, sufijos, reenvío condicional o acceso al resolver. Resolver un nombre correctamente **no garantiza** acceso a la aplicación.
 
-**Execution status:** Not tested.
+**Estado:** no probado.
 
-### Step 5 — Check an Approved Application Endpoint
+### Paso 5 — Comprobar un servicio autorizado
 
-For an internal HTTPS service, where authorized:
+Para un servicio HTTPS interno:
 
 ```powershell
 Test-NetConnection intranet.example.test -Port 443
 ```
 
-**Objective:** Check TCP connectivity to a specific application port.
+**Objetivo:** comprobar conectividad TCP al puerto de aplicación.
 
-**Interpretation:** A successful TCP connection supports transport reachability but does not verify HTTP application health, user authorization, or end-to-end service functionality.
+Una conexión TCP correcta no prueba que funcionen HTTP, los permisos del usuario ni la aplicación de extremo a extremo.
 
-**Execution status:** Not tested.
+**Estado:** no probado.
 
-### Step 6 — Review VPN Client and Gateway Evidence
+### Paso 6 — Consultar registros del cliente y del gateway
 
-If the technician has appropriate access, review:
+Con permisos apropiados, podrían analizarse:
 
-- VPN client connection events and error messages.
-- Authentication and MFA outcomes.
-- VPN gateway session status.
-- Assigned VPN address and user/group policy.
-- Access control and firewall logs.
-- Relevant device compliance requirements.
+- Eventos y errores del cliente VPN.
+- Resultados de autenticación y MFA.
+- Estado de las sesiones del gateway.
+- Dirección VPN y políticas de usuario o grupo.
+- Registros de firewall y controles de acceso.
+- Requisitos de cumplimiento del dispositivo.
 
-Do not copy credentials, tokens, or confidential connection logs into a public repository.
+**No** copiar contraseñas, tokens ni registros corporativos confidenciales a un repositorio público.
 
-**Execution status:** Not tested.
+**Estado:** no probado.
 
-## 5. Diagnostic Hypotheses
+## 5. Hipótesis diagnósticas
 
-| Finding | Possible Cause | Next Action |
+| Hallazgo potencial | Posible causa | Acción siguiente |
 |---|---|---|
-| VPN authentication fails | Credentials, MFA, account, device compliance, or gateway issue | Review approved identity and VPN logs |
-| Tunnel connected, corporate route absent | VPN route or split-tunnel policy issue | Compare route table with approved VPN design |
-| Internal hostname fails to resolve | VPN DNS configuration or internal resolver issue | Review approved DNS configuration |
-| Host resolves but TCP service fails | Firewall, ACL, routing, service availability, or endpoint issue | Test authorized endpoint and escalate |
-| TCP succeeds but application rejects access | Application authorization or session issue | Review application-specific logs and permissions |
+| Fallo de autenticación VPN | Credenciales, MFA, cuenta, cumplimiento o gateway | Revisar registros autorizados |
+| Túnel conectado sin ruta interna | Error de rutas o de split tunneling | Comparar contra diseño corporativo |
+| Nombre interno sin resolución | DNS de VPN o resolver interno | Revisar asignación y conectividad DNS |
+| Nombre resuelto sin acceso TCP | Firewall, ACL, rutas o servicio | Probar endpoint permitido y escalar |
+| TCP funciona pero aplicación rechaza acceso | Permisos o sesión de aplicación | Revisar autorización y registros propios |
 
-**Confirmed root cause:** Not established.
+**Causa raíz confirmada:** no establecida.
 
-## 6. Proposed Resolution and Recovery
+## 6. Resolución y recuperación propuestas
 
-Apply only actions supported by diagnostic evidence and authorized by organizational procedures:
+Aplicar únicamente medidas respaldadas por evidencia y autorizadas:
 
-1. Verify that the user is assigned the correct VPN profile and access policy.
-2. Confirm required authentication and MFA steps.
-3. Correct an identified client configuration issue using approved settings.
-4. Escalate missing corporate routes, DNS policy issues, or gateway failures to Network/Infrastructure.
-5. Escalate suspicious sign-in activity or unauthorized access changes to Security.
-6. Reconnect and retest affected services after an approved corrective action.
-7. Record the action taken, results, and rollback approach.
+1. Verificar perfil VPN y política de acceso del usuario.
+2. Confirmar autenticación y MFA exigidos.
+3. Corregir una configuración identificada mediante parámetros aprobados.
+4. Escalar problemas de rutas, DNS o gateway a Redes/Infraestructura.
+5. Escalar accesos sospechosos o cambios no autorizados a Seguridad.
+6. Reconectar y probar servicios afectados después de una corrección aprobada.
+7. Registrar acciones, resultados y forma de revertir los cambios.
 
-**Do not** disable MFA, endpoint protection, firewall rules, or VPN security controls merely to restore connectivity.
+**No deshabilitar MFA, protección de endpoints, firewall ni controles VPN como atajo de conectividad.**
 
-## 7. Validation Criteria
+## 7. Criterios de validación
 
-| Check | Expected Outcome | Status |
+| Comprobación | Resultado esperado | Estado |
 |---|---|---|
-| VPN session | Authenticated and established | Not tested |
-| Corporate route | Expected route present according to VPN design | Not tested |
-| Internal DNS | Approved hostname resolves as expected | Not tested |
-| Internal application | Authorized service accessible | Not tested |
-| User confirmation | Employee confirms restored workflow | Not tested |
+| Sesión VPN | Autenticada y establecida | No probado |
+| Ruta corporativa | Presente según el diseño | No probado |
+| DNS interno | Respuesta esperada para el recurso | No probado |
+| Aplicación interna | Servicio autorizado accesible | No probado |
+| Confirmación del usuario | Recuperación de actividad | No probado |
 
-**Validation status:** Not performed.
+**Estado de validación:** no ejecutada.
 
-## 8. Escalation Criteria
+## 8. Criterios de escalamiento
 
-Escalate when:
+Escalar si hay varios usuarios afectados, falla el gateway o DNS corporativo, se requieren cambios de firewall/ACL/rutas, intervienen controles de autenticación o cumplimiento, se sospecha actividad no autorizada o la acción excede los permisos L2.
 
-- Multiple remote employees are affected.
-- VPN gateway or corporate DNS infrastructure is unavailable.
-- Firewall, ACL, or routing changes are required.
-- Authentication or device compliance controls are involved.
-- Suspicious activity or unauthorized access is suspected.
-- The required action exceeds L2 permissions.
+El escalamiento debe incluir síntomas anonimizados, alcance, fechas, estado del cliente, códigos de error y resultados de comprobaciones.
 
-Include a sanitized symptom summary, scope, timestamps, client status, relevant error codes, route/DNS observations, and the tests performed.
+## 9. Ejemplos de comunicación al usuario
 
-## 9. Example User Communication
+**Acuse de recibo (ejemplo, no enviado):**
 
-**Acknowledgment (sample; not sent):**
+> Hemos recibido tu reporte: la VPN aparece conectada, pero los recursos internos no están disponibles. Estamos revisando la configuración y la ruta de acceso. Compartiremos una actualización después del diagnóstico inicial.
 
-> We have received your report that the VPN is connected but internal resources are unavailable. We are checking the connection configuration and access path. We will provide an update after the initial investigation.
+**Actualización de progreso (ejemplo, no enviada):**
 
-**Progress update (sample; not sent):**
+> Estamos revisando el enrutamiento VPN y la resolución de nombres internos para determinar si el problema corresponde a conectividad o permisos. No hemos realizado cambios en los controles de seguridad.
 
-> We are reviewing VPN routing and internal name resolution to determine whether the issue is related to connectivity or access permissions. No changes to security controls have been made.
+## 10. Cierre
 
-## 10. Incident Closure
+**Resultado:** no ejecutado, caso simulado.  
+**Causa raíz:** no confirmada.  
+**Resolución propuesta:** identificar el componente afectado, aplicar corrección autorizada y validar acceso.  
+**Confirmación del usuario:** no corresponde a una ejecución real.
 
-**Outcome:** Not executed — simulated incident.  
-**Root cause:** Unconfirmed.  
-**Proposed resolution:** Identify the failing VPN, routing, DNS, or application access component; apply an authorized correction; validate service restoration.  
-**User confirmation:** Not applicable — simulated case.
+### Lecciones aprendidas
 
-### Lessons Learned
+- Una VPN *Conectada* no garantiza acceso a recursos internos.
+- Rutas, DNS y autorización deben analizarse por separado.
+- El split tunneling debe evaluarse contra el diseño aprobado.
+- La seguridad se mantiene durante todo el diagnóstico.
+- La documentación clara reduce investigaciones repetidas.
 
-- A VPN client showing *Connected* does not guarantee internal service access.
-- VPN routing, DNS resolution, and application authorization are separate diagnostic layers.
-- Split-tunnel behavior must be evaluated against the approved network design.
-- Security controls should remain enforced throughout troubleshooting.
-- Accurate evidence and escalation notes reduce repeat investigation.
+## Advertencia sobre el portafolio
 
----
+Este escenario es ficticio. Los comandos son ejemplos y no se ejecutaron para el caso. No se modificaron redes ni cuentas productivas.
 
-## Portfolio Disclaimer
+## Referencias oficiales
 
-This is a fictional enterprise support case study. Commands are examples and have not been executed for this scenario. No production network changes or user recovery actions were performed.
+- [Get-NetRoute](https://learn.microsoft.com/en-us/powershell/module/nettcpip/get-netroute)
+- [Test-NetConnection](https://learn.microsoft.com/en-us/powershell/module/nettcpip/test-netconnection)
+- [Resolve-DnsName](https://learn.microsoft.com/en-us/powershell/module/dnsclient/resolve-dnsname)
+- [Remote Access — Microsoft Learn](https://learn.microsoft.com/en-us/windows-server/remote/remote-access/remote-access)
 
-## References & Official Documentation
-
-- [Get-NetRoute — PowerShell reference](https://learn.microsoft.com/en-us/powershell/module/nettcpip/get-netroute)
-- [Test-NetConnection — PowerShell reference](https://learn.microsoft.com/en-us/powershell/module/nettcpip/test-netconnection)
-- [Resolve-DnsName — PowerShell reference](https://learn.microsoft.com/en-us/powershell/module/dnsclient/resolve-dnsname)
-- [Remote Access overview — Microsoft Learn](https://learn.microsoft.com/en-us/windows-server/remote/remote-access/remote-access)
-
-*These references support the methodology and technical procedures; they do not independently validate execution, findings, or control effectiveness.*
+*Las referencias respaldan el método, no constituyen una validación de este incidente ficticio.*
