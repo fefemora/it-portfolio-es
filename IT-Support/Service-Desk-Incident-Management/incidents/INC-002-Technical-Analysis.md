@@ -1,124 +1,111 @@
-# INC-002 — Technical Troubleshooting Analysis
+# INC-002 — Análisis técnico de autenticación
 
-[← INC-002 Case](INC-002-M365-Authentication.md) · [Service Desk Overview](../README.md) · [IT Support Hub](../../README.md)
+[← Caso INC-002](INC-002-M365-Authentication.md) · [Mesa de ayuda](../README.md) · [Soporte TI](../../README.md)
 
-**Related Incident:** INC-002 — Microsoft 365 Authentication Failure  
-**Technology:** Microsoft Entra ID / Microsoft 365  
-**Support Level:** L2 Helpdesk  
-**Scenario Type:** Simulated
+**Incidente:** INC-002 — Error de autenticación en Microsoft 365  
+**Tecnología:** Microsoft Entra ID / Microsoft 365  
+**Nivel de soporte:** Mesa de ayuda L2  
+**Tipo de escenario:** Simulado
 
-## 1. Investigation Objective
+## 1. Objetivo de la investigación
 
-Identify the potential cause of a Microsoft 365 authentication failure following a mobile device replacement, while preserving the organization's security controls.
+Identificar posibles causas de un fallo de autenticación de Microsoft 365 después del reemplazo de un teléfono móvil, preservando los controles de seguridad de la organización.
 
-## 2. Microsoft Entra Sign-in Logs
+## 2. Registros de inicio de sesión en Microsoft Entra
 
-The technician would review the affected user's authentication attempts in Microsoft Entra ID.
+El técnico consultaría los intentos de autenticación del usuario afectado en Microsoft Entra ID.
 
-**Navigation:** Microsoft Entra admin center → Entra ID → Monitoring & health → Sign-in logs.
+**Ruta:** Centro de administración de Microsoft Entra → Entra ID → Monitoring & health → Sign-in logs.
 
-Relevant information includes:
+Información relevante:
 
-- Authentication timestamp
-- Application and resource
-- Sign-in status
-- Error code and failure reason
-- Authentication details
-- Conditional Access evaluation
-- Device information
-- Source IP address and location
+- Fecha y hora de autenticación.
+- Aplicación y recurso.
+- Estado del inicio de sesión.
+- Código de error y motivo del fallo.
+- Detalles de autenticación.
+- Evaluación de Conditional Access.
+- Datos del dispositivo.
+- IP de origen y ubicación.
 
-Log access depends on the administrator's assigned permissions and applicable licensing or retention settings.
+El acceso depende de los permisos administrativos, del licenciamiento y de la configuración de retención aplicable.
 
-## 3. Relevant Authentication Error Codes
+## 3. Códigos de error relevantes
 
-| Error Code | Description | Recommended Investigation |
+| Código | Descripción | Investigación recomendada |
 |---|---|---|
-| AADSTS50076 | Multifactor authentication is required | Review MFA challenge and available authentication methods |
-| AADSTS50079 | MFA registration is required | Review authentication method registration requirements |
-| AADSTS50053 | Account or sign-in blocked under a security condition | Investigate lockout, security restrictions, and related sign-in evidence |
-| AADSTS53003 | Blocked by Conditional Access | Review the applicable Conditional Access policy and sign-in details |
+| AADSTS50076 | Se requiere autenticación multifactor | Revisar el desafío MFA y los métodos disponibles |
+| AADSTS50079 | Se requiere registrar MFA | Revisar los requisitos de inscripción |
+| AADSTS50053 | Cuenta o inicio de sesión bloqueado por una condición de seguridad | Investigar bloqueos, restricciones y eventos relacionados |
+| AADSTS53003 | Bloqueo por Conditional Access | Revisar la política aplicada y los detalles del inicio de sesión |
 
-An error code alone does not establish the root cause.
+**Un código por sí solo no demuestra la causa raíz.**
 
-## 4. Simulated Investigation Workflow
+## 4. Proceso de investigación simulado
 
-### Step 1 — Confirm User Identity
+### Paso 1 — Confirmar identidad
 
-Verify the employee's identity using an approved organizational procedure before performing any account recovery operation.
+Verificar la identidad mediante un procedimiento aprobado **antes** de realizar operaciones de recuperación de cuenta.
 
-### Step 2 — Review Account Status
+### Paso 2 — Revisar la cuenta
 
-Check whether the account is enabled and whether relevant account restrictions apply.
+Comprobar si la cuenta está habilitada y si existen restricciones relevantes.
 
-### Step 3 — Review Sign-in Activity
+### Paso 3 — Analizar los intentos de acceso
 
-Locate the failed sign-in attempt and review the authentication failure reason, authentication details, and Conditional Access results.
+Localizar el intento fallido y revisar el motivo, los detalles de autenticación y el resultado de Conditional Access.
 
-### Step 4 — Evaluate MFA Registration
+### Paso 4 — Evaluar el registro MFA
 
-Determine whether the employee retains access to a valid authentication method.
+Determinar si el empleado conserva acceso a un método válido. Cambiar de teléfono **no implica necesariamente** que todos los métodos previos hayan dejado de funcionar.
 
-Do not assume that replacing a phone automatically invalidates all existing authentication methods.
+### Paso 5 — Elegir recuperación autorizada
 
-### Step 5 — Determine the Appropriate Recovery Path
+Si la evidencia respalda una falla de registro MFA, seguir el proceso aprobado. Según la configuración y los permisos, podría utilizarse un **Temporary Access Pass (TAP)** u otra recuperación autorizada.
 
-If the investigation supports an MFA registration problem, follow the organization's approved recovery process.
+### Paso 6 — Validar acceso
 
-Depending on organizational configuration and permissions, this may involve a Temporary Access Pass or another authorized authentication method recovery workflow.
+Después de la recuperación autorizada, confirmar la autenticación y el acceso a las aplicaciones afectadas.
 
-### Step 6 — Validate Authentication
+## 5. Matriz de decisiones
 
-After authorized recovery, confirm successful authentication and access to the affected Microsoft 365 applications.
-
-## 5. Decision Matrix
-
-| Finding | Potential Cause | Next Action |
+| Hallazgo | Posible causa | Acción siguiente |
 |---|---|---|
-| MFA challenge cannot be completed | Unavailable registered authentication method | Verify identity and evaluate approved MFA recovery |
-| MFA registration required | Missing or incomplete authentication method registration | Review registration requirements and authorized enrollment process |
-| Conditional Access blocks sign-in | Access policy requirement not satisfied | Review policy evaluation and escalate if policy changes are required |
-| Account disabled or restricted | Account administration or security action | Confirm account status and escalate as appropriate |
-| Multiple suspicious authentication attempts | Possible security incident | Escalate to the Security team under incident response procedures |
+| No se completa el desafío MFA | Método registrado inaccesible | Verificar identidad y evaluar recuperación autorizada |
+| Se solicita inscripción MFA | Registro ausente o incompleto | Revisar requisitos e inscripción |
+| Conditional Access bloquea el acceso | Incumplimiento de política | Revisar evaluación y escalar cambios |
+| Cuenta deshabilitada o restringida | Administración de cuentas o acción de seguridad | Comprobar estado y escalar |
+| Múltiples intentos sospechosos | Posible incidente | Escalar al equipo de Seguridad |
 
-## 6. Security Considerations
+## 6. Consideraciones de seguridad
 
-- Never request or record a user's password.
-- Do not disable MFA as a troubleshooting shortcut.
-- Do not bypass Conditional Access without explicit authorization.
-- Verify identity before resetting authentication methods.
-- Record administrative changes in the incident ticket.
-- Escalate suspicious activity to the appropriate Security team.
+- No solicitar ni registrar contraseñas.
+- No deshabilitar MFA para facilitar diagnóstico.
+- No eludir Conditional Access sin autorización.
+- Verificar identidad antes de modificar métodos MFA.
+- Registrar cambios administrativos en el ticket.
+- Escalar actividad sospechosa.
 
-## 7. Evidence Required for a Real Incident
+## 7. Evidencia necesaria en un incidente real
 
-In an authorized production environment, the technician would document:
+En un entorno autorizado, se documentarían fechas y correlaciones de inicio de sesión, códigos de error, hallazgos MFA/Conditional Access, acciones de recuperación aprobadas, resultados de validación y confirmación del usuario.
 
-- Relevant sign-in timestamps and correlation or request identifiers
-- Applicable error codes
-- Authentication and Conditional Access findings
-- Approved recovery actions
-- Validation results
-- User confirmation of service restoration
+Los identificadores y datos sensibles deben ocultarse antes de publicar evidencia.
 
-Sensitive information must be redacted before any evidence is shared outside authorized systems.
+## 8. Conclusión técnica
 
-## 8. Technical Conclusion
+El escenario simulado es compatible con una posible dificultad de registro o disponibilidad de MFA después de cambiar de teléfono. **No se revisaron registros reales de Microsoft Entra.**
 
-The simulated incident is consistent with a possible MFA registration or authentication method availability issue following a mobile device replacement.
+**Causa raíz:** no confirmada.  
+**Corrección:** propuesta; no ejecutada.  
+**Validación:** no realizada.
 
-However, no real Microsoft Entra sign-in logs were examined.
+El caso demuestra un proceso L2 estructurado y una recuperación consciente de la seguridad, **no una solución productiva verificada**.
 
-**Root Cause Status:** Unconfirmed  
-**Remediation Status:** Proposed, not executed  
-**Validation Status:** Not performed
+## Referencias
 
-The case demonstrates a structured L2 investigation and security-aware recovery process rather than a verified production resolution.
+- [Registros de inicio de sesión de Entra](https://learn.microsoft.com/en-us/entra/identity/monitoring-health/concept-sign-ins)
+- [Métodos de autenticación](https://learn.microsoft.com/en-us/entra/identity/authentication/concept-authentication-methods-manage)
+- [Códigos de error de Entra](https://learn.microsoft.com/en-us/entra/identity-platform/reference-error-codes)
 
-## References & Official Documentation
-
-- [Microsoft Entra sign-in logs](https://learn.microsoft.com/en-us/entra/identity/monitoring-health/concept-sign-ins)
-- [Microsoft Entra authentication methods](https://learn.microsoft.com/en-us/entra/identity/authentication/concept-authentication-methods-manage)
-- [Microsoft Entra sign-in error codes](https://learn.microsoft.com/en-us/entra/identity-platform/reference-error-codes)
-
-*These references support the methodology and technical procedures; they do not independently validate execution, findings, or control effectiveness.*
+*Estas referencias respaldan el método y no prueban acciones ejecutadas.*
