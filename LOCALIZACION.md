@@ -7,8 +7,8 @@
 
 - **47/47 archivos originales replicados:** se conservan estructura, rutas, documentos fuente, archivos de evidencia y diagramas.
 - **11/11 archivos SVG adaptados:** se tradujeron sus etiquetas y textos principales conservando los elementos gráficos y conexiones. **Revisión visual de desbordamiento y legibilidad pendiente.**
-- **19/32 archivos Markdown traducidos al español:** portada, secciones generales, **todos los documentos de Soporte TI**, los README del análisis real de eventos de Windows y de evaluación de riesgos de seguridad.
-- **13/32 Markdown restantes:** el contenido original en inglés se mantiene temporalmente para evitar pérdidas mientras se localiza.
+- **21/32 archivos Markdown traducidos al español:** portada, secciones generales, **todos los documentos de Soporte TI**, el resumen ejecutivo y las recomendaciones del análisis real de eventos de Windows, y la presentación de la evaluación de riesgos.
+- **11/32 Markdown restantes:** el contenido original en inglés se mantiene temporalmente para evitar pérdidas mientras se localiza.
 - **Tres archivos .txt de evidencia:** se mantienen exactamente como los registros originales, sin alterar la salida de los comandos ni los datos observados.
 - **LICENSE:** se conserva el texto legal original.
 
@@ -35,6 +35,8 @@
 17. `IT-Support/Service-Desk-Incident-Management/images/README.md`
 18. `Cybersecurity/Windows-Security-Event-Analysis/README.md`
 19. `Information-Security/Enterprise-Risk-Assessment/README.md`
+20. `Cybersecurity/Windows-Security-Event-Analysis/docs/executive-summary.md`
+21. `Cybersecurity/Windows-Security-Event-Analysis/docs/monitoring-recommendations.md`
 
 ## Traducciones de documentos técnicos pendientes
 
@@ -44,9 +46,7 @@
 
 ### Ciberseguridad y seguridad de la información
 - `Cybersecurity/Windows-Security-Event-Analysis/docs/event-analysis.md`
-- `Cybersecurity/Windows-Security-Event-Analysis/docs/executive-summary.md`
 - `Cybersecurity/Windows-Security-Event-Analysis/docs/lab-guide.md`
-- `Cybersecurity/Windows-Security-Event-Analysis/docs/monitoring-recommendations.md`
 - `Cybersecurity/Windows-Security-Hardening/README.md`
 - `Cybersecurity/Windows-Security-Hardening/docs/baseline-guide.md`
 - `Cybersecurity/Windows-Security-Hardening/docs/security-assessment.md`
