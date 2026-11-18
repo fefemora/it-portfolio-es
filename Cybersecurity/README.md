@@ -24,12 +24,14 @@ Esta sección presenta proyectos de ciberseguridad, laboratorios defensivos y ej
 | Proyecto | Objetivo | Estado |
 |---|---|---|
 | [Análisis de eventos de seguridad de Windows](Windows-Security-Event-Analysis/README.md) | Investigación defensiva de eventos y políticas de auditoría con evidencias reales. | Evaluación inicial completada |
-| [Windows Security Hardening](Windows-Security-Hardening/README.md) | Línea base, evaluación de controles y validación controlada. | Evaluación de 30 pasos finalizada; mejoras futuras pendientes |
+| [Evaluación de seguridad de Windows](Windows-Security-Hardening/RESUMEN-ES.md) | Línea base, evaluación de controles y validación controlada. | Evaluación de 30 pasos finalizada; mejoras futuras pendientes |
 | Laboratorio SIEM con Wazuh | Centralizar y analizar eventos para monitoreo. | Planificado |
 | Laboratorio IAM y control de acceso | Gestionar identidades, roles y permisos. | Planificado |
 | [Evaluación de riesgos de seguridad](../Information-Security/Enterprise-Risk-Assessment/README.md) | Identificar riesgos y documentar tratamientos. | Caso simulado completado |
 
 ## Metodología
+
+[Consultar la metodología transversal de investigación](../metodologia/README.md).
 
 Cada proyecto distinguirá el alcance, entorno, riesgos, pruebas, evidencia, resultados, recomendaciones y lecciones aprendidas. Un hallazgo no se considera vulnerabilidad confirmada sin evidencia suficiente. Los cambios se ejecutarán únicamente con autorización.
 
