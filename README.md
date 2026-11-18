@@ -4,13 +4,13 @@
 
 Bienvenido a mi portafolio profesional. Aquí documento cómo investigo problemas técnicos, organizo evidencias, evalúo riesgos y valido resultados. Mis proyectos reúnen **soporte y resolución de incidentes**, **operaciones seguras de TI** y **análisis de seguridad**.
 
-**[English version / Versión en inglés](https://github.com/fefemora/it-portfolio-en)** · **[Estado de la traducción](LOCALIZACION.md)**
+**[English version / Versión en inglés](https://github.com/fefemora/it-portfolio-en)** · **[Cómo trabajo — metodología](metodologia/README.md)** · **[Estado de la traducción](LOCALIZACION.md)**
 
-> **Transparencia de evidencias:** distingo los **casos reales**, los **escenarios simulados** y los **proyectos planificados**. Los ejercicios ficticios no se presentan como incidentes reales ni como controles implementados. **Estado de traducción:** la estructura y todos los archivos originales ya están replicados; la adaptación al español de los documentos técnicos y textos de diagramas sigue en curso. Algunos enlaces todavía llevan a contenido en inglés.
+> **Transparencia de evidencias:** distingo los **casos reales**, los **escenarios simulados** y los **proyectos planificados**. Los ejercicios ficticios no se presentan como incidentes reales ni como controles implementados. **Estado de traducción:** los 47 archivos originales están replicados; 28 de los 32 documentos Markdown originales se han localizado al español. Los cuatro documentos extensos de Windows Security Hardening aún incluyen texto en inglés; existe un resumen técnico en español. Los SVG se adaptaron, pendientes de revisión visual.
 
 ## Explora el portafolio
 
-**[Soporte TI y resolución de incidentes](IT-Support/README.md)** · [Evaluación de riesgos de seguridad de la información](Information-Security/Enterprise-Risk-Assessment/README.md) · **[Análisis real de eventos de seguridad de Windows](Cybersecurity/Windows-Security-Event-Analysis/README.md)**
+**[Soporte TI y resolución de incidentes](IT-Support/README.md)** · [Evaluación de riesgos de seguridad de la información](Information-Security/Enterprise-Risk-Assessment/README.md) · **[Análisis real de eventos de seguridad de Windows](Cybersecurity/Windows-Security-Event-Analysis/README.md)** · [Metodología](metodologia/README.md)
 
 [![Mapa de navegación de casos de soporte TI](IT-Support/it-support-navigation.svg)](IT-Support/README.md)
 
@@ -22,7 +22,7 @@ Bienvenido a mi portafolio profesional. Aquí documento cómo investigo problema
 | **[Gestión de incidentes de mesa de ayuda L2](IT-Support/Service-Desk-Incident-Management/README.md)** | Microsoft 365/MFA, DNS, VPN y escalamiento | Tres escenarios simulados | **Documentados** |
 | **[Evaluación de riesgos de seguridad empresarial](Information-Security/Enterprise-Risk-Assessment/README.md)** | Inventario, matriz de riesgos, NIST CSF 2.0, CIS IG1 y plan de tratamiento | Empresa ficticia | **Documentación completada** |
 | **[Análisis de eventos de seguridad de Windows](Cybersecurity/Windows-Security-Event-Analysis/README.md)** | Eventos 4624/4672, política de auditoría, correlación y límites de retención | Investigación real de solo lectura | **Evaluación inicial completada** |
-| **[Windows Security Hardening](Cybersecurity/Windows-Security-Hardening/README.md)** | Línea base, Defender, firewall, auditoría, cambios y validación | Evidencia real, 30 pasos documentados | **Evaluación finalizada; mejoras pendientes** |
+| **[Evaluación de seguridad de Windows](Cybersecurity/Windows-Security-Hardening/RESUMEN-ES.md)** | Línea base, Defender, firewall, auditoría, cambios y validación | Evidencia real, 30 pasos documentados | **Evaluación finalizada; mejoras pendientes** |
 
 ## Casos y resultados relevantes
 
@@ -52,7 +52,7 @@ Análisis de eventos 4624, 4672 y 4688, con correlación acotada de sesión, eva
 
 ### 05 — Evaluación y endurecimiento de seguridad de Windows
 
-[![Proceso de evaluación y validación](Cybersecurity/Windows-Security-Hardening/diagrams/hardening-workflow.svg)](Cybersecurity/Windows-Security-Hardening/README.md)
+[![Proceso de evaluación y validación](Cybersecurity/Windows-Security-Hardening/diagrams/hardening-workflow.svg)](Cybersecurity/Windows-Security-Hardening/RESUMEN-ES.md)
 
 Evaluación de **30 pasos**, con evidencia real de Windows Firewall, Microsoft Defender, PowerShell y auditoría de autenticación. Se aprobó **un cambio específico**: aumentar el tamaño máximo del registro Security de **20 MiB a 128 MiB**. La retención de siete días no se ha validado, y los cambios de BitLocker y Secure Boot permanecen pendientes.
 
@@ -77,7 +77,9 @@ Evaluación de **30 pasos**, con evidencia real de Windows Firewall, Microsoft D
 | Ciberseguridad | Laboratorio SIEM con Wazuh |
 | Cloud | Redes y seguridad en la nube |
 
-## Metodología de documentación
+## Metodología de trabajo e investigación
+
+**[Cómo trabajo: seis etapas de investigación y resolución](metodologia/README.md)** · [Plantilla de investigación y runbook](metodologia/plantilla-investigacion.md) · [Evidencia y validación](metodologia/evidencia-y-validacion.md)
 
 Los proyectos describen el **problema u objetivo**, el **alcance**, las **hipótesis**, los **procedimientos**, la **evidencia**, la **validación**, los **riesgos**, las **limitaciones** y las **lecciones aprendidas**. Las recomendaciones se distinguen de los cambios autorizados y efectivamente realizados.
 
