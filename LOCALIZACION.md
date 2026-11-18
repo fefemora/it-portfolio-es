@@ -7,12 +7,12 @@
 
 - **47/47 archivos originales replicados:** se conservan estructura, rutas, documentos fuente, archivos de evidencia y diagramas.
 - **11/11 archivos SVG adaptados:** se tradujeron sus etiquetas y textos principales conservando los elementos gráficos y conexiones. **Revisión visual de desbordamiento y legibilidad pendiente.**
-- **28/32 archivos Markdown originales traducidos al español:** portada, secciones generales, toda la documentación de Soporte TI y **toda la evaluación de riesgos empresariales**, incluidas ahora también la guía de laboratorio y el análisis técnico de eventos de Windows.
-- **4/32 Markdown originales restantes:** el contenido original en inglés se mantiene temporalmente para evitar pérdidas mientras se localiza.
+- **32/32 archivos Markdown originales localizados al español:** portada, áreas generales, todos los incidentes de Soporte TI, la evaluación de riesgos, el análisis de eventos de Windows y los 30 pasos de Windows Hardening. Los cuatro documentos extensos del último laboratorio fueron reorganizados para facilitar la consulta, preservando comandos, resultados y hallazgos verificables.
+- **0/32 documentos Markdown originales pendientes:** localización documental completada. Queda una revisión visual manual de los diagramas y, si corresponde, ajustes editoriales menores.
 - **Tres archivos .txt de evidencia:** se mantienen exactamente como los registros originales, sin alterar la salida de los comandos ni los datos observados.
 - **LICENSE:** se conserva el texto legal original.
 
-**Importante:** este repositorio todavía está en proceso de traducción. Que un archivo exista aquí **no significa** que su traducción haya concluido. No se inventan resultados ni se modifican las evidencias reales.
+**Importante:** la traducción documental está completa, pero la comprobación visual de todos los SVG todavía está pendiente. Los comandos, datos de consola y hallazgos reales se mantuvieron sin inventar resultados. La organización y extensión de las explicaciones en español pueden diferir de las del original, sin cambiar la evidencia.
 
 ## Archivos Markdown ya localizados
 
@@ -44,18 +44,20 @@
 26. `Information-Security/Enterprise-Risk-Assessment/treatment/risk-treatment-plan.md`
 27. `Cybersecurity/Windows-Security-Event-Analysis/docs/event-analysis.md`
 28. `Cybersecurity/Windows-Security-Event-Analysis/docs/lab-guide.md`
+29. `Cybersecurity/Windows-Security-Hardening/README.md`
+30. `Cybersecurity/Windows-Security-Hardening/docs/baseline-guide.md`
+31. `Cybersecurity/Windows-Security-Hardening/docs/security-assessment.md`
+32. `Cybersecurity/Windows-Security-Hardening/docs/validation-plan.md`
 
-## Traducciones de documentos técnicos pendientes
+## Estado de localización por área
 
 ### Soporte TI
 
 **Localización finalizada.** Los incidentes reales y simulados, procedimientos, formularios, flujos Mermaid y notas de validación están disponibles en español. Las salidas originales de consola permanecen sin modificaciones.
 
 ### Ciberseguridad y seguridad de la información
-- `Cybersecurity/Windows-Security-Hardening/README.md`
-- `Cybersecurity/Windows-Security-Hardening/docs/baseline-guide.md`
-- `Cybersecurity/Windows-Security-Hardening/docs/security-assessment.md`
-- `Cybersecurity/Windows-Security-Hardening/docs/validation-plan.md`
+
+**Localización documental finalizada.** Los informes de análisis de eventos, evaluación de riesgos empresariales y los cuatro archivos de Windows Security Hardening están en español. El laboratorio de hardening conserva una guía central con los 30 pasos, comandos y salidas, más documentos resumidos de evaluación y cambio para evitar duplicaciones.
 
 ## Documentación adicional en español
 
@@ -73,4 +75,4 @@ Se agregaron [Cómo trabajo — Metodología](metodologia/README.md), una [plant
 
 ## Próxima prioridad
 
-Traducir íntegramente los **cuatro documentos extensos** del laboratorio Windows Security Hardening; mientras tanto, utilizar el resumen técnico en español. Las dos guías de análisis de eventos, los casos de Soporte TI y la evaluación de riesgos ya están localizados. Comprobar además el aspecto visual y ajuste de textos de los 11 SVG. Mantener íntegros los comandos y las salidas originales.
+Realizar una **revisión visual manual de los 11 SVG** y verificar su legibilidad a distintos tamaños; continuar con mantenimiento bilingüe y referencias cruzadas. Mantener íntegros los comandos, salidas y límites de las evidencias originales.
