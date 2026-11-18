@@ -1,48 +1,41 @@
+# Documentación técnica
 
-# Technical Documentation
+Esta sección reúne plantillas, procedimientos y recursos utilizados en mis proyectos de soporte TI y ciberseguridad.
 
-This section contains documentation templates, technical procedures, and resources used throughout my IT Support and Cybersecurity portfolio.
+El objetivo es demostrar una metodología estructurada de diagnóstico, gestión de incidentes, documentación y transferencia de conocimiento.
 
-The objective is to demonstrate a structured approach to technical documentation, troubleshooting, incident management, and knowledge sharing.
+## Principios de documentación
 
-## Documentation Standards
+- Comunicación técnica clara y concisa.
+- Procedimientos de diagnóstico estructurados.
+- Pasos reproducibles.
+- Evidencia verificable y criterios de validación.
+- Confidencialidad y seguridad.
+- Mejora continua y reutilización del conocimiento.
 
-My technical documentation follows these principles:
+## Recursos
 
-- Clear and concise technical communication
-- Structured troubleshooting procedures
-- Reproducible implementation steps
-- Accurate evidence and validation
-- Security and confidentiality considerations
-- Continuous improvement and knowledge sharing
-
-## Documentation Resources
-
-| Resource | Description | Status |
+| Recurso | Propósito | Estado |
 |---|---|---|
-| Troubleshooting Template | Standard format for documenting technical issues, diagnostics, and resolutions. | Planned |
-| Incident Report Template | Structured documentation for technical and security incidents. | Planned |
-| Lab Documentation Template | Standard format for technical labs and project implementations. | Planned |
-| Change Management Template | Documentation for planned technical changes, validation, and rollback procedures. | Planned |
+| Plantilla de troubleshooting | Registrar problemas, hipótesis, diagnóstico y solución. | Planificada |
+| [Plantilla de incidentes](../IT-Support/Service-Desk-Incident-Management/templates/incident-report-template.md) | Registro estructurado de incidentes de TI y seguridad. | Disponible; traducción pendiente |
+| Plantilla de laboratorio técnico | Describir configuración, pruebas y resultados. | Planificada |
+| Plantilla de gestión de cambios | Planificación, aprobación, validación y reversión. | Planificada |
 
-## Documentation Methodology
+## Preguntas que debe responder cada documento
 
-Technical documentation should answer the following questions:
+1. ¿Cuál es el problema u objetivo?
+2. ¿Qué sistemas y alcance están involucrados?
+3. ¿Qué comprobaciones o intervenciones se realizaron?
+4. ¿Cuáles fueron los resultados reales?
+5. ¿Cómo se validó la solución?
+6. ¿Qué riesgos y limitaciones existen?
+7. ¿Qué lecciones se aprendieron?
 
-1. What was the objective or problem?
-2. What environment or systems were involved?
-3. What diagnostic or implementation steps were performed?
-4. What results were obtained?
-5. How was the solution validated?
-6. What security considerations were identified?
-7. What lessons were learned?
+## Confidencialidad
 
-## Confidentiality
+Se utilizan datos ficticios, públicos o adecuadamente anonimizados. No se publican credenciales, información confidencial de organizaciones o clientes ni detalles sensibles de infraestructura.
 
-All examples and documentation will use simulated, public, or appropriately sanitized information.
+## Mejora continua
 
-No confidential organizational data, credentials, customer information, or sensitive infrastructure details will be published.
-
-## Continuous Improvement
-
-Documentation will be reviewed and updated as projects evolve, new tools are introduced, and technical knowledge expands.
+Los documentos se revisarán conforme evolucionen los proyectos y aparezcan nuevas evidencias.
