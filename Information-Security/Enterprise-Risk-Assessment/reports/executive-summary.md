@@ -1,136 +1,136 @@
-# Executive Summary — Information Security Risk Assessment
+# Resumen ejecutivo — Evaluación de riesgos de seguridad de la información
 
-![Emerald Technologies executive risk dashboard](executive-dashboard.svg)
+![Panel ejecutivo de riesgos](executive-dashboard.svg)
 
-![Illustrative inherent risk distribution pie chart](risk-distribution.svg)
+![Distribución ilustrativa del riesgo inherente](risk-distribution.svg)
 
-**Prepared for:** Executive Management, Emerald Technologies (fictional)  
-**Assessment:** Enterprise Information Security Risk Assessment  
-**Frameworks referenced:** NIST CSF 2.0 · CIS Controls v8.1 IG1  
-**Assessment type:** Hypothetical qualitative case study  
-**Status:** Assessment documentation completed; recommendations **not implemented or validated**
+**Dirigido a:** Gerencia ejecutiva de Emerald Technologies (**ficticia**)  
+**Evaluación:** Seguridad de la información empresarial  
+**Marcos:** NIST CSF 2.0 · CIS Controls v8.1 IG1  
+**Tipo:** Caso hipotético cualitativo  
+**Estado:** Documentación completada; recomendaciones **no implementadas ni validadas**
 
-> **Executive disclaimer:** Emerald Technologies, its 50 employees, the asset register, and all risk scores are fictional. This document illustrates how to communicate a security risk assessment; it does not report findings from a real organization or claim verified control weaknesses.
+> **Advertencia:** la empresa, sus 50 empleados, inventario y puntajes son ficticios. El documento ilustra comunicación ejecutiva de riesgos, no hallazgos verificados de una organización real.
 
-## 1. Executive Decision Brief
+## 1. Decisión ejecutiva solicitada
 
-**Management decision requested (hypothetical):** Authorize a 90-day risk-reduction planning effort, assign accountable business and technical owners, validate the asset and control baseline, and approve a proportionate implementation budget **after** scoping and cost estimates.
+**Decisión hipotética:** autorizar la planificación de una reducción de riesgos a 90 días, asignar responsables técnicos y de negocio, verificar inventario y controles, y aprobar presupuesto proporcional **después** de definir alcance y costos.
 
-The scenario-based assessment covers **50 assumed employees**, **50 Windows workstations**, a Microsoft 365 environment, corporate VPN access, business file repositories, and backup/recovery services.
+El escenario considera **50 empleados**, **50 estaciones Windows**, Microsoft 365, VPN, repositorios de archivos y servicios de respaldo/recuperación.
 
-Eight hypothetical inherent risk scenarios were scored using a **project-defined 5 × 5 likelihood × impact model**.
+Se evaluaron ocho riesgos inherentes hipotéticos usando una **matriz 5 × 5** de probabilidad por impacto, definida por el proyecto.
 
-| Risk rating | Count | Share | Management implication |
+| Categoría | Cantidad | Proporción | Implicancia para la dirección |
 |---|---:|---:|---|
-| **Critical** | **2** | **25%** | Prioritize identity security and recoverability |
-| **High** | **4** | **50%** | Plan near-term improvements for endpoints, email, file access, and VPN |
-| **Moderate** | **2** | **25%** | Address patch compliance and file-service resilience |
-| **Low** | **0** | **0%** | No scenario scored Low in this illustrative set |
+| **Crítico** | **2** | **25 %** | Priorizar identidades y recuperación de datos |
+| **Alto** | **4** | **50 %** | Mejorar endpoints, correo, acceso a archivos y VPN |
+| **Moderado** | **2** | **25 %** | Abordar parches y continuidad del servicio de archivos |
+| **Bajo** | **0** | **0 %** | Ningún escenario seleccionado resultó Bajo |
 
-**Important:** These proportions describe **eight selected fictional scenarios**, not the organization's true risk prevalence, likelihood of an incident, or compliance level.
+Estas proporciones corresponden **solo a ocho escenarios ficticios**, no a la exposición real de la empresa, probabilidad de incidentes o nivel de cumplimiento.
 
-## 2. Business Exposure: What Matters Most
+## 2. Riesgos principales del negocio
 
-### Priority 1 — Account Takeover (R-001)
+### Prioridad 1 — Apropiación de cuentas (R-001)
 
-**Inherent score:** 20/25 — Critical.  
-**Potential business impact:** Compromised employee or administrator accounts could expose confidential information, interrupt collaboration, and enable further unauthorized activity.  
-**Proposed response:** Validate account inventory, MFA coverage, privileged access, and sign-in monitoring.  
-**Decision required:** Confirm accountable ownership and authorize identity control review.
+**Puntaje inherente:** 20/25 — Crítico.  
+**Impacto potencial:** cuentas de empleados o administradores comprometidas podrían exponer información, interrumpir la colaboración y facilitar otras acciones no autorizadas.  
+**Respuesta propuesta:** verificar inventario de cuentas, cobertura MFA, privilegios y monitoreo de autenticaciones.  
+**Decisión requerida:** nombrar responsables y autorizar revisión de controles IAM.
 
-### Priority 2 — Unrecoverable Business Data (R-002)
+### Prioridad 2 — Datos empresariales irrecuperables (R-002)
 
-**Inherent score:** 20/25 — Critical.  
-**Potential business impact:** If ransomware or operational failure affects important files and restoration is unsuccessful, operations may remain disrupted for an extended period.  
-**Proposed response:** Verify backup scope, protected copies, restore procedures, and recovery objectives through controlled testing.  
-**Decision required:** Identify business-critical datasets and approve recovery targets.
+**Puntaje inherente:** 20/25 — Crítico.  
+**Impacto potencial:** ransomware o fallas operativas podrían interrumpir procesos por períodos prolongados si los respaldos no permiten restaurar.  
+**Respuesta propuesta:** evaluar cobertura de respaldo, copias protegidas, procedimientos y objetivos de recuperación mediante pruebas autorizadas.  
+**Decisión requerida:** identificar datos críticos y aprobar metas de recuperación.
 
-### Priority 3 — Operational and Access Risks (R-003 to R-006)
+### Prioridad 3 — Riesgos operativos y de acceso (R-003 a R-006)
 
-**Inherent scores:** 12–16/25 — High.  
-**Potential business impact:** Endpoint malware, fraudulent email requests, inappropriate file sharing, or unauthorized VPN access could disrupt services or compromise information.  
-**Proposed response:** Strengthen endpoint baselines, phishing awareness and verification, access reviews, and remote-access policy enforcement.
+**Puntajes inherentes:** 12–16/25 — Alto.  
+**Impacto potencial:** malware, correo fraudulento, permisos inapropiados y VPN no autorizada podrían afectar servicios y datos.  
+**Respuesta propuesta:** fortalecer línea base de endpoints, procedimientos contra phishing, revisiones de acceso y política de VPN.
 
-### Priority 4 — Reliability Improvements (R-007 and R-008)
+### Prioridad 4 — Continuidad operativa (R-007 y R-008)
 
-**Inherent scores:** 8–9/25 — Moderate.  
-**Potential business impact:** Unpatched endpoints or internal file service outages could reduce service availability and increase recovery work.  
-**Proposed response:** Establish monitored patch processes and test documented service recovery procedures.
+**Puntajes inherentes:** 8–9/25 — Moderado.  
+**Impacto potencial:** falta de parches y fallas de archivos internos podrían disminuir disponibilidad y aumentar esfuerzos de recuperación.  
+**Respuesta propuesta:** monitoreo de parches y pruebas documentadas de recuperación.
 
-## 3. Proposed 90-Day Plan
+## 3. Hoja de ruta de 90 días
 
-![Proposed treatment roadmap](../treatment/risk-treatment-roadmap.svg)
+![Plan de tratamiento propuesto](../treatment/risk-treatment-roadmap.svg)
 
-| Phase | Target | Risk focus | Expected decision or evidence |
+| Fase | Período | Riesgos | Decisión o evidencia esperada |
 |---|---|---|---|
-| **Phase 1** | Days 1–30 | Critical: R-001, R-002 | Confirm identity and backup baseline; review MFA and conduct authorized restore testing |
-| **Phase 2** | Days 31–60 | High: R-003 to R-006 | Review endpoint controls, email verification, sharing permissions, and VPN entitlements |
-| **Phase 3** | Days 61–90 | Moderate: R-007, R-008 | Validate patch process and file-service recovery readiness |
+| **1** | Días 1–30 | Críticos: R-001, R-002 | Validar identidades y respaldos, revisar MFA y ejecutar prueba autorizada de restauración |
+| **2** | Días 31–60 | Altos: R-003 a R-006 | Evaluar endpoints, correo, permisos y accesos VPN |
+| **3** | Días 61–90 | Moderados: R-007, R-008 | Comprobar gestión de parches y recuperación de archivos |
 
-**Day 0** is the future date of hypothetical management approval. These are **proposed targets**, not completed work or a guaranteed implementation schedule. Actual sequencing may overlap and depends on resources and verified conditions.
+**Día 0:** fecha futura de aprobación hipotética de gerencia. Los plazos son **propuestos**, no actividades completadas ni promesas de implementación. La secuencia depende de recursos y resultados reales.
 
-## 4. Governance and Framework Alignment
+## 4. Gobierno y marcos
 
-**NIST CSF 2.0** provides the outcome-oriented structure across **Govern, Identify, Protect, Detect, Respond, and Recover**.
+**NIST CSF 2.0** proporciona una estructura de resultados mediante **Govern, Identify, Protect, Detect, Respond y Recover**.
 
-**CIS Controls v8.1 IG1** provides candidate foundational safeguards for practical risk treatment. The [Control Mapping](../controls/control-mapping.md) connects the eight scenarios to proposed safeguards and validation evidence.
+**CIS Controls v8.1 IG1** ofrece salvaguardas candidatas de base. El [mapeo de controles](../controls/control-mapping.md) relaciona riesgos con medidas y evidencias propuestas.
 
-These references support the analysis; the case study does **not** claim NIST certification, CIS compliance, or use of an official crosswalk.
+Este ejercicio **no declara certificación NIST, cumplimiento CIS ni uso de una correspondencia oficial**.
 
-### Proposed accountability
+### Responsabilidades propuestas
 
-| Role | Management responsibility |
+| Rol | Responsabilidad |
 |---|---|
-| Executive sponsor — Operations Manager | Approve scope, resources, and treatment decisions |
-| Business risk owners | Confirm impact, acceptable exposure, and residual risk decisions |
-| IT / Infrastructure / Network / M365 leads | Implement authorized changes and produce evidence |
-| IT Support / Security reviewers | Track exceptions, validate agreed criteria, and escalate gaps |
+| Patrocinador ejecutivo — Gerente de Operaciones | Aprobar alcance, recursos y decisiones de tratamiento |
+| Propietarios de riesgos | Confirmar impacto, exposición aceptable y decisiones residuales |
+| Responsables de TI / Infraestructura / Redes / M365 | Ejecutar cambios autorizados y producir evidencia |
+| Soporte TI / Revisores de Seguridad | Seguir excepciones, validar criterios y escalar brechas |
 
-## 5. Recommended Management Actions
+## 5. Acciones recomendadas a dirección
 
-1. **Approve discovery and validation:** Confirm the fictional baseline assumptions before adopting any score or proposed action in a real setting.
-2. **Assign risk owners:** Ensure each of the eight risks has an accountable business owner and a technical implementation lead.
-3. **Prioritize critical exposure:** Review identity access and recovery capability first.
-4. **Establish evidence-based milestones:** Require configuration records, access reviews, patch reports, and restore-test evidence as appropriate.
-5. **Set business recovery targets:** Define recovery time and recovery point objectives for critical data and services.
-6. **Request an implementation estimate:** Determine licensing, staffing, effort, and dependencies before approving expenditure.
-7. **Review residual risk:** Reassess only after control implementation and effectiveness have been documented.
+1. **Aprobar descubrimiento y validación:** confirmar supuestos de la línea base antes de usar puntajes reales.
+2. **Asignar responsables:** identificar para cada riesgo un dueño de negocio y responsable técnico.
+3. **Priorizar exposiciones críticas:** revisar identidades y capacidad de recuperación.
+4. **Definir hitos basados en evidencia:** políticas, revisiones, informes de parches y restauraciones.
+5. **Aprobar objetivos de recuperación:** establecer RTO y RPO para información y servicios críticos.
+6. **Solicitar estimación de implementación:** evaluar licencias, personas, esfuerzo y dependencias.
+7. **Revisar riesgo residual:** solo cuando estén implementados y probados los controles.
 
-## 6. How Success Would Be Measured
+## 6. Indicadores propuestos de éxito
 
-| Proposed KPI | Measurement approach | Current baseline |
+| KPI | Cálculo propuesto | Línea base actual |
 |---|---|---|
-| MFA coverage for applicable accounts | Verified compliant accounts / in-scope accounts | Not measured |
-| Endpoint patch compliance | Devices meeting approved patch SLA / in-scope devices | Not measured |
-| Backup restore success | Successful approved restore exercises / attempted exercises | Not measured |
-| Access review completion | Completed approved reviews / scheduled reviews | Not measured |
-| Treatment action verification | Actions with accepted evidence / approved actions | 0 verified in this simulation |
+| Cobertura MFA de cuentas aplicables | Cuentas conformes verificadas / cuentas incluidas | No medida |
+| Cumplimiento de parches | Equipos dentro del SLA de actualización / equipos incluidos | No medida |
+| Restauraciones exitosas | Pruebas aprobadas exitosas / pruebas realizadas | No medida |
+| Revisiones de acceso completadas | Revisiones aprobadas realizadas / revisiones programadas | No medida |
+| Verificación del tratamiento | Acciones con evidencia aceptada / acciones aprobadas | 0 verificadas en la simulación |
 
-**No actual KPI results are reported.** Management should define targets only after validating the environment and its operational constraints.
+**No se informan KPI reales.** Los objetivos deben definirse una vez validados el entorno y sus restricciones.
 
-## 7. Limitations and Next Decision
+## 7. Limitaciones y próxima decisión
 
-This is a **fictional, desk-based portfolio assessment**. It contains no interviews, asset discovery, live configuration inspection, vulnerability testing, actual financial loss data, or operational validation. The 5 × 5 scoring method is defined for this case study, not mandated by NIST or CIS.
+Evaluación **ficticia realizada a nivel documental**. No incluye entrevistas, inventario descubierto, inspección de configuraciones, escaneo de vulnerabilidades, pérdidas financieras reales ni validación operativa. La matriz 5 × 5 es específica del ejercicio y no obligatoria según NIST/CIS.
 
-**Recommended next decision:** Approve a baseline-validation phase and authorize detailed planning of the critical-risk treatments. Do **not** mark risks closed or assign residual scores without evidence and accountable owner review.
+**Decisión recomendada:** aprobar una fase de validación de línea base y planificación de tratamientos críticos. No cerrar riesgos ni asignar puntajes residuales sin evidencia y revisión del propietario.
 
-## Supporting Documentation
+## Documentos de respaldo
 
-- [Asset Inventory](../assets/asset-inventory.md)
-- [Risk Register and Heatmap](../risk-register/risk-register.md)
-- [NIST CSF / CIS IG1 Control Mapping](../controls/control-mapping.md)
-- [Risk Treatment Plan](../treatment/risk-treatment-plan.md)
-- [NIST Cybersecurity Framework](https://www.nist.gov/cyberframework)
+- [Inventario de activos](../assets/asset-inventory.md)
+- [Registro y mapa de calor](../risk-register/risk-register.md)
+- [Mapeo NIST CSF / CIS IG1](../controls/control-mapping.md)
+- [Plan de tratamiento](../treatment/risk-treatment-plan.md)
+- [NIST CSF](https://www.nist.gov/cyberframework)
 - [CIS Critical Security Controls](https://www.cisecurity.org/controls)
 
-## References & Official Documentation
+## Referencias oficiales
 
 - [NIST Cybersecurity Framework 2.0](https://www.nist.gov/cyberframework)
 - [CIS Controls v8.1 Navigator](https://www.cisecurity.org/controls/cis-controls-navigator)
-- [NIST SP 800-30 Rev. 1 — Guide for Conducting Risk Assessments](https://csrc.nist.gov/pubs/sp/800/30/r1/final)
+- [NIST SP 800-30 Rev. 1](https://csrc.nist.gov/pubs/sp/800/30/r1/final)
 
-*Sources support methodology and safeguards; fictional risk ratings are not verified findings.*
+*Los marcos respaldan las metodologías; los puntajes ficticios no son hallazgos verificados.*
 
 ---
 
-*Prepared as a fictional, educational portfolio deliverable. All figures and decisions are illustrative.*
+*Documento ejecutivo preparado para un caso de estudio educativo y ficticio.*
