@@ -1,27 +1,27 @@
-# How-To: Investigating Windows Security Events with PowerShell
+# Guía práctica: análisis de eventos de seguridad de Windows con PowerShell
 
-[Project overview](../README.md) · [Executive summary](executive-summary.md) · [Event analysis](event-analysis.md) · [Recommendations](monitoring-recommendations.md) · [Portfolio home](../../../README.md)
+[Proyecto](../README.md) · [Resumen ejecutivo](executive-summary.md) · [Análisis técnico](event-analysis.md) · [Recomendaciones](monitoring-recommendations.md) · [Portafolio](../../../README.md)
 
-**Status:** Partially executed and verified against the user's console output.  
-**Approach:** Read-only queries. No policy changes, event deletion, or simulated attacks.
+**Estado:** comprobaciones ejecutadas y validadas parcialmente con resultados de consola reales.  
+**Enfoque:** consultas de solo lectura. No se modificaron políticas, borraron eventos ni simularon ataques.
 
-## Prerequisites
+## Requisitos
 
-- Windows PowerShell, preferably opened **as administrator** to access the Security log.
-- An existing Windows Security event log.
-- Do not publish raw usernames, SIDs, IP addresses, hostnames, or event message content without review.
+- Windows PowerShell, preferentemente **como administrador** para acceder a Security.
+- Registro de eventos Security existente.
+- No publicar nombres reales de usuarios, SID personales, direcciones IP, nombres de equipos ni mensajes completos sin revisión.
 
-## Step 1 — Inspect the Security log configuration
+## Paso 1 — Revisar configuración del registro Security
 
-Run as a **single line** to avoid paste-order issues:
+Ejecutar en **una sola línea** para evitar errores al pegar:
 
 ```powershell
 Get-WinEvent -ListLog Security | Select-Object LogName, IsEnabled, RecordCount, MaximumSizeInBytes, LogMode
 ```
 
-**Purpose:** Determine whether the Security log is enabled, how many records it currently holds, its maximum size, and its retention mode.
+**Objetivo:** verificar habilitación, cantidad de registros, límite de tamaño y modo de retención.
 
-**Observed result (verified after retry):**
+**Salida real (verificada después de repetir la consulta):**
 
 ```text
 LogName            : Security
@@ -31,11 +31,11 @@ MaximumSizeInBytes : 20971520
 LogMode            : Circular
 ```
 
-**Interpretation:** The Security log is enabled, with 33,898 stored records and a configured maximum of **20 MiB** (20,971,520 bytes). `Circular` means older records may be overwritten as the log fills. The oldest and newest retained event timestamps are verified in Step 3.
+**Interpretación:** el registro estaba habilitado y contenía **33.898 eventos**, con tamaño máximo de **20 MiB**. El modo `Circular` permite sobrescribir registros antiguos cuando alcanza su capacidad.
 
-**Troubleshooting note:** The first attempted paste placed `Select-Object` before `Get-WinEvent`, leaving a trailing pipeline operator and causing `ParserError: EmptyPipeElement`. This was a command-entry error, **not** a Security log failure. The corrected command ran successfully.
+**Problema resuelto durante la consulta:** un primer pegado dejó `Select-Object` antes de `Get-WinEvent`, produciendo `ParserError: EmptyPipeElement`. Fue un error de introducción del comando, **no una falla del registro Security**.
 
-## Step 2 — Count selected Security events in the last seven days
+## Paso 2 — Contar eventos Security de los últimos siete días
 
 ```powershell
 $ids = 4624,4625,4634,4672,4688,1102
@@ -50,9 +50,9 @@ Get-WinEvent -FilterHashtable @{
     Select-Object Name, Count
 ```
 
-**Purpose:** Retrieve matching records from the Security log over a rolling seven-day period and group them by event ID.
+**Objetivo:** recuperar coincidencias dentro de una ventana móvil de siete días y agrupar por identificador.
 
-**Observed output (copied from an actual console run):**
+**Resultado real:**
 
 ```text
 Name Count
@@ -63,11 +63,11 @@ Name Count
 4688    13
 ```
 
-**Validation:** Four event IDs returned records. IDs 4625 and 1102 did not appear in the grouped output. This does not establish that they never occurred; auditing, retention, permissions, query scope, and the use of `-ErrorAction SilentlyContinue` may affect what is returned.
+**Validación:** cuatro identificadores tuvieron registros; 4625 y 1102 no aparecieron. Esto **no demuestra** que nunca hayan ocurrido. La auditoría, retención, permisos, alcance y `-ErrorAction SilentlyContinue` pueden influir en la recuperación.
 
-**Interpretation:** Event 4624 reports a successful logon, 4634 a logoff, 4672 special privileges assigned to a new logon, and 4688 process creation. Counts are not unique people or evidence of malicious behavior.
+**Significado:** 4624 = inicio de sesión exitoso; 4634 = cierre de sesión; 4672 = privilegios especiales asignados; 4688 = creación de proceso. Los conteos no representan personas únicas ni pruebas de comportamiento malicioso.
 
-## Step 3 — Determine the retained Security log time span
+## Paso 3 — Medir intervalo de eventos retenidos
 
 ```powershell
 $oldest = Get-WinEvent -LogName Security -Oldest -MaxEvents 1
@@ -82,9 +82,9 @@ $newest = Get-WinEvent -LogName Security -MaxEvents 1
 }
 ```
 
-**Purpose:** Find the timestamp of the first and last currently retained Security records, then calculate the elapsed time between them.
+**Objetivo:** calcular el tiempo entre el evento más antiguo y el más reciente todavía retenidos.
 
-**Observed output (real PowerShell console result; local date formatting):**
+**Salida real en formato local:**
 
 ```text
 OldestEvent         NewestEvent         RetainedDays
@@ -92,15 +92,15 @@ OldestEvent         NewestEvent         RetainedDays
 15-11-2026 20:02:39 17-11-2026 20:40:43         2,03
 ```
 
-**Interpretation:** Retained records span **approximately 2.03 days**, from November 15 to November 17, 2026. The previous seven-day filtered query could not provide a full seven days of history based on this subsequently observed retained range. The log is configured for circular retention, which **may** overwrite older entries, but this result alone does not prove overwrite occurred or establish uninterrupted logging across the interval.
+**Interpretación:** el historial observado abarcaba **2,03 días**, entre el 15 y el 17 de noviembre de 2026. La consulta del paso anterior, aunque solicitó siete días, no podía recuperar siete días completos de datos bajo esa medición posterior. La retención circular **podría** sobrescribir eventos, pero esta medición no demuestra por sí sola que haya ocurrido ni que la grabación haya sido continua.
 
-**Limitations:** The timestamp range is one point-in-time observation. Event counts and retention metadata came from separate command runs; do not assume they share identical collection times.
+**Limitación:** los conteos y las fechas provienen de consultas diferentes, posiblemente tomadas en momentos distintos.
 
-## Step 4 — Classify a bounded sample of successful logons
+## Paso 4 — Clasificar una muestra acotada de sesiones exitosas
 
-**Original attempt:** An unbounded query retrieved every available 4624 event and processed each XML record. It did not return promptly in the user's session. It was replaced with a capped 100-event query; no configuration change was made.
+**Primer intento:** una consulta sin límite procesaba todo el XML de cada 4624 disponible y no terminó rápidamente. Se sustituyó por una consulta de **100 registros**, sin cambios de configuración.
 
-**Successful bounded command:**
+**Comando ejecutado con éxito:**
 
 ```powershell
 Get-WinEvent -FilterHashtable @{
@@ -117,9 +117,9 @@ Sort-Object Count -Descending |
 Select-Object Name, Count
 ```
 
-**Purpose:** Extract and count only the logon type from the 100 most recent event 4624 records. This avoids collecting or displaying usernames, IP addresses, or full event messages.
+**Objetivo:** contar únicamente los tipos de inicio de sesión de los 100 registros 4624 más recientes, sin mostrar usuarios, IP ni mensajes.
 
-**Observed result (real console output):**
+**Resultado:**
 
 ```text
 Name Count
@@ -127,23 +127,23 @@ Name Count
 5      100
 ```
 
-**Interpretation:** All 100 sampled successful logon records were **Logon Type 5 (Service)**. Service logons may be routine Windows activity, and this result does **not** establish malicious or unauthorized access.
+**Interpretación:** los 100 registros fueron **tipo 5 (Service)**. Puede tratarse de actividad normal; no se confirmó acceso malicioso.
 
-**Sampling limitation:** This is a cap of 100 **most recent** records, not a random sample and not a full analysis of the 638 records from the earlier seven-day query. The circular log may also continue changing between commands; the 100-record result must not be extrapolated to all logons.
+**Límite de muestreo:** son los 100 registros más recientes, no una muestra aleatoria ni todos los 638 de la consulta anterior. No corresponde extrapolarlo a todos los accesos.
 
-## Step 5 — Classify the account category in a five-event sample
+## Paso 5 — Clasificar cuentas en una muestra de cinco eventos
 
-An initial account-grouping query over 100 records did not return promptly. To minimize workstation processing, the analysis was reduced to **five** recent event 4624 records.
+Un intento de agrupación sobre 100 registros no respondió rápidamente; para reducir carga se limitó a **cinco**.
 
-**Successful command (one-line version actually executed):**
+**Comando de una línea realmente ejecutado:**
 
 ```powershell
 Get-WinEvent -FilterHashtable @{LogName='Security'; Id=4624} -MaxEvents 5 | ForEach-Object { $e = [xml]$_.ToXml(); $d = @{}; foreach ($x in $e.Event.EventData.Data) { $d[$x.Name] = $x.'#text' }; [PSCustomObject]@{ LogonType=$d['LogonType']; AccountCategory=$(switch ($d['TargetUserSid']) { 'S-1-5-18' {'SYSTEM'; break} 'S-1-5-19' {'LOCAL SERVICE'; break} 'S-1-5-20' {'NETWORK SERVICE'; break} default {'Other'} }) } }
 ```
 
-**Purpose:** Extract the logon type and classify the target security identifier into well-known built-in Windows account categories without displaying usernames, network addresses or complete event details.
+**Objetivo:** clasificar el SID de destino en categorías integradas sin revelar identificadores personales.
 
-**Observed output (real PowerShell console result):**
+**Resultado:**
 
 ```text
 LogonType AccountCategory
@@ -155,51 +155,51 @@ LogonType AccountCategory
 5         SYSTEM
 ```
 
-**Interpretation:** All five sampled records were service logons (type 5) associated with the well-known **LocalSystem SID (S-1-5-18)**. This is consistent with legitimate Windows service activity and is **not** by itself evidence of compromise.
+**Interpretación:** los cinco eventos eran **tipo 5 / LocalSystem (S-1-5-18)**. Es compatible con servicios legítimos, pero no identifica el proceso responsable ni la categoría de las restantes sesiones.
 
-**Sampling and performance limitations:** This is a small, most-recent-events sample; it does not prove that the other 95 records in the earlier sample—or the previously counted 638 records—belonged to LocalSystem. The successful five-record command does not establish precisely why the prior 100-record query was slow.
+La consulta completa anterior pudo ser lenta por múltiples razones; el resultado acotado no permite determinar su causa exacta.
 
-## Step 6 — Inspect advanced audit policy (verified)
+## Paso 6 — Revisar política avanzada de auditoría
 
 ```powershell
 auditpol /get /category:*
 ```
 
-**Purpose:** Display the workstation's effective system audit policy without changing configuration.
+**Objetivo:** consultar la política efectiva de auditoría, sin modificarla.
 
-**Observed excerpts (translated from Spanish console labels, preserving reported settings):**
+**Extracto observado, presentado en español:**
 
-| Audit subcategory | Observed setting |
+| Subcategoría | Configuración |
 |---|---|
-| Logon | Success and Failure |
-| Logoff | Success |
-| Special Logon | Success |
-| Account Lockout | Success |
-| Process Creation | No Auditing |
-| Process Termination | No Auditing |
-| File System | No Auditing |
-| Registry | No Auditing |
-| Audit Policy Change | Success |
-| User Account Management | Success |
-| Security Group Management | Success |
-| System Integrity | Success and Failure |
+| Inicio de sesión | Aciertos y errores |
+| Cierre de sesión | Aciertos |
+| Inicio de sesión especial | Aciertos |
+| Bloqueo de cuentas | Aciertos |
+| Creación de procesos | Sin auditoría |
+| Terminación de procesos | Sin auditoría |
+| Sistema de archivos | Sin auditoría |
+| Registro | Sin auditoría |
+| Cambio de directiva de auditoría | Aciertos |
+| Administración de cuentas de usuario | Aciertos |
+| Administración de grupos de seguridad | Aciertos |
+| Integridad del sistema | Aciertos y errores |
 
-**Interpretation:** The current policy supports collecting successful and failed logon audit events and successful special-logon events. No returned 4625 records in an earlier query is not proof that failed-logon auditing is disabled or that failures never occurred.
+**Interpretación:** existe auditoría configurada para inicios de sesión exitosos y fallidos y para accesos especiales exitosos. Que 4625 no apareciera en una consulta anterior no invalida esa configuración.
 
-**Finding requiring follow-up:** The first event count included **13 records of event ID 4688**, but **Process Creation is currently set to No Auditing**. This could reflect earlier policy settings; no cause is confirmed. Review the timestamps of a small bounded sample before drawing conclusions.
+**Hallazgo pendiente:** la primera consulta recuperó **13 eventos 4688**, pese a que creación de procesos estaba configurada como **Sin auditoría** en el momento de revisar. Podría deberse a configuraciones históricas, pero no se confirmó. Se requiere revisar fechas y evidencia de cambios.
 
-**Security visibility note:** Lack of Process Creation, Registry, and File System auditing constrains certain types of investigations. Enabling additional categories may increase log volume and expose sensitive data; configuration changes should be considered separately and are not part of this read-only lab phase.
+**Consideración de seguridad:** auditar procesos, Registro y sistema de archivos puede incrementar considerablemente el volumen de eventos y mostrar información sensible. No se habilitaron subcategorías.
 
-## Step 7 — Inspect timestamps of a bounded 4688 sample (verified)
+## Paso 7 — Revisar fechas de cinco eventos 4688
 
 ```powershell
 Get-WinEvent -FilterHashtable @{LogName='Security'; Id=4688} -MaxEvents 5 |
     Select-Object TimeCreated, Id, RecordId
 ```
 
-**Purpose:** Identify when recent process creation audit events were logged without displaying process names, executable paths, commands, or accounts.
+**Objetivo:** recuperar solo fechas e identificadores, sin rutas de ejecutables, comandos ni usuarios.
 
-**Observed console output:**
+**Salida real:**
 
 ```text
 TimeCreated           Id RecordId
@@ -211,11 +211,11 @@ TimeCreated           Id RecordId
 16-11-2026 14:30:43 4688  2266582
 ```
 
-**Interpretation:** The five most recent retained 4688 records share the same second (**November 16, 2026 at 14:30:43**) and have consecutive event record identifiers. This is consistent with multiple process-creation records in rapid succession, but the processes and the reason for auditing at that time have not been examined.
+**Interpretación:** los cinco eventos comparten el mismo segundo, **16/11/2026 14:30:43**, y tienen IDs consecutivos. Esto es compatible con un conjunto de eventos generados rápidamente, pero se desconocen los procesos y la política existente en esa fecha.
 
-**Unresolved:** The subsequent audit policy check showed `Process Creation: No Auditing`. These observations were made at different times. A previous policy change is one possible explanation, **not a verified cause**.
+**Estado:** discrepancia con la política actual de creación de procesos todavía **sin resolver**; un cambio previo es solo una hipótesis.
 
-## Step 8 — Search for system audit policy changes (verified: no matches)
+## Paso 8 — Buscar cambios de política de auditoría
 
 ```powershell
 Get-WinEvent -FilterHashtable @{
@@ -225,13 +225,13 @@ Get-WinEvent -FilterHashtable @{
 Select-Object TimeCreated, Id, RecordId
 ```
 
-**Purpose:** Look for at most five retained events indicating a change to system audit policy.
+**Objetivo:** buscar hasta cinco eventos 4719 de cambio en la política de auditoría del sistema.
 
-**Observed result:** No rows were returned. PowerShell reported `NoMatchingEventsFound` (`ObjectNotFound`), meaning **no currently retained Security events matched ID 4719** in this query.
+**Resultado:** sin registros; PowerShell informó `NoMatchingEventsFound` (`ObjectNotFound`).
 
-**Interpretation:** This is a valid negative finding, not a malfunction of the event log. It **does not establish that audit policy has never changed**, particularly because the log uses circular retention with a previously observed span of approximately 2.03 days. The reason for the earlier 4688 records alongside the currently disabled Process Creation policy remains **unresolved**.
+**Interpretación:** no se recuperaron 4719 dentro del historial disponible. Esto **no prueba que nunca se cambiara la política**, especialmente con una retención circular de aproximadamente 2,03 días observados. La discrepancia 4688 permanece abierta.
 
-## Step 9 — Inspect recent special-logon event metadata (verified)
+## Paso 9 — Obtener metadatos de accesos especiales 4672
 
 ```powershell
 Get-WinEvent -FilterHashtable @{
@@ -241,9 +241,9 @@ Get-WinEvent -FilterHashtable @{
 Select-Object TimeCreated, Id, RecordId
 ```
 
-**Purpose:** Obtain a bounded set of event 4672 metadata without displaying accounts, IP addresses, or privilege assignments.
+**Objetivo:** recopilar un conjunto pequeño de metadatos sin mostrar cuentas, IP o privilegios.
 
-**Observed output:**
+**Salida observada:**
 
 ```text
 TimeCreated           Id RecordId
@@ -255,9 +255,9 @@ TimeCreated           Id RecordId
 17-11-2026 20:44:56 4672  2285681
 ```
 
-**Interpretation:** Five special-logon audit records were found on November 17, 2026, between 20:44:56 and 21:00:46. An event 4672 records assignment of special privileges to a new logon; it is not, by itself, evidence of unauthorized activity. No distinct-user count, associated account category, or exact privileges can be determined from these metadata alone.
+**Interpretación:** cinco registros 4672 recuperados del 17/11/2026, entre 20:44:56 y 21:00:46. La asignación de privilegios especiales **no demuestra** actividad no autorizada. No se puede identificar cuentas distintas ni privilegios concretos a partir de estos metadatos.
 
-## Step 10 — Inspect privilege assignment in three recent 4672 records (verified)
+## Paso 10 — Revisar privilegios de tres eventos 4672
 
 ```powershell
 $events = Get-WinEvent -FilterHashtable @{
@@ -290,17 +290,17 @@ $results = foreach ($event in $events) {
 $results | Format-List
 ```
 
-**Purpose:** Check a very small recent sample of privileged logons, classifying only built-in account security identifiers and displaying the names of assigned privileges. Raw usernames and session identifiers are not included.
+**Objetivo:** clasificar los SID integrados y nombres de privilegios en tres registros recientes. No muestra nombres personales ni identificadores de sesiones.
 
-**Observed results (user-provided console output):**
+**Resultados:**
 
-| Local timestamp | Account category | Number of privilege names |
+| Fecha/hora local | Cuenta | Privilegios |
 |---|---|---:|
 | 2026-11-17 21:05:00 | LocalSystem | 12 |
 | 2026-11-17 21:00:46 | LocalSystem | 12 |
 | 2026-11-17 20:57:13 | LocalSystem | 12 |
 
-Each of these three events contained the same privilege list:
+Los tres incluían exactamente:
 
 - `SeAssignPrimaryTokenPrivilege`
 - `SeTcbPrivilege`
@@ -315,11 +315,11 @@ Each of these three events contained the same privilege list:
 - `SeImpersonatePrivilege`
 - `SeDelegateSessionUserImpersonatePrivilege`
 
-**Interpretation:** These are expected-capability categories for highly privileged Windows system contexts. The events show privileges assigned **at logon**; they do not prove that the rights were exercised, that activity was malicious, or that three distinct accounts or services were involved.
+**Interpretación:** privilegios típicos de contextos de Windows altamente privilegiados. El evento 4672 indica asignación **al iniciar la sesión**, no que hayan sido utilizados ni que exista abuso.
 
-**Sampling limitations:** Only three recent records were inspected, and this is a separate snapshot from the prior five-event metadata query. The new event at 21:05:00 illustrates that the Security log continues to change. No process attribution or causal correlation has yet been established.
+Son tres registros de otra captura; la presencia de uno a las 21:05:00 confirma que el registro siguió recibiendo eventos respecto de la muestra anterior. No se identificó proceso ni se estableció causalidad.
 
-## Step 11 — Correlate special-logon and successful-logon events (verified)
+## Paso 11 — Correlacionar eventos 4672 y 4624
 
 ```powershell
 $special = Get-WinEvent -FilterHashtable @{
@@ -352,9 +352,9 @@ $matches = @(Get-WinEvent -FilterHashtable @{
 }
 ```
 
-**Purpose:** Compare the selected 4672 event's `SubjectLogonId` with the `TargetLogonId` fields of 4624 records in a narrow window (two minutes before and one minute after the selected 4672). The query returns only the time, match count, and correlation flag—not the raw logon identifier or usernames.
+**Objetivo:** comparar `SubjectLogonId` de un 4672 seleccionado con `TargetLogonId` de 4624 dentro de una ventana de dos minutos antes y un minuto después, sin mostrar identificadores reales de sesión.
 
-**Observed output (actual console result):**
+**Salida real:**
 
 ```text
 Event4672Time       Matching4624Events CorrelationFound
@@ -362,15 +362,15 @@ Event4672Time       Matching4624Events CorrelationFound
 17-11-2026 21:08:51                  1             True
 ```
 
-**Interpretation:** In the bounded query, one successful-logon event (4624) matched the logon identifier of the selected special-privileges-assigned event (4672). This supports a session-level relationship. It does **not** establish the account category for that exact pair, prove any privileges were exercised, or demonstrate malicious behavior.
+**Interpretación:** se recuperó una coincidencia 4624 para el 4672 consultado. Esto apoya que ambos eventos se relacionan con una sesión, **no demuestra** qué persona intervino, qué privilegios utilizó ni actividad maliciosa.
 
-**Limitations:** One 4672 event and up to 100 candidate 4624 events were inspected. The event log can change over time, and this result must not be generalized to every 4672 event. The time and logon ID correlation were performed locally; no raw identity or identifier was shared.
+**Límites:** un único 4672 y hasta 100 candidatos 4624; no se puede generalizar. El Logon ID se comparó localmente, sin publicarlo.
 
-## Step 12 — Classify the account and logon type of a correlated session (verified)
+## Paso 12 — Clasificar una sesión correlacionada
 
-**Purpose:** Independently select the most recent 4672, find a matching 4624 using its logon ID in a narrow time window, and report only a boolean result, logon type, and built-in account category.
+**Objetivo:** seleccionar el 4672 más reciente en una nueva ejecución, buscar su 4624 correspondiente y obtener solo tipo de sesión y categoría integrada de cuenta.
 
-**Reproducible read-only command:**
+**Comando de solo lectura reproducible:**
 
 ```powershell
 $special = Get-WinEvent -FilterHashtable @{
@@ -424,9 +424,9 @@ if ($match) {
 }
 ```
 
-**Troubleshooting note:** An intermediate attempt to inspect `$match` returned `No matching event stored. Rerun Step 12.` because the variable did not contain a matching event in that session. Running the complete standalone query subsequently succeeded.
+**Incidente menor durante el proceso:** una comprobación de la variable `$match` devolvió `No matching event stored. Rerun Step 12.` porque en esa sesión no estaba almacenada una coincidencia. La consulta completa, ejecutada después, terminó correctamente.
 
-**Observed output (user-provided console):**
+**Salida real:**
 
 ```text
 MatchFound LogonType AccountCategory
@@ -434,28 +434,30 @@ MatchFound LogonType AccountCategory
       True 5         LocalSystem
 ```
 
-**Finding:** A successful logon event 4624 was matched to a selected special-logon event 4672. The 4624 record was **Logon Type 5 (Service)** and its target account was the built-in **LocalSystem** principal.
+**Hallazgo:** un evento 4624 correlacionado con 4672 correspondió a **Logon Type 5 (Service)** y cuenta integrada **LocalSystem**.
 
-**Scope:** This run selected the **latest 4672 at execution time**, not an event pinned to a specific record ID. The output did not include the selected timestamp, so the matched session cannot be asserted to be the same 4672 previously observed at 21:08:51. The result does not establish privilege use or malicious activity.
+**Distinción esencial:** esta ejecución seleccionó el **4672 más reciente en ese momento**, sin fijar ID de registro. Como la salida no incluyó la marca de tiempo, **no podemos afirmar** que fuera el evento anterior de las 21:08:51. No demuestra uso de privilegios ni actividad maliciosa.
 
-## Case reporting (completed)
+## Informe del caso — Completado
 
-The [executive summary](executive-summary.md) consolidates verified observations, the still-unresolved 4688/audit-policy discrepancy, and the known retention and sampling limitations. The [monitoring recommendations](monitoring-recommendations.md) describe proposed actions only. No system configuration was changed.
+El [resumen ejecutivo](executive-summary.md) sintetiza la evidencia, discrepancia 4688, retención y límites de muestras. Las [recomendaciones de monitoreo](monitoring-recommendations.md) siguen siendo propuestas. Ninguna configuración se modificó.
 
-## Documentation rules
+## Reglas de documentación
 
-- Label real observations separately from expected output and hypotheses.
-- Keep the exact command, purpose, observed output, interpretation, and limitations for each step.
-- Do not fabricate screenshots, collection timestamps, alert results, or conclusions.
+- Diferenciar observaciones reales, resultados esperados e hipótesis.
+- Para cada paso, conservar comando exacto, objetivo, salida real, interpretación y limitaciones.
+- No inventar capturas, horas de consulta, alertas o conclusiones.
 
-## References & Official Documentation
+## Referencias oficiales
 
-- [Microsoft Learn — auditpol /get](https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/auditpol-get)
-- [Microsoft Learn — Audit Process Creation](https://learn.microsoft.com/en-us/windows/security/threat-protection/auditing/audit-process-creation)
-- [Microsoft Learn — Get-WinEvent](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.diagnostics/get-winevent)
-- [Microsoft Learn — Event 4624](https://learn.microsoft.com/en-us/windows/security/threat-protection/auditing/event-4624)
-- [Microsoft Learn — Event 4634](https://learn.microsoft.com/en-us/windows/security/threat-protection/auditing/event-4634)
-- [Microsoft Learn — Event 4672](https://learn.microsoft.com/en-us/windows/security/threat-protection/auditing/event-4672)
-- [Microsoft Learn — Well-known security identifiers](https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/manage/understand-security-identifiers)
-- [Microsoft Learn — Event 4719: System audit policy was changed](https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/auditing/event-4719)
-- [Microsoft Learn — Event 4688](https://learn.microsoft.com/en-us/windows/security/threat-protection/auditing/event-4688)
+- [auditpol /get](https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/auditpol-get)
+- [Audit Process Creation](https://learn.microsoft.com/en-us/windows/security/threat-protection/auditing/audit-process-creation)
+- [Get-WinEvent](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.diagnostics/get-winevent)
+- [Evento 4624](https://learn.microsoft.com/en-us/windows/security/threat-protection/auditing/event-4624)
+- [Evento 4634](https://learn.microsoft.com/en-us/windows/security/threat-protection/auditing/event-4634)
+- [Evento 4672](https://learn.microsoft.com/en-us/windows/security/threat-protection/auditing/event-4672)
+- [SID conocidos de Windows](https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/manage/understand-security-identifiers)
+- [Evento 4719](https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/auditing/event-4719)
+- [Evento 4688](https://learn.microsoft.com/en-us/windows/security/threat-protection/auditing/event-4688)
+
+*Todos los resultados documentados proceden de las consultas reales, no de las referencias externas.*
