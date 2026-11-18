@@ -1,64 +1,66 @@
-# Executive Summary — Windows Security Event Analysis
+# Resumen ejecutivo — Análisis de eventos de seguridad de Windows
 
-[Project overview](../README.md) · [Technical findings](event-analysis.md) · [Reproduction guide](lab-guide.md) · [Monitoring recommendations](monitoring-recommendations.md) · [Portfolio home](../../../README.md)
+[Proyecto](../README.md) · [Hallazgos técnicos](event-analysis.md) · [Guía de reproducción](lab-guide.md) · [Recomendaciones](monitoring-recommendations.md) · [Portafolio](../../../README.md)
 
-**Assessment type:** Real, read-only workstation log triage  
-**Assessment status:** Initial assessment completed; no confirmed security incident  
-**Evidence collection:** User-supplied, sanitized PowerShell console outputs from November 2026  
-**Scope:** Local Windows Security event log only; no SIEM, network monitoring, endpoint-response investigation, or independent evidence export
+**Tipo de evaluación:** revisión de eventos reales de una estación de trabajo, mediante consultas de solo lectura  
+**Estado:** evaluación inicial completada; ningún incidente de seguridad confirmado  
+**Evidencia:** resultados anonimizados de PowerShell facilitados por el usuario en noviembre de 2026  
+**Alcance:** únicamente registro Security de Windows; sin SIEM, monitoreo de red, análisis EDR ni exportación independiente de evidencias
 
-![Executive findings dashboard](../diagrams/security-review-overview.svg)
+![Resumen gráfico de los hallazgos](../diagrams/security-review-overview.svg)
 
-## Executive conclusion
+## Conclusión ejecutiva
 
-The investigation successfully demonstrated collection and interpretation of Windows Security logs and **correlation of a successful logon (4624) with a special-privileges-assigned event (4672) using their Logon IDs**. A separate bounded classification returned **Logon Type 5 (Service)** and the built-in **LocalSystem** account. These observations are **consistent with legitimate Windows service activity**; they do not establish privilege abuse or a compromise.
+La investigación demostró la recuperación e interpretación de registros Security y la **correlación de un inicio de sesión exitoso (4624) con un evento de asignación de privilegios especiales (4672) mediante sus Logon IDs**.
 
-Two monitoring limitations merit follow-up: **a 20 MiB circular Security log holding a measured timestamp span of approximately 2.03 days**, and **Process Creation auditing disabled at policy-inspection time**. These are observations and visibility concerns, **not a demonstrated incident, breach, or compliance failure**.
+Una clasificación acotada e independiente identificó **Logon Type 5 (Service)** y la cuenta integrada **LocalSystem**. Los resultados son compatibles con actividad normal de servicios de Windows; **no demuestran abuso de privilegios ni compromiso del equipo**.
 
-## Findings at a glance
+Se identificaron dos limitaciones que merecen seguimiento: **registro Security circular de 20 MiB con un intervalo observado de solo 2,03 días** y **auditoría de creación de procesos deshabilitada** al revisar la política. Son hallazgos de visibilidad, no prueba de incidente, filtración ni incumplimiento.
 
-| Area | Verified observation | Assessment |
+## Hallazgos principales
+
+| Área | Evidencia verificada | Interpretación |
 |---|---|---|
-| Log availability | Security log enabled; 33,898 records at inspection | Available for local analysis |
-| Retention | 20,971,520-byte (20 MiB) maximum; Circular; oldest 2026-11-15 20:02:39, newest 2026-11-17 20:40:43 | Approximately **2.03-day observed span**; seven-day lookback was not seven full days of evidence |
-| Event inventory | 4624: 638; 4634: 37; 4672: 614; 4688: 13 | 1,302 **matching records**, not unique users, sessions, or incidents |
-| Recent service logons | 100 of the 100 most recent 4624 events in one sample were Logon Type 5 | Sampling result only; not a population estimate |
-| Built-in account | 5 of the 5 most recent 4624 events in another sample were Type 5 / LocalSystem | Consistent with routine service activity |
-| Privileged logons | 3 recent 4672 records associated with LocalSystem, each listing the same 12 privileges | **Assignment, not confirmed privilege use** |
-| Cross-event correlation | One bounded 4672-to-4624 Logon ID match; later independent query returned MatchFound=True, Type 5, LocalSystem | Session correlation verified; **not confirmed to be the same exact session in both runs** |
-| Audit settings | Logon success/failure and special logon success enabled; process creation set to No Auditing | Process creation visibility gap |
-| Policy-change search | No matching 4719 record returned from retained log | Does not rule out historic changes |
+| Disponibilidad | Security habilitado; 33.898 registros en el momento de revisión | Disponible para investigación local |
+| Retención | Máximo 20.971.520 bytes (20 MiB), circular; más antiguo 2026-11-15 20:02:39, más reciente 2026-11-17 20:40:43 | **2,03 días observados**; una consulta de siete días no equivalía a siete días completos de datos |
+| Inventario | 4624: 638; 4634: 37; 4672: 614; 4688: 13 | **1.302 registros**, no personas, sesiones o incidentes únicos |
+| Accesos de servicio | 100 de los 100 eventos 4624 más recientes de una muestra fueron tipo 5 | Muestra acotada; no representa a toda la población |
+| Cuenta integrada | 5 de 5 eventos 4624 en otra muestra: tipo 5 / LocalSystem | Compatible con servicios habituales |
+| Privilegios especiales | 3 registros 4672 recientes de LocalSystem con los mismos 12 privilegios | **Asignación no equivale a uso de privilegios** |
+| Correlación | Una coincidencia de Logon ID 4672/4624; una consulta posterior devolvió MatchFound=True, tipo 5, LocalSystem | Correlación verificada, **sin demostrar que ambas consultas se refieran a la misma sesión exacta** |
+| Auditoría | Aciertos/errores de inicio de sesión y aciertos de sesión especial habilitados; creación de procesos sin auditoría | Brecha de visibilidad de procesos |
+| Cambio de política | Sin registros 4719 coincidentes recuperados | No descarta cambios históricos |
 
-## Investigated question: why were event 4688 records present?
+## Pregunta investigada: ¿por qué había eventos 4688?
 
-Five most recent retained 4688 records were timestamped **2026-11-16 14:30:43** with consecutive record IDs. The later audit-policy inspection indicated **Process Creation: No Auditing**. A search for event 4719 returned no matches.
+Cinco registros 4688 recientes tenían la fecha **2026-11-16 14:30:43** y números de registro consecutivos. En una comprobación posterior, `Process Creation` figuraba como `No Auditing`. La consulta de eventos 4719 no recuperó coincidencias.
 
-**Disposition: unresolved.** A previous policy change is possible but **not established**. The investigation did not determine process names, audit policy at the time of those events, or a root cause. No claim of malicious process execution is justified.
+**Estado: sin resolver.** Un cambio anterior de política es posible, pero **no fue demostrado**. No se identificaron nombres de procesos, la política efectiva en la fecha de esos registros ni una causa raíz. No corresponde afirmar que se ejecutaron procesos maliciosos.
 
-## Recommendations (proposals, not implemented controls)
+## Recomendaciones propuestas, no implementadas en esta investigación
 
-1. **Review log-retention requirements and capacity.** Define the desired investigation window and assess whether Security log size or centralized forwarding should be increased for that objective. Consider storage, privacy, and operational needs.
-2. **Evaluate a controlled process-creation auditing pilot.** Review Audit Process Creation and the impact of additional events before enabling it, especially potential logging volume and sensitive command-line data.
-3. **Document a triage baseline.** Treat frequent LocalSystem service logons and special privilege assignments in context, not as automatic incidents.
-4. **Preserve investigation quality.** Use bounded PowerShell queries on resource-limited workstations; capture a reliable timestamp and sanitized evidence where approved.
-5. **Revisit unresolved findings only with sufficient evidence.** Do not report an audit-policy change without a relevant historical record or other substantiation.
+1. **Revisar capacidad y objetivos de retención:** definir la ventana requerida para investigar y evaluar tamaño del registro o reenvío centralizado, considerando privacidad, recursos y operación.
+2. **Evaluar un piloto de auditoría de creación de procesos:** revisar el volumen de eventos adicional y el posible carácter sensible de los argumentos de línea de comandos.
+3. **Definir una línea base de monitoreo:** analizar LocalSystem y sesiones de servicio en contexto, sin considerarlas automáticamente sospechosas.
+4. **Mejorar captura de evidencia:** consultas acotadas y registros anonimizados, con fechas de recolección y limitaciones explícitas.
+5. **Reinvestigar discrepancias solo con respaldo:** no atribuir cambios históricos a una política sin evidencia suficiente.
 
-See [monitoring recommendations](monitoring-recommendations.md) for prioritization and verification criteria.
+Consulta las [recomendaciones de monitoreo](monitoring-recommendations.md) para prioridades y criterios de verificación.
 
-## Scope and evidence integrity
+## Alcance e integridad de la evidencia
 
-- Findings come from multiple console runs at **different moments**; counts and event samples are not necessarily directly comparable.
-- A command requesting seven days does not guarantee seven days of data when the retained log spans only about two days.
-- Queries used caps of 3, 5, or 100 records where appropriate, and results **must not** be generalized to all users or historical activity.
-- No external log preservation, complete forensic chain of custody, test attack, remedial action, service attribution, incident classification, or SIEM analysis was performed.
-- This is **real observation-based technical documentation**, not a simulated attack and not a completed security hardening deployment.
+- Las cifras provienen de consultas ejecutadas en **momentos diferentes**; no deben compararse como si fueran un único conjunto.
+- Consultar siete días no crea registros que la retención circular ya descartó.
+- Se utilizaron muestras de **3, 5 y 100** eventos; los resultados no son generalizables a todos los usuarios ni a todo el historial.
+- No hubo preservación forense completa, cadena de custodia, ataque simulado, remediación, atribución individual, confirmación de incidente ni investigación SIEM.
+- El trabajo documenta **observaciones técnicas reales**, no un ataque simulado ni una implementación completa de hardening.
 
-## References & Official Documentation
+## Referencias oficiales
 
-- [Microsoft Learn — Event 4624: Successful logon](https://learn.microsoft.com/en-us/windows/security/threat-protection/auditing/event-4624)
-- [Microsoft Learn — Event 4672: Special privileges assigned to new logon](https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/auditing/event-4672)
-- [Microsoft Learn — Audit Process Creation](https://learn.microsoft.com/en-us/windows/security/threat-protection/auditing/audit-process-creation)
-- [Microsoft Learn — EventLogMode: Circular](https://learn.microsoft.com/en-us/dotnet/api/system.diagnostics.eventing.reader.eventlogmode)
-- [Microsoft Learn — Windows Event Forwarding for intrusion detection](https://learn.microsoft.com/en-us/windows/security/operating-system-security/device-management/use-windows-event-forwarding-to-assist-in-intrusion-detection)
+- [Evento 4624 — Inicio de sesión exitoso](https://learn.microsoft.com/en-us/windows/security/threat-protection/auditing/event-4624)
+- [Evento 4672 — Privilegios especiales asignados](https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/auditing/event-4672)
+- [Audit Process Creation](https://learn.microsoft.com/en-us/windows/security/threat-protection/auditing/audit-process-creation)
+- [EventLogMode: Circular](https://learn.microsoft.com/en-us/dotnet/api/system.diagnostics.eventing.reader.eventlogmode)
+- [Windows Event Forwarding y detección de intrusiones](https://learn.microsoft.com/en-us/windows/security/operating-system-security/device-management/use-windows-event-forwarding-to-assist-in-intrusion-detection)
 
-Official sources support the concepts and recommended methods; they do **not** independently certify results on the workstation.
+*Las fuentes oficiales respaldan conceptos y técnicas; no certifican independientemente los resultados del equipo.*
