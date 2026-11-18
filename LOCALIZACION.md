@@ -7,8 +7,8 @@
 
 - **47/47 archivos originales replicados:** se conservan estructura, rutas, documentos fuente, archivos de evidencia y diagramas.
 - **11/11 archivos SVG adaptados:** se tradujeron sus etiquetas y textos principales conservando los elementos gráficos y conexiones. **Revisión visual de desbordamiento y legibilidad pendiente.**
-- **17/32 archivos Markdown traducidos al español:** portada, secciones generales y **todos los documentos de Soporte TI**, incluidos los cuatro incidentes y sus anexos.
-- **15/32 Markdown restantes:** el contenido original en inglés se mantiene temporalmente para evitar pérdidas mientras se localiza.
+- **19/32 archivos Markdown traducidos al español:** portada, secciones generales, **todos los documentos de Soporte TI**, los README del análisis real de eventos de Windows y de evaluación de riesgos de seguridad.
+- **13/32 Markdown restantes:** el contenido original en inglés se mantiene temporalmente para evitar pérdidas mientras se localiza.
 - **Tres archivos .txt de evidencia:** se mantienen exactamente como los registros originales, sin alterar la salida de los comandos ni los datos observados.
 - **LICENSE:** se conserva el texto legal original.
 
@@ -33,6 +33,8 @@
 15. `IT-Support/Service-Desk-Incident-Management/incidents/INC-004-VPN-Connectivity.md`
 16. `IT-Support/Service-Desk-Incident-Management/templates/incident-report-template.md`
 17. `IT-Support/Service-Desk-Incident-Management/images/README.md`
+18. `Cybersecurity/Windows-Security-Event-Analysis/README.md`
+19. `Information-Security/Enterprise-Risk-Assessment/README.md`
 
 ## Traducciones de documentos técnicos pendientes
 
@@ -41,7 +43,6 @@
 **Localización finalizada.** Los incidentes reales y simulados, procedimientos, formularios, flujos Mermaid y notas de validación están disponibles en español. Las salidas originales de consola permanecen sin modificaciones.
 
 ### Ciberseguridad y seguridad de la información
-- `Cybersecurity/Windows-Security-Event-Analysis/README.md`
 - `Cybersecurity/Windows-Security-Event-Analysis/docs/event-analysis.md`
 - `Cybersecurity/Windows-Security-Event-Analysis/docs/executive-summary.md`
 - `Cybersecurity/Windows-Security-Event-Analysis/docs/lab-guide.md`
@@ -50,7 +51,6 @@
 - `Cybersecurity/Windows-Security-Hardening/docs/baseline-guide.md`
 - `Cybersecurity/Windows-Security-Hardening/docs/security-assessment.md`
 - `Cybersecurity/Windows-Security-Hardening/docs/validation-plan.md`
-- `Information-Security/Enterprise-Risk-Assessment/README.md`
 - `Information-Security/Enterprise-Risk-Assessment/assets/asset-inventory.md`
 - `Information-Security/Enterprise-Risk-Assessment/controls/control-mapping.md`
 - `Information-Security/Enterprise-Risk-Assessment/reports/executive-summary.md`
