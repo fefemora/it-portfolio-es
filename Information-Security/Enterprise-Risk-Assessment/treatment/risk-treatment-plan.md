@@ -1,212 +1,212 @@
-# Risk Treatment Plan — Emerald Technologies
+# Plan de tratamiento de riesgos — Emerald Technologies
 
-![Risk treatment roadmap](risk-treatment-roadmap.svg)
+![Hoja de ruta para tratamiento de riesgos](risk-treatment-roadmap.svg)
 
-**Organization:** Emerald Technologies (fictional)  
-**Framework context:** NIST CSF 2.0 · CIS Controls v8.1 IG1  
-**Source:** [Risk Register](../risk-register/risk-register.md) and [Security Control Mapping](../controls/control-mapping.md)  
-**Plan status:** Proposed — no actions implemented or validated  
-**Planning horizon:** 90 days after hypothetical management approval (Day 0)
+**Organización:** Emerald Technologies (**ficticia**)  
+**Marcos de referencia:** NIST CSF 2.0 · CIS Controls v8.1 IG1  
+**Fuentes:** [Registro de riesgos](../risk-register/risk-register.md) y [Mapeo de controles](../controls/control-mapping.md)  
+**Estado:** **Propuesto; ninguna medida implementada o validada**  
+**Horizonte:** 90 días desde una aprobación hipotética de la dirección (día 0)
 
-> **Simulation disclaimer:** All scenarios, ownership assignments, schedules, resource assumptions, and control gaps are hypothetical. This plan is not a report of completed remediation or evidence of actual organizational compliance.
+> **Simulación:** escenarios, responsables, plazos, recursos y brechas son hipotéticos. No constituye informe de remediación completada ni prueba de cumplimiento de una organización real.
 
-## 1. Executive Decision Summary
+## 1. Resumen ejecutivo
 
-The assessment identified **8 hypothetical inherent risks**: **2 Critical, 4 High, and 2 Moderate**. The recommended strategy is to **reduce** all eight through proportionate control improvements, subject to management approval, operational feasibility, and verification of existing safeguards.
+Se identificaron **8 riesgos inherentes hipotéticos**: **2 críticos, 4 altos y 2 moderados**. Se propone **reducir** los ocho mediante controles proporcionales, sujetos a autorización, viabilidad operacional y validación de las salvaguardas existentes.
 
-The **first 30 days** prioritize identity protection and recoverability (R-001 and R-002). Subsequent phases address endpoints, email fraud, file permissions, remote access, patching, and file-service availability.
+Los **primeros 30 días** priorizan protección de identidades y capacidad de recuperación (R-001 y R-002). Las fases siguientes abordan endpoints, fraude por correo, permisos, VPN, parches y disponibilidad de archivos.
 
-**Risk treatment is not risk closure.** Every action remains open until authorized evidence demonstrates that the expected control outcome is achieved. Residual risk must then be reassessed and accepted or treated further by an accountable business owner.
+**Tratar un riesgo no significa cerrarlo.** Cada medida sigue abierta hasta verificar su resultado con evidencias autorizadas. Luego, el propietario del riesgo debe reevaluar y aceptar el riesgo residual o disponer tratamientos adicionales.
 
-## 2. Treatment Strategy and Priorities
+## 2. Estrategia y prioridades
 
-| Risk | Inherent score | Rating | Treatment | Proposed owner | Target | Status |
+| Riesgo | Puntaje inherente | Nivel | Estrategia | Responsable propuesto | Meta | Estado |
 |---|---:|---|---|---|---|---|
-| **R-001** Account takeover | 20 | **Critical** | Reduce | IT Administrator | Day 30 | Proposed |
-| **R-002** Unrecoverable data after ransomware | 20 | **Critical** | Reduce | Infrastructure Administrator | Day 30 | Proposed |
-| **R-003** Endpoint ransomware | 16 | **High** | Reduce | IT Support Lead | Day 60 | Proposed |
-| **R-004** Business email compromise | 15 | **High** | Reduce | M365 Administrator + HR | Day 60 | Proposed |
-| **R-005** Unauthorized cloud document access | 12 | **High** | Reduce | M365 Administrator + Data Owners | Day 60 | Proposed |
-| **R-006** Unauthorized VPN access | 12 | **High** | Reduce | Network Administrator | Day 60 | Proposed |
-| **R-007** Unpatched workstation exploitation | 9 | **Moderate** | Reduce | IT Support Lead | Day 90 | Proposed |
-| **R-008** Internal file share outage | 8 | **Moderate** | Reduce | Infrastructure Administrator | Day 90 | Proposed |
+| **R-001** Apropiación de cuentas | 20 | **Crítico** | Reducir | Administrador TI | Día 30 | Propuesto |
+| **R-002** Datos irrecuperables tras ransomware | 20 | **Crítico** | Reducir | Administrador de Infraestructura | Día 30 | Propuesto |
+| **R-003** Ransomware en endpoints | 16 | Alto | Reducir | Líder de Soporte TI | Día 60 | Propuesto |
+| **R-004** Compromiso de correo empresarial | 15 | Alto | Reducir | Administrador M365 + RR. HH. | Día 60 | Propuesto |
+| **R-005** Acceso a documentos cloud no autorizado | 12 | Alto | Reducir | Administrador M365 + Propietarios de datos | Día 60 | Propuesto |
+| **R-006** VPN no autorizada | 12 | Alto | Reducir | Administrador de Redes | Día 60 | Propuesto |
+| **R-007** Explotación de equipos sin parches | 9 | Moderado | Reducir | Líder de Soporte TI | Día 90 | Propuesto |
+| **R-008** Interrupción de archivos compartidos | 8 | Moderado | Reducir | Administrador de Infraestructura | Día 90 | Propuesto |
 
-**Day 0** means the hypothetical date when management authorizes the plan and confirms the actual baseline. These are target dates, not achieved milestones. The owners are fictional job roles and must be assigned to real individuals in a production organization.
+**Día 0:** fecha hipotética en que dirección aprueba el plan y confirma la línea base. Los plazos son objetivos, no hitos conseguidos. Los roles son ficticios y deberían asignarse a personas concretas en una organización real.
 
-## 3. Proposed 90-Day Roadmap
+## 3. Hoja de ruta de 90 días
 
 ```mermaid
 gantt
-    title Illustrative risk treatment roadmap — proposed, not executed
+    title Tratamiento de riesgos ilustrativo — propuesto, no ejecutado
     dateFormat YYYY-MM-DD
     axisFormat %b %d
-    section Critical
-    R-001 Identity controls           :a1, 2027-01-01, 30d
-    R-002 Backup and restore          :a2, 2027-01-01, 30d
-    section High
-    R-003 Endpoint hardening          :b1, 2027-01-31, 30d
-    R-004 Email fraud safeguards      :b2, 2027-01-31, 30d
-    R-005 Document access reviews     :b3, 2027-01-31, 30d
-    R-006 VPN access controls         :b4, 2027-01-31, 30d
-    section Moderate
-    R-007 Patch compliance            :c1, 2027-03-02, 30d
-    R-008 File service resilience     :c2, 2027-03-02, 30d
+    section Críticos
+    R-001 Controles de identidad       :a1, 2027-01-01, 30d
+    R-002 Respaldo y restauración      :a2, 2027-01-01, 30d
+    section Altos
+    R-003 Hardening de endpoints       :b1, 2027-01-31, 30d
+    R-004 Protección contra fraude     :b2, 2027-01-31, 30d
+    R-005 Revisión de permisos         :b3, 2027-01-31, 30d
+    R-006 Control de acceso VPN        :b4, 2027-01-31, 30d
+    section Moderados
+    R-007 Cumplimiento de parches      :c1, 2027-03-02, 30d
+    R-008 Continuidad de archivos      :c2, 2027-03-02, 30d
 ```
 
-*Dates in this visualization are **illustrative placeholders**, used only to show the sequence of a 90-day plan. Actual delivery dates must be established relative to the approved Day 0. Some workstreams can and should overlap where resources permit.*
+*Las fechas son **marcadores ilustrativos** de una secuencia, no fechas comprometidas. Los plazos reales deberán establecerse desde el día 0 aprobado. Algunas actividades pueden realizarse en paralelo.*
 
-## 4. Action Register and Acceptance Criteria
+## 4. Registro de acciones y aceptación
 
-### Phase 1 — Days 1–30: Critical Risks
+### Fase 1 — Días 1–30: riesgos críticos
 
-#### R-001 — Account Takeover
+#### R-001 — Apropiación de cuentas
 
-- **Assets:** AST-001, AST-003
-- **Owner:** IT Administrator
-- **Proposed actions:** Reconcile active accounts against authorized users; review externally exposed and privileged sign-in MFA enforcement; review the account recovery process; establish a documented exception and sign-in monitoring procedure.
+- **Activos:** AST-001, AST-003.
+- **Responsable:** Administrador TI.
+- **Acciones propuestas:** conciliar cuentas activas con usuarios autorizados; revisar MFA de aplicaciones expuestas y accesos privilegiados; evaluar recuperación de cuentas; documentar excepciones y monitoreo de inicios de sesión.
 - **NIST CSF 2.0:** PR.AA; DE.CM.
-- **CIS IG1 candidates:** 5.1, 6.3, 6.5.
-- **Required evidence:** Dated account inventory, approved MFA policy/configuration evidence, sampled sign-in control checks, exception register.
-- **Acceptance criterion:** Every sampled in-scope account meets the approved authentication policy or has a documented, authorized exception; discrepancies have assigned remediation.
-- **Status:** Proposed; not tested.
+- **CIS IG1:** 5.1, 6.3, 6.5.
+- **Evidencia requerida:** inventario fechado, política/configuración de MFA aprobada, muestra de verificaciones, registro de excepciones.
+- **Criterio de aceptación:** cada cuenta muestreada cumple la política o dispone de excepción autorizada y documentada; las discrepancias tienen remediación asignada.
+- **Estado:** propuesto, sin pruebas.
 
-#### R-002 — Unrecoverable Data Following Ransomware
+#### R-002 — Datos irrecuperables después de ransomware
 
-- **Assets:** AST-005, AST-007
-- **Owner:** Infrastructure Administrator
-- **Proposed actions:** Identify critical datasets; document recovery objectives with business owners; confirm backup coverage and protected copies; monitor backup jobs; execute a controlled restore test of representative data.
+- **Activos:** AST-005, AST-007.
+- **Responsable:** Administrador de Infraestructura.
+- **Acciones:** identificar datos críticos; acordar objetivos de recuperación; verificar cobertura y copias protegidas; monitorear respaldos; realizar una restauración controlada de datos representativos.
 - **NIST CSF 2.0:** PR.DS; RC.RP.
-- **CIS IG1 candidates:** 11.1, 11.2, 11.3, 11.4.
-- **Required evidence:** Approved backup inventory and schedule, protected-copy configuration, recent job results, restore-test report, recovery time measurements.
-- **Acceptance criterion:** An authorized restore test succeeds for an approved representative dataset and demonstrates performance against business-approved recovery objectives.
-- **Status:** Proposed; not tested.
+- **CIS IG1:** 11.1, 11.2, 11.3, 11.4.
+- **Evidencia:** inventario y programación de respaldo aprobados, configuración de copias protegidas, resultados de trabajos, informe de prueba y tiempos de recuperación.
+- **Criterio:** restauración autorizada exitosa con datos representativos, comparada con objetivos aprobados por negocio.
+- **Estado:** propuesto, sin pruebas.
 
-### Phase 2 — Days 31–60: High Risks
+### Fase 2 — Días 31–60: riesgos altos
 
-#### R-003 — Endpoint Ransomware
+#### R-003 — Ransomware en endpoints
 
-- **Assets:** AST-002, AST-005
-- **Owner:** IT Support Lead
-- **Proposed actions:** Define and apply an approved Windows security baseline; check endpoint protection deployment; identify unsupported or unpatched systems; document containment and escalation steps.
+- **Activos:** AST-002, AST-005.
+- **Responsable:** Líder de Soporte TI.
+- **Acciones:** definir y aplicar línea base Windows autorizada; comprobar protección de endpoints; detectar sistemas sin parches o sin soporte; documentar contención y escalamiento.
 - **NIST CSF 2.0:** PR.PS; DE.CM.
-- **CIS IG1 candidates:** 4.1, 7.3, 10.1.
-- **Required evidence:** Baseline approval, configuration compliance report, endpoint protection coverage report, remediation tickets.
-- **Acceptance criterion:** Sampled workstations meet the approved baseline and endpoint protection requirements; exceptions are tracked and authorized.
-- **Status:** Proposed; not tested.
+- **CIS IG1:** 4.1, 7.3, 10.1.
+- **Evidencia:** aprobación de línea base, cumplimiento de configuración, cobertura de protección y tickets correctivos.
+- **Criterio:** equipos muestreados cumplen protección y configuración aprobada; excepciones identificadas y autorizadas.
+- **Estado:** propuesto, sin pruebas.
 
-#### R-004 — Business Email Compromise
+#### R-004 — Compromiso de correo empresarial
 
-- **Assets:** AST-003
-- **Owner:** M365 Administrator + HR
-- **Proposed actions:** Review MFA coverage for externally exposed email access; deliver social-engineering awareness training; implement an independent verification procedure for sensitive payment or account changes.
+- **Activos:** AST-003.
+- **Responsable:** Administrador M365 y RR. HH.
+- **Acciones:** revisar MFA del correo expuesto externamente; capacitar sobre ingeniería social; definir verificación independiente de cambios de pagos y cuentas sensibles.
 - **NIST CSF 2.0:** PR.AT; PR.AA.
-- **CIS IG1 candidates:** 14.2, 6.3.
-- **Required evidence:** Training attendance, approved payment verification procedure, sampled MFA settings, reporting instructions.
-- **Acceptance criterion:** Targeted staff complete the approved training and a sample of sensitive-change workflows demonstrates independent verification.
-- **Status:** Proposed; not tested.
+- **CIS IG1:** 14.2, 6.3.
+- **Evidencia:** asistencia a capacitación, procedimiento de verificación aprobado, muestra MFA e instrucciones de reporte.
+- **Criterio:** personal objetivo capacitado y muestra de cambios sensibles verificada independientemente.
+- **Estado:** propuesto, sin pruebas.
 
-#### R-005 — Unauthorized Cloud Document Access
+#### R-005 — Acceso no autorizado a documentos cloud
 
-- **Assets:** AST-001, AST-004
-- **Owner:** M365 Administrator + Data Owners
-- **Proposed actions:** Inventory sensitive shared locations; review permissions and external sharing; document access granting and revocation; remove unauthorized access through approved change control.
+- **Activos:** AST-001, AST-004.
+- **Responsables:** Administrador M365 y propietarios de datos.
+- **Acciones:** inventariar ubicaciones sensibles compartidas, revisar accesos y compartición externa, formalizar altas/bajas de permisos y retirar accesos no autorizados mediante cambio aprobado.
 - **NIST CSF 2.0:** PR.AA; PR.DS.
-- **CIS IG1 candidates:** 3.3, 6.1, 6.2.
-- **Required evidence:** Approved sharing policy, access review records, permission export, access change tickets.
-- **Acceptance criterion:** Sampled sensitive repositories have documented owners, authorized access, and traceable access changes; exceptions are recorded.
-- **Status:** Proposed; not tested.
+- **CIS IG1:** 3.3, 6.1, 6.2.
+- **Evidencia:** política de compartición, revisiones, exportaciones de permisos, tickets.
+- **Criterio:** repositorios muestreados con responsables, permisos autorizados y cambios trazables; excepciones registradas.
+- **Estado:** propuesto, sin pruebas.
 
-#### R-006 — Unauthorized VPN Access
+#### R-006 — Acceso VPN no autorizado
 
-- **Assets:** AST-001, AST-006
-- **Owner:** Network Administrator
-- **Proposed actions:** Reconcile VPN entitlement with authorized personnel; review remote-access MFA enforcement; check account disablement and removal workflow; document gateway access logging.
+- **Activos:** AST-001, AST-006.
+- **Responsable:** Administrador de Redes.
+- **Acciones:** conciliar permisos VPN con personas autorizadas; revisar MFA; validar proceso de deshabilitación y baja; documentar auditoría del gateway.
 - **NIST CSF 2.0:** PR.AA.
-- **CIS IG1 candidates:** 6.4, 5.1.
-- **Required evidence:** VPN policy, entitlement inventory, MFA enforcement evidence, sampled access review.
-- **Acceptance criterion:** Sampled VPN users have authorized entitlement and required MFA; unauthorized or inactive access is revoked through approved procedures.
-- **Status:** Proposed; not tested.
+- **CIS IG1:** 6.4, 5.1.
+- **Evidencia:** política VPN, inventario de accesos, configuración MFA y muestra de revisión.
+- **Criterio:** cuentas muestreadas con autorización y MFA adecuados; accesos inactivos o no autorizados revocados según procedimiento.
+- **Estado:** propuesto, sin pruebas.
 
-### Phase 3 — Days 61–90: Moderate Risks
+### Fase 3 — Días 61–90: riesgos moderados
 
-#### R-007 — Unpatched Workstation Exploitation
+#### R-007 — Explotación de equipos sin parches
 
-- **Assets:** AST-002
-- **Owner:** IT Support Lead
-- **Proposed actions:** Establish OS and application patch deployment processes; measure compliance; document deadlines and exceptions; track remediation.
+- **Activos:** AST-002.
+- **Responsable:** Líder de Soporte TI.
+- **Acciones:** establecer proceso de actualización del SO y aplicaciones; medir cumplimiento; definir plazos, excepciones y remediación.
 - **NIST CSF 2.0:** PR.PS.
-- **CIS IG1 candidates:** 7.3, 7.4.
-- **Required evidence:** Deployment policy, device update reports, exception register, remediation tickets.
-- **Acceptance criterion:** Sampled endpoints meet business-approved patch timelines or have an authorized, time-bound exception.
-- **Status:** Proposed; not tested.
+- **CIS IG1:** 7.3, 7.4.
+- **Evidencia:** política de despliegue, reportes de actualizaciones, excepciones y tickets.
+- **Criterio:** equipos muestreados dentro de plazos aprobados o con excepción autorizada y limitada en el tiempo.
+- **Estado:** propuesto, sin pruebas.
 
-#### R-008 — Internal File Share Outage
+#### R-008 — Interrupción de archivos compartidos internos
 
-- **Assets:** AST-005
-- **Owner:** Infrastructure Administrator
-- **Proposed actions:** Document service dependencies and restoration runbook; verify backup/recovery dependencies; conduct a controlled restoration exercise.
+- **Activos:** AST-005.
+- **Responsable:** Administrador de Infraestructura.
+- **Acciones:** documentar dependencias y runbook de restauración; comprobar respaldo y recuperación; ejecutar ejercicio controlado.
 - **NIST CSF 2.0:** PR.IR; RC.RP.
-- **CIS IG1 candidates:** 11.1, 11.4.
-- **Required evidence:** Approved recovery runbook, service dependency inventory, recovery exercise report, corrective-action log.
-- **Acceptance criterion:** Recovery exercise demonstrates the agreed service restoration procedure and meets approved business targets or generates tracked remediation.
-- **Status:** Proposed; not tested.
+- **CIS IG1:** 11.1, 11.4.
+- **Evidencia:** runbook aprobado, inventario de dependencias, informe de ejercicio y acciones correctivas.
+- **Criterio:** ejercicio documentado que alcance objetivos de negocio o genere medidas de mejora trazables.
+- **Estado:** propuesto, sin pruebas.
 
-## 5. Governance, Reporting, and Dependencies
+## 5. Gobierno, seguimiento y dependencias
 
-- **Executive sponsor (proposed):** Operations Manager — approves resources, priorities, exceptions, and risk decisions.
-- **Risk owners:** Business owners identified in the risk register — accountable for business impact and risk acceptance.
-- **Technical owners:** IT, infrastructure, network, M365, and HR roles — accountable for implementing and documenting assigned actions.
-- **Review cadence:** Weekly technical progress review; management review at Days 30, 60, and 90.
-- **Dependencies:** Asset inventory validation, approved policies, appropriate permissions, staff availability, recovery targets, and change-management approval.
-- **Budget:** Not estimated; requires actual licensing, staffing, and infrastructure information.
+- **Patrocinador ejecutivo propuesto:** Gerente de Operaciones; aprueba recursos, prioridades, excepciones y decisiones.
+- **Propietarios de riesgos:** responsables del negocio definidos en el registro; deciden impacto y aceptación.
+- **Responsables técnicos:** equipos TI, Infraestructura, Redes, M365 y RR. HH.; implementan y documentan.
+- **Frecuencia de seguimiento:** revisión técnica semanal y revisión ejecutiva en los días 30, 60 y 90.
+- **Dependencias:** inventario validado, políticas, permisos, disponibilidad de personal, objetivos de recuperación y gestión de cambios.
+- **Presupuesto:** no estimado; requiere datos reales de licenciamiento, personal e infraestructura.
 
-### Suggested status vocabulary
+### Estados sugeridos
 
-**Proposed → Approved → In progress → Implemented → Verified → Closed**, with **Blocked** and **Exception approved** as additional tracked states.
+**Propuesto → Aprobado → En curso → Implementado → Verificado → Cerrado**, con **Bloqueado** y **Excepción aprobada** como estados adicionales.
 
-A safeguard should be marked **Verified** only after its acceptance criteria are met with appropriate evidence. **Closed** additionally requires accountable risk-owner review of the remaining risk.
+**Verificado** exige cumplir criterios de aceptación con evidencia. **Cerrado** requiere además la revisión del riesgo restante por parte del propietario.
 
-## 6. Evidence and Residual Risk
+## 6. Evidencia y riesgo residual
 
-| Risk | Implementation evidence | Validation performed? | Residual score |
+| Riesgo | Evidencia de implementación | ¿Se validó? | Puntaje residual |
 |---|---|---|---|
-| R-001 | Not collected | No | Not assessed |
-| R-002 | Not collected | No | Not assessed |
-| R-003 | Not collected | No | Not assessed |
-| R-004 | Not collected | No | Not assessed |
-| R-005 | Not collected | No | Not assessed |
-| R-006 | Not collected | No | Not assessed |
-| R-007 | Not collected | No | Not assessed |
-| R-008 | Not collected | No | Not assessed |
+| R-001 | No recopilada | No | No evaluado |
+| R-002 | No recopilada | No | No evaluado |
+| R-003 | No recopilada | No | No evaluado |
+| R-004 | No recopilada | No | No evaluado |
+| R-005 | No recopilada | No | No evaluado |
+| R-006 | No recopilada | No | No evaluado |
+| R-007 | No recopilada | No | No evaluado |
+| R-008 | No recopilada | No | No evaluado |
 
-**Do not automatically subtract points from inherent risk scores when a safeguard is proposed.** Residual scoring requires evidence of control design, implementation, operating effectiveness, and the organization's approved risk assessment method.
+**No disminuir automáticamente los puntajes inherentes porque se haya propuesto una salvaguarda.** El riesgo residual necesita pruebas de diseño, implementación y eficacia, además de un método aprobado de evaluación.
 
-**CIS scope note:** Restore testing remains a proposed verification activity, but CIS **11.5** is **IG2/IG3**, not IG1; CIS **11.1–11.4** are IG1. See the official Navigator below.
+**Nota CIS:** la salvaguarda **11.5 — Test Data Recovery** corresponde a **IG2/IG3**, no a IG1. Las salvaguardas **11.1–11.4** pertenecen a IG1. Las pruebas de restauración son una actividad propuesta de verificación adicional.
 
-## 7. Exit Criteria for the 90-Day Plan
+## 7. Criterios de salida del plan
 
-The proposed plan may be presented for closure review only when:
+El plan solo debería presentarse para su cierre si:
 
-1. Each risk has a confirmed accountable owner and approved disposition.
-2. Each action has an implementation record and supporting evidence.
-3. Acceptance criteria have been independently reviewed as appropriate.
-4. Unresolved findings and exceptions are documented and escalated.
-5. Residual risks have been reassessed and formally accepted or scheduled for further treatment.
+1. Cada riesgo tiene propietario confirmado y decisión aprobada.
+2. Todas las acciones tienen registro de implementación y evidencia.
+3. Los criterios de aceptación han sido revisados según corresponda.
+4. Hallazgos y excepciones abiertas están documentados y escalados.
+5. Los riesgos residuales se han reevaluado y aceptado o programado para tratamiento adicional.
 
-No exit criterion has been achieved in this fictional exercise.
+**Ninguno de estos criterios se cumplió en esta simulación.**
 
-## 8. Next Step
+## 8. Documento siguiente
 
-Create an [Executive Summary](../reports/executive-summary.md) that explains the simulated risk profile, top priorities, control strategy, and proposed 90-day plan in business language.
+Consultar el [Resumen ejecutivo](../reports/executive-summary.md) para conocer las prioridades, estrategia de controles y propuesta de 90 días en lenguaje de negocio.
 
-## References & Official Documentation
+## Referencias oficiales
 
 - [NIST Cybersecurity Framework 2.0](https://www.nist.gov/cyberframework)
-- [CIS Controls v8.1 Navigator — implementation group applicability](https://www.cisecurity.org/controls/cis-controls-navigator)
-- [NIST SP 800-30 Rev. 1 — risk assessment guidance](https://csrc.nist.gov/pubs/sp/800/30/r1/final)
+- [CIS Controls v8.1 Navigator](https://www.cisecurity.org/controls/cis-controls-navigator)
+- [NIST SP 800-30 Rev. 1](https://csrc.nist.gov/pubs/sp/800/30/r1/final)
 
-*References support the proposed method; no remediation or testing has occurred.*
+*Las referencias respaldan la metodología propuesta; no se ejecutaron remediaciones ni pruebas.*
 
 ---
 
-*Fictional portfolio case study; no remediation activities or validations have occurred.*
+*Caso ficticio para portafolio. Ninguna actividad de remediación o validación fue ejecutada.*
