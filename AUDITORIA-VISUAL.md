@@ -21,7 +21,7 @@
 | [Flujo de endurecimiento Windows](Cybersecurity/Windows-Security-Hardening/diagrams/hardening-workflow.svg) | Revisado | Etiquetas de pasos precisadas; `CHG-001` identificado como único cambio ejecutado |
 | [Inventario ficticio de activos](Information-Security/Enterprise-Risk-Assessment/assets/asset-overview.svg) | Revisado | «Windows endpoints» corregido a «Equipos Windows»; descripción accesible |
 | [Mapeo de controles](Information-Security/Enterprise-Risk-Assessment/controls/control-mapping-overview.svg) | Revisado | Metadatos accesibles, nombres de marcos conservados como nombres técnicos |
-| [Panel ejecutivo de riesgos](Information-Security/Enterprise-Risk-Assessment/reports/executive-dashboard.svg) | Revisado | Metadatos accesibles, términos y datos del caso ficticio revisados |
+| [Panel ejecutivo de riesgos](Information-Security/Enterprise-Risk-Assessment/reports/executive-dashboard.svg) | Revisado | Metadatos accesibles, términos y datos ficticios revisados; indicador amarillo «90» oscurecido para contraste |
 | [Distribución de riesgos](Information-Security/Enterprise-Risk-Assessment/reports/risk-distribution.svg) | Revisado | `viewBox` y metadatos accesibles añadidos; conteos ficticios conservados |
 | [Mapa de calor](Information-Security/Enterprise-Risk-Assessment/risk-register/risk-heatmap.svg) | Revisado | «R-003 to R-006» corregido a «R-003 a R-006»; metadatos accesibles |
 | [Hoja de ruta de 90 días](Information-Security/Enterprise-Risk-Assessment/treatment/risk-treatment-roadmap.svg) | Revisado | Metadatos accesibles y terminología del plan verificados |
@@ -57,6 +57,12 @@
 Para certificar que el texto encaja exactamente según el navegador, abrir cada SVG desde los enlaces anteriores y observarlo, al menos, en una ventana de escritorio y otra estrecha de móvil. Revisar especialmente el **panel lateral de correlación**, las **tarjetas de incidentes L2**, las **cinco tarjetas del flujo de hardening** y los **pies de página de los informes de riesgos**.
 
 Un control estático de coordenadas y estructura no determina la representación final de la tipografía; si aparece un corte, ajustar el tamaño de fuente o dividir la etiqueta en líneas y volver a verificarla antes de declarar QA visual completa.
+
+## Correcciones adicionales de legibilidad
+
+- Se sustituyeron tonalidades de texto amarillo de bajo contraste por un ámbar más oscuro en el identificador **INC-003** y el indicador **90 días** del panel ejecutivo. Las franjas y los gráficos mantienen sus colores originales.
+- La revisión aproximada de anchos de texto detectó un posible desbordamiento en el panel de correlación 4624/4672. Se sustituyeron rótulos extensos por «CORRELACIÓN 4624/4672» y «1 VÍNCULO».
+- No se cambió ningún dato de seguridad ni se modificaron las evidencias de consola.
 
 ## Estado
 
