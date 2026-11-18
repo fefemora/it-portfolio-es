@@ -4,9 +4,9 @@
 
 Bienvenido a mi portafolio profesional. Aquí documento cómo investigo problemas técnicos, organizo evidencias, evalúo riesgos y valido resultados. Mis proyectos reúnen **soporte y resolución de incidentes**, **operaciones seguras de TI** y **análisis de seguridad**.
 
-**[Versión en inglés / English version](https://github.com/fefemora/it-portfolio-en)** · **[Cómo trabajo — metodología](metodologia/README.md)** · **[Estado de la traducción](LOCALIZACION.md)**
+**[Versión en inglés / English version](https://github.com/fefemora/it-portfolio-en)** · **[Cómo trabajo — metodología](metodologia/README.md)** · **[Estado de la traducción](LOCALIZACION.md)** · **[Auditoría de recursos visuales](AUDITORIA-VISUAL.md)**
 
-> **Transparencia de evidencias:** distingo los **casos reales**, los **escenarios simulados** y los **proyectos planificados**. Los ejercicios ficticios no se presentan como incidentes reales ni como controles implementados. **Estado de localización:** los 47 archivos originales fueron replicados y los 32 documentos Markdown originales ya están en español. Los 11 SVG tienen textos técnicos adaptados y controles estructurales revisados. La verificación visual renderizada a distintos tamaños todavía está pendiente.
+> **Transparencia de evidencias:** distingo los **casos reales**, los **escenarios simulados** y los **proyectos planificados**. Los ejercicios ficticios no se presentan como incidentes reales ni como controles implementados. **Estado de localización:** los 47 archivos originales fueron replicados y los 32 documentos Markdown originales ya están en español. Los 11 SVG tienen textos técnicos adaptados, accesibilidad básica y controles estructurales revisados. La revisión de renderizado en distintos navegadores y tamaños todavía está pendiente.
 
 ## Explora el portafolio
 
