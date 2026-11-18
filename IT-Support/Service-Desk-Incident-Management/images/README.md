@@ -1,3 +1,3 @@
-# Visual assets
+# Recursos gráficos
 
-This directory will contain incident diagrams and illustrations. Visuals are explanatory and do not represent execution evidence.
+Esta carpeta está destinada a diagramas e ilustraciones de incidentes. Los recursos visuales sirven como explicación del procedimiento y **no constituyen evidencia de que una prueba haya sido ejecutada**.
