@@ -16,9 +16,9 @@
 </g>
 <g fill="#64748B" font-size="12" text-anchor="middle">
 <text x="115" y="187">Solo lectura</text><text x="327" y="187">Comparar objetivos</text><text x="539" y="187">Alcance y reversión</text><text x="751" y="187">Cambio autorizado</text><text x="963" y="187">Evidencia posterior</text>
-<text x="115" y="208">VERIFICADO</text><text x="327" y="208">PROPUESTO</text><text x="539" y="208">PROPUESTO</text><text x="751" y="208">SIN EJECUTAR</text><text x="963" y="208">SIN EJECUTAR</text>
+<text x="115" y="208">VERIFICADO</text><text x="327" y="208">EVALUADO</text><text x="539" y="208">CHG-001</text><text x="751" y="208">AUTORIZADO</text><text x="963" y="208">128 MiB OK</text>
 </g>
 <g fill="none" stroke="#059669" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M209 179h22l-7 -6m7 6l-7 6"/><path d="M421 179h22l-7 -6m7 6l-7 6"/><path d="M633 179h22l-7 -6m7 6l-7 6"/><path d="M845 179h22l-7 -6m7 6l-7 6"/></g>
 <rect x="26" y="270" width="1027" height="45" rx="9" fill="#E2E8F0"/>
-<text x="42" y="298" fill="#14283F" font-size="14">EVIDENCIA: Desconocido no es inseguro. Propuesto no significa implementado. CHG-001 fue el único cambio.</text>
+<text x="42" y="298" fill="#14283F" font-size="14">EVIDENCIA: Solo CHG-001 fue ejecutado. Registro Security: 128 MiB. Retención de 7 días pendiente.</text>
 </g></svg>
