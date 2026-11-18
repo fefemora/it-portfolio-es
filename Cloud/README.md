@@ -1,34 +1,27 @@
+# Redes y seguridad en la nube
 
-# Cloud Networking & Security
+Esta sección está dedicada a mi desarrollo profesional en infraestructura cloud, redes y seguridad. A partir de mi experiencia en soporte TI, administración de sistemas y ciberseguridad, busco desarrollar habilidades prácticas en entornos cloud y conectividad segura.
 
-This section is dedicated to my ongoing professional development in cloud infrastructure, networking, and security.
+## Objetivos de aprendizaje
 
-Building on my experience in IT support, systems administration, and cybersecurity, my next goal is to develop practical skills in cloud environments and secure cloud connectivity.
+- Comprender los modelos de servicio e infraestructura cloud.
+- Explorar los fundamentos de redes en Microsoft Azure.
+- Configurar redes virtuales y subredes.
+- Comprender la gestión de identidades y accesos en la nube.
+- Implementar grupos de seguridad de red y reglas de firewall.
+- Explorar conectividad híbrida y monitoreo.
+- Aplicar buenas prácticas de seguridad cloud.
 
-## Learning Objectives
+## Proyectos planificados
 
-- Understand cloud infrastructure and service models
-- Explore Microsoft Azure networking fundamentals
-- Configure virtual networks and subnets
-- Understand cloud identity and access controls
-- Implement network security groups and firewall rules
-- Explore hybrid connectivity and cloud monitoring
-- Apply cloud security best practices
-
-## Planned Projects
-
-| Project | Description | Status |
+| Proyecto | Descripción | Estado |
 |---|---|---|
-| Azure Virtual Networking Lab | Configure virtual networks, subnets, and connectivity in a lab environment. | Future learning path |
-| Cloud IAM & Security Lab | Explore identity management, RBAC, and security controls in Azure. | Future learning path |
-| Cloud Network Security Lab | Implement and test network security rules and access restrictions. | Future learning path |
+| Laboratorio de redes virtuales en Azure | Configuración de redes, subredes y conectividad en un laboratorio. | Futuro |
+| Laboratorio de IAM y seguridad cloud | Identidades, RBAC y controles de seguridad en Azure. | Futuro |
+| Laboratorio de seguridad de redes cloud | Configuración y pruebas de reglas de acceso. | Futuro |
 
-## Learning Approach
+## Metodología
 
-Projects will be developed progressively through hands-on labs, technical documentation, and practical testing.
+Los proyectos avanzarán mediante laboratorios prácticos, documentación técnica y pruebas. Cada proyecto completado incluirá arquitectura, configuración, validación, consideraciones de seguridad y lecciones aprendidas.
 
-Each completed project will include its architecture, configuration steps, validation results, security considerations, and lessons learned.
-
-## Current Status
-
-This section represents a future specialization and will be expanded as practical projects are completed.
+**Estado actual:** especialización prevista para una etapa posterior; no se presentan implementaciones aún no realizadas.
