@@ -12,10 +12,10 @@
 <rect x="662" y="121" width="179" height="115" rx="12" fill="#fff" stroke="#CBD5E1" stroke-width="2"/>
 <rect x="874" y="121" width="179" height="115" rx="12" fill="#fff" stroke="#CBD5E1" stroke-width="2"/>
 <g fill="#14283F" font-size="15" font-weight="700" text-anchor="middle">
-<text x="115" y="157">01 · BASE</text><text x="327" y="157">02 · EVALUAR</text><text x="539" y="157">03 · PROPONER</text><text x="751" y="157">04 · AUTORIZAR</text><text x="963" y="157">05 · VALIDAR</text>
+<text x="115" y="157">01 · LÍNEA BASE</text><text x="327" y="157">02 · EVALUAR</text><text x="539" y="157">03 · PROPONER</text><text x="751" y="157">04 · AUTORIZAR</text><text x="963" y="157">05 · VALIDAR</text>
 </g>
 <g fill="#64748B" font-size="12" text-anchor="middle">
-<text x="115" y="187">Solo lectura</text><text x="327" y="187">Comparar objetivos</text><text x="539" y="187">Alcance y reversión</text><text x="751" y="187">Cambio autorizado</text><text x="963" y="187">Evidencia posterior</text>
+<text x="115" y="187">Solo lectura</text><text x="327" y="187">Evaluar hallazgos</text><text x="539" y="187">Alcance y reversión</text><text x="751" y="187">Cambio autorizado</text><text x="963" y="187">Evidencia posterior</text>
 <text x="115" y="208">VERIFICADO</text><text x="327" y="208">EVALUADO</text><text x="539" y="208">CHG-001</text><text x="751" y="208">AUTORIZADO</text><text x="963" y="208">128 MiB OK</text>
 </g>
 <g fill="none" stroke="#059669" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M209 179h22l-7 -6m7 6l-7 6"/><path d="M421 179h22l-7 -6m7 6l-7 6"/><path d="M633 179h22l-7 -6m7 6l-7 6"/><path d="M845 179h22l-7 -6m7 6l-7 6"/></g>
