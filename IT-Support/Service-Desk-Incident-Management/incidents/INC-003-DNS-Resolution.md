@@ -1,249 +1,197 @@
-# INC-003 — Corporate DNS Resolution Failure
+# INC-003 — Fallo de resolución de DNS corporativo
 
-[← Service Desk Overview](../README.md) · [IT Support Hub](../../README.md) · [Portfolio Home](../../../README.md)
+[← Mesa de ayuda](../README.md) · [Soporte TI](../../README.md) · [Portafolio](../../../README.md)
 
-**Incident Type:** Network Connectivity / DNS Resolution  
-**Category:** Networking  
-**Priority:** P3 — Medium (proposed; subject to organizational SLA)  
-**Support Level:** L2 Helpdesk  
-**Environment:** Windows 11 Enterprise / Corporate Network  
-**Status:** Simulated — Investigation and Resolution Plan
+**Tipo:** Conectividad de red / Resolución DNS  
+**Categoría:** Redes  
+**Prioridad:** P3 — Media (propuesta; sujeta al SLA corporativo)  
+**Nivel:** Mesa de ayuda L2  
+**Entorno:** Windows 11 Enterprise / Red corporativa  
+**Estado:** Simulado — Plan de investigación y resolución
 
-## DNS Troubleshooting Workflow
+## Flujo de troubleshooting DNS
 
 ```mermaid
 flowchart TD
-    A[Hostname access failure reported] --> B[Review ipconfig /all]
-    B --> C{Valid IP and approved DNS settings?}
-    C -->|No| D[Investigate adapter, DHCP or VPN]
-    C -->|Yes| E[Query approved DNS resolver]
-    E --> F{Expected DNS response?}
-    F -->|Yes| G[Investigate application, proxy or cache]
-    F -->|No| H[Compare internal and external names]
-    H --> I{Internal names only?}
-    I -->|Yes| J[Investigate internal zones and VPN DNS]
-    I -->|No| K[Investigate resolver, forwarding or filtering]
-    D --> L[Document findings and resolve or escalate]
+    A[Usuario informa fallo de acceso por nombre] --> B[Revisar ipconfig /all]
+    B --> C{IP y DNS autorizados}
+    C -->|No| D[Investigar adaptador, DHCP o VPN]
+    C -->|Sí| E[Consultar resolver DNS autorizado]
+    E --> F{Respuesta DNS esperada}
+    F -->|Sí| G[Revisar aplicación, proxy o caché]
+    F -->|No| H[Comparar nombres internos y externos]
+    H --> I{Solo nombres internos}
+    I -->|Sí| J[Investigar zonas internas y DNS de VPN]
+    I -->|No| K[Revisar resolver, reenvío o filtros]
+    D --> L[Documentar, resolver o escalar]
     G --> L
     J --> L
     K --> L
 ```
 
-> **Simulation:** These are decision points, not recorded test results. Use only authorized DNS resolvers and preserve corporate security controls.
+> **Simulación:** los nodos muestran decisiones propuestas, no pruebas realizadas. Solo se deben usar servidores DNS autorizados y mantener los controles corporativos de seguridad.
 
-## 1. Incident Description
+## 1. Descripción del incidente
 
-A fictional employee reports being unable to access corporate web applications and selected external websites using their domain names.
+Un empleado ficticio informa que no puede acceder a aplicaciones web corporativas ni a algunos sitios externos utilizando sus nombres de dominio. El equipo parece mantener conectividad IP, pero se sospecha un problema de resolución DNS.
 
-The workstation appears to maintain IP connectivity, but DNS resolution is suspected to be failing.
+**Síntomas informados:**
 
-**Reported symptoms:**
+- Las aplicaciones internas no cargan por nombre.
+- Algunos sitios muestran errores de DNS.
+- El equipo permanece conectado a la red corporativa.
+- No se ha confirmado una interrupción generalizada.
 
-- Corporate applications fail to load by hostname.
-- Some websites display DNS-related errors.
-- The workstation remains connected to the corporate network.
-- No organization-wide outage has been confirmed.
+## 2. Impacto en el negocio
 
-## 2. Business Impact
+- Un empleado pierde acceso a aplicaciones necesarias.
+- Disminuye su productividad.
+- La conectividad parece funcionar parcialmente.
+- Debe comprobarse el alcance del incidente.
 
-- One employee experiences disrupted access to business applications.
-- Productivity is reduced.
-- Network connectivity appears partially functional.
-- The scope of the incident requires further investigation.
+**Prioridad inicial:** P3 — Media, suponiendo un único usuario afectado y sin interrupción crítica.
 
-**Initial priority:** P3 — Medium, assuming a single affected user and no critical business interruption.
+## 3. Diagnóstico inicial
 
-## 3. Initial Troubleshooting
-
-### Step 1 — Review Network Configuration
-
-Open Command Prompt and execute:
+### Paso 1 — Revisar configuración de red
 
 ```cmd
 ipconfig /all
 ```
 
-**Objective:**
+**Objetivo:** identificar dirección IP, máscara, puerta de enlace y servidores DNS configurados.
 
-Identify the workstation's IP address, subnet mask, default gateway, and configured DNS servers.
+**Resultado esperado:** configuración IP válida; servidores DNS coherentes con la red; adaptadores sin cambios inesperados.
 
-**Expected findings:**
+**Estado de ejecución:** no probado.
 
-- Valid IP configuration.
-- DNS servers consistent with corporate network requirements.
-- No unexpected network adapter configuration.
-
-**Execution status:** Not tested.
-
-### Step 2 — Verify IP Connectivity
+### Paso 2 — Comprobar conectividad IP
 
 ```cmd
 ping 1.1.1.1
 ```
 
-**Objective:**
+**Objetivo:** evaluar conectividad hacia una dirección externa sin depender del DNS.
 
-Check whether the workstation can reach an external IP address without relying on DNS.
+Una respuesta correcta indica conectividad IP básica con el destino. Un error **no es concluyente** porque el tráfico ICMP puede estar filtrado.
 
-**Interpretation:**
+**Estado:** no probado.
 
-A successful response supports basic IP connectivity to the destination. A failed response is inconclusive because ICMP traffic may be filtered.
-
-**Execution status:** Not tested.
-
-### Step 3 — Test DNS Resolution
+### Paso 3 — Probar resolución DNS
 
 ```cmd
 nslookup www.microsoft.com
 ```
 
-**Objective:**
+**Objetivo:** comprobar si el resolver configurado resuelve un dominio externo conocido.
 
-Determine whether the configured DNS resolver can resolve a known external domain.
+**Posibles resultados:** respuesta correcta, tiempo de espera agotado, servidor indisponible o respuesta desde un servidor inesperado.
 
-**Potential findings:**
+**Estado:** no probado.
 
-- Successful DNS response.
-- DNS timeout.
-- Server unavailable.
-- Unexpected DNS server response.
-
-**Execution status:** Not tested.
-
-### Step 4 — Compare DNS Resolvers
+### Paso 4 — Comparar resolvers DNS
 
 ```cmd
 nslookup www.microsoft.com 1.1.1.1
 ```
 
-**Objective:**
+Comparar con un servidor DNS público **solo si lo permite la política corporativa**. La organización puede bloquear o prohibir resolvers públicos.
 
-Compare DNS resolution against a public DNS resolver, where permitted by corporate security policy.
+**Estado:** no probado.
 
-**Important:**
-
-Public DNS queries may be blocked or prohibited in enterprise environments. Testing must follow organizational policy.
-
-**Execution status:** Not tested.
-
-### Step 5 — Review the DNS Client Cache
+### Paso 5 — Revisar caché del cliente
 
 ```cmd
 ipconfig /displaydns
 ```
 
-**Objective:**
-
-Inspect cached DNS records and identify potentially outdated entries.
-
-If approved and appropriate, clear the DNS resolver cache:
+Permite identificar entradas potencialmente desactualizadas. Si es apropiado y autorizado, podría ejecutarse:
 
 ```cmd
 ipconfig /flushdns
 ```
 
-**Important:** Flushing the DNS cache is a corrective action, not proof that cached records caused the issue.
+**Importante:** vaciar la caché es una medida correctiva, no una prueba de que la caché haya causado el problema.
 
-**Execution status:** Not tested.
+**Estado:** no probado.
 
-### Step 6 — PowerShell DNS Diagnostics
+### Paso 6 — Diagnóstico DNS mediante PowerShell
 
 ```powershell
 Resolve-DnsName www.microsoft.com
 ```
 
-**Objective:**
-
-Inspect DNS resolution results using a native PowerShell command.
-
-Additional diagnostic options may include querying a specific DNS server:
+También podría consultarse un servidor específico si está autorizado:
 
 ```powershell
 Resolve-DnsName www.microsoft.com -Server 1.1.1.1
 ```
 
-**Execution status:** Not tested.
+**Estado:** no probado.
 
-## 4. Root Cause Analysis
+## 4. Análisis de posibles causas
 
-**Initial hypotheses:**
+Se plantearon las siguientes hipótesis:
 
-1. Incorrect DNS server configuration.
-2. DNS server unavailability.
-3. DNS client cache inconsistencies.
-4. VPN-related DNS configuration problems.
-5. DNS filtering or security policy restrictions.
+1. Configuración incorrecta del servidor DNS.
+2. Indisponibilidad del servidor DNS.
+3. Inconsistencias en la caché local.
+4. Problemas de DNS relacionados con VPN.
+5. Filtrado DNS o restricciones de seguridad.
 
-**Confirmed root cause:** Not established.
+**Causa raíz confirmada:** no establecida. Es imprescindible contar con resultados diagnósticos reales para determinarla.
 
-A valid root cause determination requires actual diagnostic results and supporting evidence.
+## 5. Resolución propuesta
 
-## 5. Proposed Resolution Procedure
+Según la evidencia obtenida:
 
-Depending on the diagnostic findings:
+1. Comparar la configuración con los parámetros corporativos aprobados.
+2. Verificar acceso y disponibilidad de los servidores DNS.
+3. Revisar DNS de VPN si el usuario trabaja remotamente.
+4. Vaciar caché únicamente cuando corresponda.
+5. Corregir configuraciones erróneas mediante un procedimiento autorizado.
+6. Escalar problemas de infraestructura DNS al equipo de Redes o Infraestructura.
 
-1. Verify the workstation's DNS configuration against approved corporate settings.
-2. Confirm reachability and availability of the configured DNS servers.
-3. Review VPN DNS settings if the user is working remotely.
-4. Flush the DNS cache only when appropriate.
-5. Correct unauthorized or incorrect DNS configuration through approved change procedures.
-6. Escalate suspected DNS infrastructure failures to the Network or Infrastructure team.
+## 6. Criterios de validación
 
-## 6. Validation Criteria
+El incidente podría cerrarse cuando:
 
-The incident may be considered resolved when:
+- Se resuelven los nombres de recursos afectados.
+- El usuario accede a las aplicaciones necesarias.
+- Los servidores autorizados entregan las respuestas esperadas.
+- No quedan cambios no deseados en la configuración.
+- El usuario confirma la recuperación del servicio.
 
-- The workstation resolves the affected corporate hostnames.
-- The employee can access the required business applications.
-- DNS queries return the expected records from authorized resolvers.
-- No unintended network configuration changes remain.
-- The employee confirms service restoration.
+**Validación:** no ejecutada.
 
-**Validation status:** Not performed.
+## 7. Criterios de escalamiento
 
-## 7. Escalation Criteria
+Escalar si varios usuarios presentan el mismo problema; los servidores DNS corporativos están indisponibles; se necesitan cambios de reenvío o zonas; intervienen controles de seguridad; o la corrección supera los permisos L2.
 
-Escalate to the Network or Infrastructure team when:
+## 8. Consideraciones de seguridad
 
-- Multiple users report similar DNS failures.
-- Corporate DNS servers are unavailable.
-- DNS forwarding or internal zone configuration appears incorrect.
-- DNS-related security controls may be involved.
-- The required corrective action exceeds L2 permissions.
+- No sustituir servidores DNS internos por resolvers públicos sin autorización.
+- No revelar nombres de dominios internos a servicios externos no aprobados.
+- Documentar cualquier cambio en la configuración.
+- Investigar servidores DNS inesperados.
+- Escalar sospechas de manipulación o envenenamiento de DNS.
 
-## 8. Security Considerations
+## 9. Cierre
 
-- Do not replace corporate DNS servers with public resolvers without authorization.
-- Avoid exposing internal DNS records to unauthorized external services.
-- Document network configuration changes.
-- Investigate unexpected DNS server addresses.
-- Escalate suspected DNS manipulation or poisoning.
+**Resultado:** escenario no ejecutado.  
+**Resolución propuesta:** identificar el componente DNS afectado, aplicar una corrección autorizada y validar la resolución.  
+**Causa raíz:** no confirmada.
 
-## 9. Incident Closure
+**Lecciones aprendidas:** la conectividad IP y DNS deben analizarse por separado; la configuración debe verificarse antes de modificarla; los resolvers públicos son una opción diagnóstica solo cuando están permitidos; la documentación estructurada facilita el escalamiento.
 
-**Outcome:** Not executed — simulated incident.
+## Advertencia sobre la simulación
 
-**Proposed resolution:** Identify the failing DNS component, apply an authorized corrective action, and validate name resolution.
+No se modificó ningún DNS de producción ni se ejecutaron comandos para este caso.
 
-**Root cause:** Unconfirmed.
+## Referencias oficiales
 
-**Lessons learned:**
+- [Resolve-DnsName](https://learn.microsoft.com/en-us/powershell/module/dnsclient/resolve-dnsname)
+- [Módulo DnsClient](https://learn.microsoft.com/en-us/powershell/module/dnsclient)
+- [Fundamentos de DNS](https://learn.microsoft.com/en-us/windows-server/networking/dns/dns-overview)
 
-- IP connectivity and DNS resolution must be investigated separately.
-- DNS configuration should be validated before applying changes.
-- Public DNS resolvers are diagnostic alternatives only when permitted.
-- Structured troubleshooting improves incident documentation and escalation.
-
----
-
-## Portfolio Disclaimer
-
-This is a fictional enterprise support scenario. No production DNS configuration was modified, and no diagnostic commands were executed as part of this case study.
-
-## References & Official Documentation
-
-- [Resolve-DnsName — PowerShell reference](https://learn.microsoft.com/en-us/powershell/module/dnsclient/resolve-dnsname)
-- [DnsClient PowerShell module](https://learn.microsoft.com/en-us/powershell/module/dnsclient)
-- [DNS overview — Microsoft Learn](https://learn.microsoft.com/en-us/windows-server/networking/dns/dns-overview)
-
-*These references support the methodology and technical procedures; they do not independently validate execution, findings, or control effectiveness.*
+*Las referencias respaldan el procedimiento técnico, no demuestran su ejecución.*
