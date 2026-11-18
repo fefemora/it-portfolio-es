@@ -4,7 +4,7 @@
 
 Bienvenido a mi portafolio profesional. Aquí documento cómo investigo problemas técnicos, organizo evidencias, evalúo riesgos y valido resultados. Mis proyectos reúnen **soporte y resolución de incidentes**, **operaciones seguras de TI** y **análisis de seguridad**.
 
-**[English version / Versión en inglés](https://github.com/fefemora/it-portfolio-en)**
+**[English version / Versión en inglés](https://github.com/fefemora/it-portfolio-en)** · **[Estado de la traducción](LOCALIZACION.md)**
 
 > **Transparencia de evidencias:** distingo los **casos reales**, los **escenarios simulados** y los **proyectos planificados**. Los ejercicios ficticios no se presentan como incidentes reales ni como controles implementados. **Estado de traducción:** la estructura y todos los archivos originales ya están replicados; la adaptación al español de los documentos técnicos y textos de diagramas sigue en curso. Algunos enlaces todavía llevan a contenido en inglés.
 
