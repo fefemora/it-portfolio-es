@@ -95,5 +95,3 @@ Mi objetivo es combinar experiencia en soporte y administración de sistemas con
 - **Versión en inglés:** [it-portfolio-en](https://github.com/fefemora/it-portfolio-en)
 
 ---
-
-*Portafolio profesional en español. La evidencia real y los escenarios simulados están claramente diferenciados.*
