@@ -1,26 +1,28 @@
-# Administración de sistemas
+# <img src="../assets/icons/systems-administration.svg" width="32" alt="Administración de sistemas"> Administración de sistemas
 
-Esta sección aborda la administración de sistemas, gestión de infraestructura, identidades y mantenimiento de servicios de TI mediante ejercicios prácticos y laboratorios.
+![Enfoque](https://img.shields.io/badge/Enfoque-Windows_Server-14283F?style=flat-square) ![Identidades](https://img.shields.io/badge/Identidades-Active_Directory-14283F?style=flat-square) ![Estado](https://img.shields.io/badge/Documentación-En_preparación-64748B?style=flat-square)
 
-## Áreas de enfoque
+[← Portafolio](../README.md) · [Soporte TI](../IT-Support/README.md) · [Ciberseguridad](../Cybersecurity/README.md)
 
-- Administración de Windows Server.
-- Fundamentos y operación de Active Directory.
-- Gestión de usuarios y grupos.
-- Gestión de identidades y accesos (IAM).
-- Mantenimiento y monitoreo de servidores.
-- Entornos locales e híbridos.
-- Fundamentos de Microsoft Entra ID.
+La administración de sistemas conecta el soporte cotidiano con la infraestructura que lo hace posible: cuentas, permisos, servicios y entornos Windows confiables. Me interesa mantener esos componentes organizados, disponibles y seguros.
 
-## Proyectos
+## Áreas de trabajo
 
-| Proyecto | Descripción | Estado |
+| Área | Enfoque |
+|---|---|
+| **Windows Server** | Roles, servicios, monitoreo y administración |
+| **Active Directory** | Dominios, unidades organizativas, usuarios y grupos |
+| **Identidades y accesos** | Mínimo privilegio, permisos por grupos y ciclo de vida |
+| **Operaciones** | Diagnóstico, actualizaciones y recuperación |
+| **Identidad híbrida** | Conceptos de Active Directory local y Microsoft Entra ID |
+
+## Documentación de laboratorios en preparación
+
+| Proyecto | Contenido | Estado en el portafolio |
 |---|---|---|
-| Laboratorio de Active Directory e identidades | Gestión de usuarios, grupos, roles y permisos en un dominio Windows. | Planificado para documentar |
-| Laboratorio de administración de Windows Server | Configuración, administración y mantenimiento de servidores. | Planificado |
+| **Active Directory e identidades** | Usuarios, grupos, permisos, estructura de dominio y validación | **Documentación planificada** |
+| **Administración de Windows Server** | Configuración y mantenimiento de servidores | **Planificado** |
 
-## Metodología
+Un laboratorio administrativo necesita mostrar configuraciones, procedimientos y pruebas reproducibles. Mientras no publique esas evidencias aquí, mantendré estos proyectos identificados como pendientes.
 
-Los laboratorios incluirán entorno, configuración, objetivos, pasos de implementación, pruebas y validación, diagnóstico, consideraciones de seguridad y lecciones aprendidas.
-
-[Volver al portafolio](../README.md)
+[← Volver al portafolio](../README.md)
