@@ -1,15 +1,16 @@
-# INC-001 — Diagnóstico de Windows Update y actualizaciones de aplicaciones
+# <img src="../../assets/icons/it-support.svg" width="32" alt="Soporte TI"> INC-001 · Diagnóstico de Windows Update y aplicaciones
 
-[← Soporte TI](../README.md) · [Portafolio principal](../../README.md)
+![Windows](https://img.shields.io/badge/Windows-11-14283F?style=flat-square) ![PowerShell](https://img.shields.io/badge/PowerShell-Diagn%C3%B3stico-14283F?style=flat-square) ![Real](https://img.shields.io/badge/CASO_REAL-Resuelto-059669?style=flat-square)
 
-![Recuperación de espacio en disco verificada](storage-recovery.svg)
+[← Soporte TI](../README.md) · [Portafolio](../../README.md) · [Notas de validación](evidence/validation-notes.md)
 
-**Proyecto:** Laboratorio de troubleshooting de Windows  
-**Categoría:** Soporte TI / Diagnóstico de Windows  
-**Dificultad:** Intermedia  
-**Estado:** Resuelto  
-**Entorno:** Windows 11 Pro, versión 25H2  
-**Herramientas:** PowerShell, Visor de eventos, Windows Update y Microsoft Store
+[![Recuperación de espacio en disco verificada](storage-recovery.svg)](evidence/validation-notes.md)
+
+**Windows 11 · PowerShell · Visor de eventos · Microsoft Store**
+
+El equipo presentaba fallos recurrentes de actualización de aplicaciones, incluido el error `0x80073D02`. Revisé eventos, servicios y almacenamiento antes de aplicar una limpieza de bajo impacto y reiniciar. Después, las actualizaciones finalizaron correctamente y el espacio libre aumentó de **18,6 GiB a 63,1 GiB**.
+
+**Resultado:** incidente resuelto y validado funcionalmente. No fue posible confirmar una causa raíz única.
 
 ---
 
@@ -25,16 +26,6 @@ flowchart LR
     F --> G[Actualizaciones correctas]
     G --> H[Validar recuperación funcional]
 ```
-
-**Caso real verificado:** el almacenamiento disponible aumentó de **18,6 GiB a 63,1 GiB** (aproximadamente **44,5 GiB recuperados**). La causa raíz exacta no pudo establecerse de forma concluyente.
-
-## 1. Presentación del caso
-
-Este proyecto documenta una situación real de diagnóstico técnico relacionada con fallos recurrentes de actualización de Windows y sus aplicaciones.
-
-El equipo solicitaba actualizaciones en repetidas ocasiones, pero varias aplicaciones no lograban completar el proceso. La investigación buscó identificar los errores, revisar el estado del sistema y de los servicios y aplicar una corrección de bajo riesgo.
-
-El problema se resolvió funcionalmente después de limpiar espacio en disco, reiniciar el equipo y repetir las actualizaciones.
 
 ## 2. Descripción del problema
 
