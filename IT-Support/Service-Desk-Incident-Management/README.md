@@ -1,69 +1,44 @@
-# Gestión de incidentes de mesa de ayuda — Casos L2
+# <img src="../../assets/icons/it-support.svg" width="32" alt="Mesa de ayuda"> Mesa de ayuda L2 · Casos de incidentes
 
-[← Soporte TI](../README.md) · [Portafolio principal](../../README.md)
+![Soporte](https://img.shields.io/badge/Mesa_de_ayuda-L2-14283F?style=flat-square) ![Simulados](https://img.shields.io/badge/Escenarios-3_simulados-64748B?style=flat-square) ![Método](https://img.shields.io/badge/Método-Alineado_con_ITIL-14283F?style=flat-square)
 
-![Resumen visual de incidentes de mesa de ayuda](incident-overview.svg)
+[← Soporte TI](../README.md) · [Portafolio](../../README.md)
 
-**Alcance:** tres escenarios ficticios de incidentes L2. Se documentan planes de diagnóstico y escalamiento, **no acciones ejecutadas**.
+[![Resumen de los incidentes de mesa de ayuda L2](incident-overview.svg)](incidents/INC-002-M365-Authentication.md)
 
-> **Simulación del portafolio:** los incidentes y organizaciones descritos son ficticios. Los casos demuestran una metodología técnica, pero no representan tickets reales de clientes.
+Tres escenarios de incidentes exploran situaciones que pueden llegar al soporte de segundo nivel: pérdida de acceso MFA, problemas de resolución DNS y sesiones VPN conectadas sin acceso a servicios internos.
 
-## Presentación del proyecto
+**Son casos ficticios.** Los pasos diagnósticos son propuestas y no se ejecutaron en sistemas de clientes.
 
-Este proyecto demuestra un enfoque estructurado de **gestión de incidentes de mesa de ayuda**, soporte de segundo nivel (L2), diagnóstico técnico, priorización, conciencia de seguridad y documentación profesional.
+## Casos y análisis técnicos
 
-El proceso sigue prácticas alineadas con **ITIL 4**, priorizando la restauración del servicio, la evaluación del impacto en el negocio y la comunicación con usuarios y equipos responsables.
+| Incidente | Pregunta principal | Material relacionado |
+|---|---|---|
+| **[INC-002 · Autenticación en Microsoft 365](incidents/INC-002-M365-Authentication.md)** | ¿El fallo está en MFA, la cuenta o los requisitos de acceso condicional? | [Análisis de inicio de sesión en Entra ID](incidents/INC-002-Technical-Analysis.md) |
+| **[INC-003 · Resolución DNS](incidents/INC-003-DNS-Resolution.md)** | ¿El problema está en el cliente, el servidor DNS o la ruta hacia el servicio? | [Árbol de decisión DNS](incidents/INC-003-DNS-Decision-Tree.md) |
+| **[INC-004 · Conectividad VPN](incidents/INC-004-VPN-Connectivity.md)** | ¿El túnel permite llegar efectivamente a los recursos internos? | [Procedimiento de diagnóstico VPN](incidents/INC-004-VPN-Connectivity.md) |
 
-## Objetivos
+## Cómo se gestionan los casos
 
-- Registrar y clasificar incidentes de TI.
-- Evaluar impacto, urgencia y prioridad.
-- Aplicar métodos estructurados de troubleshooting.
-- Identificar riesgos de seguridad asociados.
-- Definir criterios de resolución y escalamiento.
-- Demostrar comunicación técnica profesional.
+```mermaid
+flowchart LR
+    A["Reporte y alcance"] --> B["Impacto y prioridad"]
+    B --> C["Investigar"]
+    C --> D{"¿Resolución autorizada?"}
+    D -->|Sí| E["Validar con el usuario"]
+    D -->|No| F["Escalar"]
+    F --> E
+    E --> G["Documentar y cerrar"]
+    style A fill:#D1FAE5,stroke:#059669,color:#065F46
+    style G fill:#D1FAE5,stroke:#059669,color:#065F46
+```
 
-## Escenarios
+La verificación de identidad, el mínimo privilegio y los criterios de escalamiento forman parte del diagnóstico. No son controles que debamos eludir para recuperar un servicio.
 
-| Incidente | Descripción | Tecnología | Estado |
-|---|---|---|---|
-| [INC-002](incidents/INC-002-M365-Authentication.md) | Error de autenticación en Microsoft 365 | Microsoft 365 / Entra ID | Documentado · Simulado |
-| [INC-003](incidents/INC-003-DNS-Resolution.md) | Fallo de resolución de nombres | Windows / DNS / Redes | Documentado · Simulado |
-| [INC-004](incidents/INC-004-VPN-Connectivity.md) | Fallo de acceso a través de VPN | VPN / Acceso remoto | Documentado · Simulado |
+## Documentación
 
-## Análisis técnicos complementarios
+La [plantilla de informe de incidente](templates/incident-report-template.md) permite registrar impacto, investigación, cambios propuestos, criterios de validación y comunicación con usuarios.
 
-- [INC-002 — Análisis de inicios de sesión en Entra ID](incidents/INC-002-Technical-Analysis.md)
-- [INC-003 — Árbol de decisión de DNS](incidents/INC-003-DNS-Decision-Tree.md)
-- [Plantilla reutilizable de informe de incidente](templates/incident-report-template.md)
+**Alcance:** un procedimiento bien documentado no equivale a una resolución verificada en producción. Los resultados de estos escenarios no se presentan como tickets reales de clientes.
 
-## Flujo de gestión de incidentes
-
-1. **Registro:** recibir el reporte y recopilar antecedentes.
-2. **Clasificación y prioridad:** evaluar impacto, urgencia y consecuencias para el negocio.
-3. **Investigación y diagnóstico:** formular hipótesis y realizar comprobaciones autorizadas.
-4. **Escalamiento:** involucrar equipos especializados cuando corresponda.
-5. **Resolución y validación:** registrar medidas correctivas y comprobar la recuperación del servicio.
-6. **Cierre:** documentar conclusiones, comunicación con el usuario y acciones preventivas.
-
-## Competencias demostradas
-
-- Soporte TI L1/L2.
-- Gestión de incidentes alineada con ITIL 4.
-- Microsoft 365 e identidades.
-- Diagnóstico de redes, DNS y VPN.
-- Documentación y comunicación técnica.
-- Escalamiento y análisis preliminar de causa raíz.
-- Seguridad operativa y mínimo privilegio.
-
-## Limitaciones
-
-Este proyecto utiliza **escenarios corporativos simulados**. Los procedimientos y soluciones propuestos no fueron validados en producción y deben probarse únicamente en sistemas autorizados.
-
-## Referencias oficiales
-
-- [ITIL 4 — PeopleCert](https://www.peoplecert.org/browse-certifications/it-governance-and-service-management/ITIL-1)
-- [Registros de inicio de sesión de Microsoft Entra](https://learn.microsoft.com/en-us/entra/identity/monitoring-health/concept-sign-ins)
-- [Resolve-DnsName — PowerShell](https://learn.microsoft.com/en-us/powershell/module/dnsclient/resolve-dnsname)
-
-*Las referencias respaldan la metodología, pero no constituyen evidencia de ejecución ni de eficacia de controles.*
+[← Soporte TI](../README.md)
