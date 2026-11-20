@@ -1,26 +1,28 @@
-# Redes y conectividad
+# <img src="../assets/icons/networking.svg" width="32" alt="Redes"> Redes y conectividad
 
-Esta sección presenta ejercicios sobre conectividad, servicios de red, diagnóstico de infraestructura y fundamentos de redes.
+![Enfoque](https://img.shields.io/badge/Enfoque-Diagnóstico-14283F?style=flat-square) ![Temas](https://img.shields.io/badge/Temas-DNS%2C_VPN%2C_TCP%2FIP-14283F?style=flat-square) ![Estado](https://img.shields.io/badge/Laboratorios_propios-Planificados-64748B?style=flat-square)
 
-## Áreas de enfoque
+[← Portafolio](../README.md) · [Soporte TI](../IT-Support/README.md) · [Cloud](../Cloud/README.md)
 
-- Fundamentos de TCP/IP, IPv4 e IPv6.
-- DNS y DHCP.
-- Enrutamiento y switching.
-- VLAN y segmentación.
-- Resolución de problemas de conectividad.
-- VPN y acceso remoto.
-- Monitoreo y diagnóstico de redes.
+Cuando investigo un problema de red, comienzo por identificar **qué funciona, qué falla y en qué punto se interrumpe la comunicación**. Con ese enfoque puedo diferenciar problemas de resolución de nombres, conectividad IP, rutas o acceso remoto.
 
-## Proyectos
+## Casos de redes ya documentados
 
-| Proyecto | Descripción | Estado |
+| Caso | Competencias | Evidencia |
 |---|---|---|
-| Laboratorio de troubleshooting de red | Diagnóstico de conectividad, DNS, DHCP y servicios relacionados. | Planificado |
-| Laboratorio de fundamentos de redes | Direccionamiento IP, subnetting, routing y switching. | Planificado |
+| [INC-003 — Fallo de resolución DNS](../IT-Support/Service-Desk-Incident-Management/incidents/INC-003-DNS-Resolution.md) | Configuración de DNS, pruebas del cliente y escalamiento | **Simulado** |
+| [INC-004 — Fallo de conectividad VPN](../IT-Support/Service-Desk-Incident-Management/incidents/INC-004-VPN-Connectivity.md) | Estado del túnel, rutas, DNS y acceso interno | **Simulado** |
+| [Árbol de decisión de DNS](../IT-Support/Service-Desk-Incident-Management/incidents/INC-003-DNS-Decision-Tree.md) | Diagnóstico estructurado de resolución de nombres | **Simulado** |
 
-## Metodología
+## Conocimientos y herramientas
 
-Cada proyecto documentará topología, entorno, objetivos técnicos, configuración y pruebas, proceso diagnóstico, resultados, validación, consideraciones de seguridad y lecciones aprendidas.
+**TCP/IP · IPv4/IPv6 · DNS · DHCP · VLAN · Routing · Switching · VPN · Diagnóstico de conectividad**
 
-[Volver al portafolio](../README.md)
+## Próximos laboratorios prácticos
+
+- **Diagnóstico de redes:** pruebas de conectividad, comprobaciones de DNS/DHCP e identificación de fallos.
+- **Fundamentos de redes:** direccionamiento, subnetting, routing y switching.
+
+Estos laboratorios específicos siguen planificados. Los escenarios de mesa de ayuda anteriores son ejemplos diagnósticos, **no resultados de pruebas reales de una red corporativa**.
+
+[← Volver al portafolio](../README.md)
