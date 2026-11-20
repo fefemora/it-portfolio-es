@@ -1,19 +1,22 @@
-# Evaluación de riesgos de seguridad de la información empresarial
+# <img src="../../assets/icons/information-security.svg" width="32" alt="Seguridad de la información"> Evaluación de riesgos de seguridad de la información
 
-![Inventario de activos de Emerald Technologies](assets/asset-overview.svg)
+![NIST](https://img.shields.io/badge/NIST-CSF_2.0-14283F?style=flat-square) ![CIS](https://img.shields.io/badge/CIS_Controls-v8.1_IG1-14283F?style=flat-square) ![Simulado](https://img.shields.io/badge/SIMULADO-Organizaci%C3%B3n_ficticia-64748B?style=flat-square)
 
-**Referencias de marco:** NIST Cybersecurity Framework (CSF) 2.0 · CIS Controls v8.1, Implementation Group 1 (IG1)  
-**Organización:** Emerald Technologies (**ficticia**)  
-**Tipo:** Caso de estudio simulado para portafolio  
-**Estado:** Documentación completada; **no se implementaron ni validaron controles reales**
+[← Portafolio](../../README.md) · [Registro de riesgos](risk-register/risk-register.md) · [Mapeo de controles](controls/control-mapping.md) · [Tratamiento](treatment/risk-treatment-plan.md) · [Informe ejecutivo](reports/executive-summary.md)
 
-## Resumen ejecutivo
+[![Inventario de activos ficticios](assets/asset-overview.svg)](assets/asset-inventory.md)
 
-Este proyecto desarrolla una evaluación cualitativa de riesgos de seguridad de la información para **Emerald Technologies**, una organización ficticia de 50 personas. El alcance se centra en identidad y acceso, endpoints Windows, correo electrónico, respaldos y acceso remoto.
+**Emerald Technologies es ficticia.** Utilicé este escenario de 50 empleados para desarrollar un inventario de activos, calificar riesgos cualitativos, proponer controles y organizar un plan de tratamiento. El ejercicio aborda identidades, endpoints Windows, correo, respaldos y acceso remoto.
 
-El objetivo es demostrar cómo un profesional de TI y ciberseguridad puede identificar activos, evaluar riesgos, priorizar mejoras y comunicar recomendaciones a responsables de negocio.
+Es una **evaluación documental simulada**; no implica haber auditado una organización real ni comprobado controles implementados.
 
-> **Transparencia:** todos los datos de la empresa, inventarios, calificaciones y hallazgos son ficticios. No se evaluó ninguna infraestructura real. Este ejercicio no constituye auditoría de cumplimiento ni certificación.
+## Resumen de la evaluación
+
+| Organización | Alcance | Modelo de riesgo | Entregables |
+|---|---|---|---|
+| **Ficticia · 50 personas** | Identidades, endpoints, correo, respaldos y VPN | **Matriz 5 × 5 definida para el ejercicio** | Registro de riesgos, controles, plan de tratamiento e informe ejecutivo |
+
+*Los valores son ilustrativos. No se evaluaron sistemas productivos ni la eficacia de controles reales.*
 
 ## Panorama del ejercicio
 
