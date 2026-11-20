@@ -1,30 +1,23 @@
-# Laboratorio de análisis de eventos de seguridad de Windows
+# <img src="../../assets/icons/cybersecurity.svg" width="32" alt="Ciberseguridad"> Análisis de eventos de seguridad de Windows
 
-**Área:** Ciberseguridad / Blue Team  
-**Estado:** Evaluación inicial de solo lectura documentada y revisada; mejoras de monitoreo pendientes de implementación.  
-**Entorno:** Estación de trabajo Windows, registro local Security y Windows PowerShell. No se requiere SIEM ni nuevas máquinas virtuales.
+![Windows](https://img.shields.io/badge/Windows-Eventos_de_seguridad-14283F?style=flat-square) ![PowerShell](https://img.shields.io/badge/PowerShell-Solo_lectura-14283F?style=flat-square) ![Evidencia](https://img.shields.io/badge/CASO_REAL-Evaluaci%C3%B3n_inicial_completa-059669?style=flat-square)
 
-[Portafolio](../../README.md) · **[Resumen ejecutivo](docs/executive-summary.md)** · [Hallazgos técnicos](docs/event-analysis.md) · [Guía del laboratorio](docs/lab-guide.md) · [Recomendaciones](docs/monitoring-recommendations.md)
+[← Ciberseguridad](../README.md) · [Portafolio](../../README.md) · **[Resumen ejecutivo](docs/executive-summary.md)** · [Hallazgos](docs/event-analysis.md) · [Guía](docs/lab-guide.md) · [Recomendaciones](docs/monitoring-recommendations.md)
 
-## Objetivo
+[![Resumen de investigación de eventos de Windows](diagrams/security-review-overview.svg)](docs/executive-summary.md)
 
-Investigar eventos nativos del registro Security de Windows mediante comandos PowerShell de solo lectura, interpretar resultados sin asumir actividad maliciosa y elaborar evidencias reproducibles y seguras para un proceso inicial de monitoreo defensivo.
+Revisé los registros de seguridad de una estación de trabajo Windows para entender qué actividad permitían observar y cómo sus ajustes de auditoría y retención afectaban la investigación. Verifiqué una correlación acotada entre eventos **4624 y 4672**. En la medición, el registro Security conservaba aproximadamente **2,03 días** de eventos.
+
+**Resultado:** una línea base inicial de monitoreo con límites de visibilidad identificados. **No se confirmó un incidente ni actividad no autorizada.**
 
 ## Proceso de investigación
 
-1. **Configuración del registro Security:** verificada después de corregir inicialmente un error en el orden de pegado del comando.
-2. **Conteo de identificadores de evento:** realizado con ventana de búsqueda de siete días, aunque los datos retenidos solo abarcaban aproximadamente **2,03 días**.
-3. **Fechas del evento más antiguo y reciente:** verificadas.
-4. **Clasificación de los 100 eventos 4624 más recientes:** todos correspondían a **Logon Type 5 / Service**.
-5. **Clasificación de cinco eventos 4624 por SID:** los cinco correspondían a **LocalSystem / S-1-5-18**.
-6. **Revisión de política de auditoría:** completada con `auditpol /get /category:*`.
-7. **Fecha de cinco eventos 4688:** registros observados con fecha **2026-11-16 14:30:43**.
-8. **Búsqueda de eventos 4719:** no se recuperaron registros coincidentes.
-9. **Recuperación de cinco marcas de tiempo e identificadores de eventos 4672:** completada.
-10. **Clasificación acotada de tres eventos 4672:** los tres eran LocalSystem y contenían los mismos **12 privilegios**.
-11. **Correlación de eventos 4672/4624 por Logon ID:** se verificó **una coincidencia** en una ventana acotada.
-12. **Clasificación posterior de una sesión correlacionada:** se observó `MatchFound=True`, `LogonType=5` y `AccountCategory=LocalSystem`.
-13. **Informe y recomendaciones:** se prepararon el resumen ejecutivo, el análisis técnico y recursos visuales.
+1. **Comprobar el historial disponible:** configuración, retención e identificadores de eventos presentes.
+2. **Revisar muestras acotadas:** clasificar tipos de inicio de sesión, cuentas integradas y asignación de privilegios.
+3. **Correlacionar con cuidado:** relacionar eventos 4624 y 4672 mediante identificadores de sesión sin publicar datos de cuentas.
+4. **Documentar lo comprobado:** registrar límites de auditoría, eventos 4688 históricos sin explicación confirmada y preguntas abiertas.
+
+La [guía de 12 pasos](docs/lab-guide.md) conserva los comandos y las salidas. La investigación no confirmó ningún incidente.
 
 ## Resumen ejecutivo
 
