@@ -1,41 +1,32 @@
-# Documentación técnica
+# <img src="../assets/icons/documentation.svg" width="32" alt="Documentación"> Documentación técnica
 
-Esta sección reúne plantillas, procedimientos y recursos utilizados en mis proyectos de soporte TI y ciberseguridad.
+![Área](https://img.shields.io/badge/Área-Runbooks-14283F?style=flat-square) ![Método](https://img.shields.io/badge/Método-Basado_en_evidencias-059669?style=flat-square)
 
-El objetivo es demostrar una metodología estructurada de diagnóstico, gestión de incidentes, documentación y transferencia de conocimiento.
+[← Portafolio](../README.md) · [Soporte TI](../IT-Support/README.md)
 
-## Principios de documentación
+Una buena documentación facilita el diagnóstico del siguiente incidente. Procuro registrar el problema, las comprobaciones realizadas, la evidencia y el resultado, sobre todo cuando una causa sospechada no puede confirmarse.
 
-- Comunicación técnica clara y concisa.
-- Procedimientos de diagnóstico estructurados.
-- Pasos reproducibles.
-- Evidencia verificable y criterios de validación.
-- Confidencialidad y seguridad.
-- Mejora continua y reutilización del conocimiento.
+## Ejemplos disponibles
 
-## Recursos
+| Documento | Para qué sirve |
+|---|---|
+| [Plantilla de incidentes](../IT-Support/Service-Desk-Incident-Management/templates/incident-report-template.md) | Registrar de manera consistente prioridades, pruebas y validaciones |
+| [Notas de validación de INC-001](../IT-Support/Windows-Troubleshooting-Lab/evidence/validation-notes.md) | Documentar una resolución real y sus limitaciones |
+| [Guía de análisis de eventos Windows](../Cybersecurity/Windows-Security-Event-Analysis/docs/lab-guide.md) | Conservar comandos, resultados e interpretación |
+| [Guía de línea base de Windows](../Cybersecurity/Windows-Security-Hardening/docs/baseline-guide.md) | Comprobaciones de seguridad y gestión de un cambio autorizado |
 
-| Recurso | Propósito | Estado |
-|---|---|---|
-| Plantilla de troubleshooting | Registrar problemas, hipótesis, diagnóstico y solución. | Planificada |
-| [Plantilla de incidentes](../IT-Support/Service-Desk-Incident-Management/templates/incident-report-template.md) | Registro estructurado de incidentes de TI y seguridad. | Disponible; traducción pendiente |
-| Plantilla de laboratorio técnico | Describir configuración, pruebas y resultados. | Planificada |
-| Plantilla de gestión de cambios | Planificación, aprobación, validación y reversión. | Planificada |
+## Qué debe responder un informe técnico
 
-## Preguntas que debe responder cada documento
+1. **¿Qué ocurrió?** Síntomas, alcance e impacto.
+2. **¿Qué comprobé?** Comandos, observaciones y decisiones.
+3. **¿Qué cambió?** Acciones, autorización y posibles pasos de reversión.
+4. **¿Funcionó?** Validación independiente y confirmación del servicio o usuario.
+5. **¿Qué sigue siendo incierto?** Limitaciones, hipótesis y seguimiento.
 
-1. ¿Cuál es el problema u objetivo?
-2. ¿Qué sistemas y alcance están involucrados?
-3. ¿Qué comprobaciones o intervenciones se realizaron?
-4. ¿Cuáles fueron los resultados reales?
-5. ¿Cómo se validó la solución?
-6. ¿Qué riesgos y limitaciones existen?
-7. ¿Qué lecciones se aprendieron?
+## Recursos reutilizables
 
-## Confidencialidad
+La [plantilla de informe de incidente](../IT-Support/Service-Desk-Incident-Management/templates/incident-report-template.md) ya está disponible. Incorporaré otras plantillas de diagnóstico, laboratorios y gestión de cambios cuando sean útiles para nuevos proyectos.
 
-Se utilizan datos ficticios, públicos o adecuadamente anonimizados. No se publican credenciales, información confidencial de organizaciones o clientes ni detalles sensibles de infraestructura.
+La documentación pública utiliza datos ficticios o anonimizados. No publico credenciales, secretos ni información confidencial de clientes.
 
-## Mejora continua
-
-Los documentos se revisarán conforme evolucionen los proyectos y aparezcan nuevas evidencias.
+[← Volver al portafolio](../README.md)
