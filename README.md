@@ -1,97 +1,99 @@
 # Portafolio de Soporte TI, Administración de Sistemas y Ciberseguridad
 
-**Soporte TI L1/L2 · Administración de sistemas · Seguridad de la información · Ciberseguridad**
+**Fefe Mora · Soporte TI L1/L2 · Administración de sistemas · Seguridad de la información · Ciberseguridad**
 
-Bienvenido a mi portafolio profesional. Aquí documento cómo investigo problemas técnicos, organizo evidencias, evalúo riesgos y valido resultados. Mis proyectos reúnen **soporte y resolución de incidentes**, **operaciones seguras de TI** y **análisis de seguridad**.
+![Soporte TI](https://img.shields.io/badge/Soporte_TI-L1%2FL2-14283F?style=flat-square) ![Sistemas](https://img.shields.io/badge/Sistemas-Administraci%C3%B3n-14283F?style=flat-square) ![Ciberseguridad](https://img.shields.io/badge/Ciberseguridad-Blue_Team-059669?style=flat-square) ![Evidencias](https://img.shields.io/badge/Evidencias-Reales_y_simuladas-64748B?style=flat-square)
 
-**[Versión en inglés / English version](https://github.com/fefemora/it-portfolio-en)** · **[Cómo trabajo — metodología](metodologia/README.md)**
+**[English version / Versión en inglés](https://github.com/fefemora/it-portfolio-en)**
 
-> **Transparencia de evidencias:** distingo los **casos reales**, los **escenarios simulados** y los **proyectos planificados**. Los ejercicios ficticios no se presentan como incidentes reales ni como controles implementados.
+Trabajo en soporte TI, administración de sistemas y seguridad. Buena parte de mi experiencia consiste en diagnosticar problemas, ayudar a los usuarios a recuperar sus herramientas de trabajo y mantener los servicios funcionando. En este portafolio reúno ese trabajo con investigaciones prácticas de seguridad, documentación técnica y evaluación de riesgos.
 
-## Explora el portafolio
+Mis proyectos muestran **qué comprobé, qué encontré y qué pude verificar**. Algunos recogen investigaciones reales en estaciones de trabajo; otros son simulaciones claramente identificadas, utilizadas para explicar decisiones técnicas sin presentarlas como experiencia en producción.
 
-**[Soporte TI y resolución de incidentes](IT-Support/README.md)** · [Evaluación de riesgos de seguridad de la información](Information-Security/Enterprise-Risk-Assessment/README.md) · **[Análisis real de eventos de seguridad de Windows](Cybersecurity/Windows-Security-Event-Analysis/README.md)** · [Metodología](metodologia/README.md)
+## Explorar por área
 
-[![Mapa de navegación de casos de soporte TI](IT-Support/it-support-navigation.svg)](IT-Support/README.md)
+| Área | Contenido |
+|---|---|
+| [<img src="assets/icons/it-support.svg" width="32" alt="Icono de soporte TI"> **Soporte TI y diagnóstico**](IT-Support/README.md) | Diagnóstico real de Windows y tres escenarios de mesa de ayuda L2 |
+| [<img src="assets/icons/cybersecurity.svg" width="32" alt="Icono de ciberseguridad"> **Ciberseguridad**](Cybersecurity/README.md) | Análisis de eventos, evaluación de seguridad de endpoints y validación de cambios |
+| [<img src="assets/icons/information-security.svg" width="32" alt="Icono de seguridad de la información"> **Seguridad de la información / GRC**](Information-Security/Enterprise-Risk-Assessment/README.md) | Evaluación de riesgos ficticia basada en NIST CSF 2.0 y CIS Controls |
+| [<img src="assets/icons/systems-administration.svg" width="32" alt="Icono de administración de sistemas"> **Administración de sistemas**](Systems-Administration/README.md) | Windows Server, Active Directory y gestión de identidades |
+| [<img src="assets/icons/networking.svg" width="32" alt="Icono de redes"> **Redes y conectividad**](Networking/README.md) | DNS, VPN, direccionamiento y diagnóstico de conectividad |
+| [<img src="assets/icons/cloud.svg" width="32" alt="Icono de nube"> **Redes y seguridad cloud**](Cloud/README.md) | Azure, control de acceso y desarrollo de competencias en redes híbridas |
+| [<img src="assets/icons/documentation.svg" width="32" alt="Icono de documentación"> **Documentación técnica**](Documentation/README.md) | Informes de incidentes, evidencia y procedimientos reutilizables |
 
 ## Proyectos destacados
 
-| Proyecto | Competencias demostradas | Evidencia | Estado |
-|---|---|---|---|
-| **[INC-001 — Diagnóstico de Windows Update](IT-Support/Windows-Troubleshooting-Lab/README.md)** | PowerShell, eventos, almacenamiento, validación funcional | Caso real, datos anonimizados | **Completado** |
-| **[Gestión de incidentes de mesa de ayuda L2](IT-Support/Service-Desk-Incident-Management/README.md)** | Microsoft 365/MFA, DNS, VPN y escalamiento | Tres escenarios simulados | **Documentados** |
-| **[Evaluación de riesgos de seguridad empresarial](Information-Security/Enterprise-Risk-Assessment/README.md)** | Inventario, matriz de riesgos, NIST CSF 2.0, CIS IG1 y plan de tratamiento | Empresa ficticia | **Documentación completada** |
-| **[Análisis de eventos de seguridad de Windows](Cybersecurity/Windows-Security-Event-Analysis/README.md)** | Eventos 4624/4672, política de auditoría, correlación y límites de retención | Investigación real de solo lectura | **Evaluación inicial completada** |
-| **[Evaluación de seguridad de Windows](Cybersecurity/Windows-Security-Hardening/README.md)** | Línea base, Defender, firewall, auditoría, cambios y validación | Evidencia real, 30 pasos documentados | **Evaluación finalizada; mejoras pendientes** |
+### <img src="assets/icons/it-support.svg" width="29" alt=""> INC-001 · Diagnóstico de Windows Update
 
-## Casos y resultados relevantes
+![Windows 11](https://img.shields.io/badge/Windows-11-14283F?style=flat-square) ![PowerShell](https://img.shields.io/badge/PowerShell-Diagn%C3%B3stico-14283F?style=flat-square) ![Real](https://img.shields.io/badge/CASO_REAL-Resuelto-059669?style=flat-square)
 
-### 01 — Diagnóstico real de Windows: INC-001
+[![Recuperación de espacio en Windows](IT-Support/Windows-Troubleshooting-Lab/storage-recovery.svg)](IT-Support/Windows-Troubleshooting-Lab/README.md)
 
-[![Recuperación de espacio en disco](IT-Support/Windows-Troubleshooting-Lab/storage-recovery.svg)](IT-Support/Windows-Troubleshooting-Lab/README.md)
+Investigué fallos recurrentes de actualización de aplicaciones y el error `0x80073D02`. Tras liberar espacio y reiniciar, el almacenamiento disponible pasó de **18,6 GiB a 63,1 GiB**, y las actualizaciones finalizaron correctamente. El incidente quedó resuelto, aunque no fue posible aislar una causa raíz única.
 
-Investigación de fallos de actualización relacionados con el error `0x80073D02`. El espacio libre aumentó de **18,6 GiB a 63,1 GiB** y se validó la actualización satisfactoria de aplicaciones. **No se confirmó una causa raíz única.**
+[Leer el caso de diagnóstico](IT-Support/Windows-Troubleshooting-Lab/README.md)
 
-### 02 — Mesa de ayuda L2: escenarios simulados
+### <img src="assets/icons/it-support.svg" width="29" alt=""> Mesa de ayuda L2 · Identidad, DNS y VPN
 
-[![Escenarios simulados de mesa de ayuda](IT-Support/Service-Desk-Incident-Management/incident-overview.svg)](IT-Support/Service-Desk-Incident-Management/README.md)
+![Mesa de ayuda](https://img.shields.io/badge/Mesa_de_ayuda-L2-14283F?style=flat-square) ![Simulado](https://img.shields.io/badge/SIMULADOS-3_casos-64748B?style=flat-square)
 
-Tres informes ficticios muestran cómo formular hipótesis, investigar, aplicar criterios de seguridad y decidir cuándo escalar un incidente. Los procedimientos propuestos **no se presentan como acciones ejecutadas**.
+[![Escenarios simulados de soporte L2](IT-Support/Service-Desk-Incident-Management/incident-overview.svg)](IT-Support/Service-Desk-Incident-Management/README.md)
 
-### 03 — Evaluación de riesgos de seguridad de la información
+Tres incidentes ficticios abordan la recuperación de MFA en Microsoft 365, fallos de resolución DNS y conexiones VPN sin acceso a recursos internos. Cada caso explica el razonamiento diagnóstico, los criterios de escalamiento y cómo se validaría una solución. **Los procedimientos no se ejecutaron en sistemas de clientes.**
 
-[![Panel ejecutivo de riesgos](Information-Security/Enterprise-Risk-Assessment/reports/executive-dashboard.svg)](Information-Security/Enterprise-Risk-Assessment/README.md)
+[Explorar los incidentes L2](IT-Support/Service-Desk-Incident-Management/README.md)
 
-Caso ficticio de una empresa de 50 personas, con ocho escenarios ilustrativos: dos críticos, cuatro altos y dos moderados. Incluye NIST CSF 2.0, CIS Controls IG1 y una hoja de ruta propuesta de 90 días. **No se evaluó ninguna organización real.**
+### <img src="assets/icons/information-security.svg" width="29" alt=""> Evaluación de riesgos de seguridad de la información
 
-### 04 — Investigación real de registros de seguridad
+![NIST](https://img.shields.io/badge/NIST-CSF_2.0-14283F?style=flat-square) ![CIS](https://img.shields.io/badge/CIS_Controls-v8.1_IG1-14283F?style=flat-square) ![Simulado](https://img.shields.io/badge/SIMULADO-Evaluaci%C3%B3n_de_riesgos-64748B?style=flat-square)
 
-[![Resumen visual de eventos de seguridad](Cybersecurity/Windows-Security-Event-Analysis/diagrams/security-review-overview.svg)](Cybersecurity/Windows-Security-Event-Analysis/README.md)
+[![Panel ejecutivo de evaluación de riesgos](Information-Security/Enterprise-Risk-Assessment/reports/executive-dashboard.svg)](Information-Security/Enterprise-Risk-Assessment/README.md)
 
-Análisis de eventos 4624, 4672 y 4688, con correlación acotada de sesión, evaluación de políticas y detección de limitaciones de monitoreo. **No se confirmó actividad maliciosa.**
+Desarrollé una evaluación cualitativa para una **organización ficticia de 50 personas**. Incluye inventario de activos, ocho escenarios de riesgo ilustrativos, propuestas de controles y un plan de tratamiento de 90 días. No se evaluó ninguna organización real ni la eficacia de controles implementados.
 
-### 05 — Evaluación y endurecimiento de seguridad de Windows
+[Ver la evaluación de riesgos](Information-Security/Enterprise-Risk-Assessment/README.md)
 
-[![Proceso de evaluación y validación](Cybersecurity/Windows-Security-Hardening/diagrams/hardening-workflow.svg)](Cybersecurity/Windows-Security-Hardening/RESUMEN-ES.md)
+### <img src="assets/icons/cybersecurity.svg" width="29" alt=""> Análisis de eventos de seguridad de Windows
 
-Evaluación de **30 pasos**, con evidencia real de Windows Firewall, Microsoft Defender, PowerShell y auditoría de autenticación. Se aprobó **un cambio específico**: aumentar el tamaño máximo del registro Security de **20 MiB a 128 MiB**. La retención de siete días no se ha validado, y los cambios de BitLocker y Secure Boot permanecen pendientes.
+![Windows](https://img.shields.io/badge/Windows-Eventos_de_seguridad-14283F?style=flat-square) ![Blue Team](https://img.shields.io/badge/Blue_Team-Solo_lectura-059669?style=flat-square)
 
-## Competencias técnicas demostradas
+[![Resumen de análisis de eventos de Windows](Cybersecurity/Windows-Security-Event-Analysis/diagrams/security-review-overview.svg)](Cybersecurity/Windows-Security-Event-Analysis/README.md)
 
-| Área | Evidencia en el portafolio |
+Revisé eventos del registro Security, configuraciones de auditoría y una correlación acotada entre los eventos **4624 y 4672**. La medición mostró aproximadamente **2,03 días** de historial conservado y la auditoría de creación de procesos deshabilitada. **No se confirmó actividad maliciosa.**
+
+[Revisar hallazgos y evidencias](Cybersecurity/Windows-Security-Event-Analysis/README.md)
+
+### <img src="assets/icons/cybersecurity.svg" width="29" alt=""> Evaluación de seguridad y hardening de Windows
+
+![Windows](https://img.shields.io/badge/Windows-L%C3%ADnea_base_de_seguridad-14283F?style=flat-square) ![Evaluación](https://img.shields.io/badge/EVALUACI%C3%93N-30_pasos_documentados-059669?style=flat-square) ![Pendiente](https://img.shields.io/badge/MEJORAS-Pendientes-E5A000?style=flat-square)
+
+[![Flujo de evaluación de seguridad de Windows](Cybersecurity/Windows-Security-Hardening/diagrams/hardening-workflow.svg)](Cybersecurity/Windows-Security-Hardening/README.md)
+
+Completé **28 comprobaciones técnicas y dos etapas de evaluación y cierre** sobre firewall, Microsoft Defender, auditoría, PowerShell, BitLocker y seguridad de arranque. Un único cambio autorizado, **CHG-001**, aumentó el límite del registro Security de **20 MiB a 128 MiB**. Se verificó la nueva configuración; la retención de siete días y otras medidas de hardening siguen pendientes.
+
+[Consultar la evaluación de seguridad](Cybersecurity/Windows-Security-Hardening/README.md)
+
+## Competencias técnicas
+
+| Área | Evidencias en el portafolio |
 |---|---|
-| Windows y PowerShell | Diagnóstico, eventos y verificación del almacenamiento |
-| Soporte TI L2 y gestión de incidentes | Priorización, hipótesis, documentación y escalamiento |
-| Microsoft 365 e identidades | Casos simulados de Entra ID y MFA |
-| Redes | Diagnósticos simulados de DNS y VPN |
-| Seguridad de la información / GRC | Inventario, evaluación y tratamiento de riesgos |
-| Ciberseguridad / Blue Team | Auditoría Windows, análisis de eventos, controles y validación |
-| Comunicación profesional | Informes técnicos, resúmenes ejecutivos y límites de evidencia |
+| **Windows y PowerShell** | Eventos, análisis de almacenamiento, comprobaciones del sistema y validación |
+| **Soporte TI / Mesa de ayuda L2** | Priorización, diagnóstico, escalamiento y documentación de incidentes |
+| **Microsoft 365 e identidades** | Investigación simulada de Entra ID y recuperación MFA |
+| **Redes** | Procedimientos de diagnóstico DNS y VPN |
+| **Operaciones de seguridad** | Análisis de eventos de Windows y líneas base de endpoints |
+| **Seguridad de la información / GRC** | Registro de riesgos, mapeo de controles y plan de tratamiento |
+| **Comunicación técnica** | Hallazgos, informes ejecutivos y límites de la evidencia |
 
 ## Próximos proyectos
 
-| Área | Proyecto previsto |
-|---|---|
-| Administración de sistemas | Laboratorio de Active Directory e identidades |
-| Redes | Laboratorio de diagnóstico de conectividad |
-| Ciberseguridad | Laboratorio SIEM con Wazuh |
-| Cloud | Redes y seguridad en la nube |
+Quiero seguir desarrollando este trabajo con laboratorios de **Active Directory e identidades**, diagnósticos de redes más profundos, **monitoreo SIEM** y **redes y seguridad cloud**. Son líneas de desarrollo, no casos prácticos completados.
 
-## Metodología de trabajo e investigación
+## Tratamiento de evidencias
 
-**[Cómo trabajo: seis etapas de investigación y resolución](metodologia/README.md)** · [Plantilla de investigación y runbook](metodologia/plantilla-investigacion.md) · [Evidencia y validación](metodologia/evidencia-y-validacion.md)
-
-Los proyectos describen el **problema u objetivo**, el **alcance**, las **hipótesis**, los **procedimientos**, la **evidencia**, la **validación**, los **riesgos**, las **limitaciones** y las **lecciones aprendidas**. Las recomendaciones se distinguen de los cambios autorizados y efectivamente realizados.
-
-No publico credenciales, datos confidenciales de clientes ni identificadores sensibles de infraestructura.
-
-## Orientación profesional
-
-Mi objetivo es combinar experiencia en soporte y administración de sistemas con competencias en ciberseguridad, gestión de identidades y seguridad de infraestructura y servicios cloud.
-
-## Contacto
-
-- **GitHub:** [github.com/fefemora](https://github.com/fefemora)
-- **Versión en inglés:** [it-portfolio-en](https://github.com/fefemora/it-portfolio-en)
+Cada proyecto diferencia **observaciones reales**, **escenarios simulados** y **cambios propuestos**. Indico las limitaciones cuando una prueba, una causa raíz o un resultado de seguridad no han podido confirmarse. Los ejemplos públicos excluyen credenciales e información confidencial de clientes.
 
 ---
+
+**GitHub:** [github.com/fefemora](https://github.com/fefemora) · **Idioma:** [English](https://github.com/fefemora/it-portfolio-en)
