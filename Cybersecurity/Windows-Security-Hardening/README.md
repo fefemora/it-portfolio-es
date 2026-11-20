@@ -1,123 +1,67 @@
-# Windows Security Hardening — Evaluación, mejoras y validación
+# <img src="../../assets/icons/cybersecurity.svg" width="32" alt="Ciberseguridad"> Evaluación de seguridad y hardening de Windows
 
-**Área:** Ciberseguridad / Blue Team · Seguridad de endpoints  
-**Estado:** **Evaluación finalizada: 28 comprobaciones reales y dos etapas de análisis/cierre (30 pasos)**.  
-**Evidencia:** consultas reales y anonimizadas sobre Windows; **solo un cambio autorizado e implementado, CHG-001**.  
-**Entorno:** estación de trabajo Windows, PowerShell y herramientas de seguridad integradas. No se requirieron nuevas máquinas virtuales.
+![Windows](https://img.shields.io/badge/Windows-Seguridad_de_endpoints-14283F?style=flat-square) ![PowerShell](https://img.shields.io/badge/PowerShell-L%C3%ADnea_base-14283F?style=flat-square) ![Estado](https://img.shields.io/badge/EVALUACI%C3%93N-30_pasos_documentados-059669?style=flat-square) ![Pendiente](https://img.shields.io/badge/MEJORAS-Pendientes-E5A000?style=flat-square)
 
-[← Portafolio principal](../../README.md) · **[Guía detallada de los 30 pasos](docs/baseline-guide.md)** · [Matriz de evaluación y riesgos](docs/security-assessment.md) · [Plan de cambios y validación](docs/validation-plan.md) · [Investigación inicial de eventos](../Windows-Security-Event-Analysis/README.md)
+[← Ciberseguridad](../README.md) · [Portafolio](../../README.md) · **[Guía de 30 pasos](docs/baseline-guide.md)** · [Matriz de evaluación](docs/security-assessment.md) · [Plan de cambios y validación](docs/validation-plan.md)
 
-## Resumen ejecutivo
+[![Flujo de trabajo del laboratorio de seguridad de Windows](diagrams/hardening-workflow.svg)](docs/baseline-guide.md)
 
-Este laboratorio investiga el estado de controles de seguridad de Windows mediante **comprobaciones de solo lectura**, evaluación de riesgos y gestión disciplinada de cambios. Su objetivo es demostrar cómo analizar evidencia real sin atribuir incidentes no demostrados ni modificar controles sin autorización.
+## Resumen de la evaluación
 
-El trabajo comenzó a partir de una [investigación anterior de eventos de seguridad](../Windows-Security-Event-Analysis/README.md), que halló un registro Security de **20 MiB** y solo **2,03 días de historial observado**, además de la subcategoría **Creación del proceso: Sin auditoría**. Esas mediciones pertenecen al caso anterior y **no deben confundirse** con las nuevas instantáneas de este laboratorio.
+Evalué la línea base de seguridad de una estación de trabajo Windows mediante **28 comprobaciones técnicas y dos etapas de análisis y cierre**. Revisé Windows Firewall, Microsoft Defender, auditoría, registros de PowerShell, BitLocker, TPM y seguridad de arranque.
 
-## Resultados principales
+La mayor parte del trabajo fue de solo lectura. Se autorizó un único cambio acotado, **CHG-001**, para aumentar el tamaño máximo del registro Security de **20 MiB a 128 MiB**. La nueva configuración quedó verificada, pero todavía **no se ha demostrado una retención de siete días**.
 
-| Área | Evidencia real | Evaluación |
-|---|---|---|
-| Windows Firewall | Perfiles Domain, Private y Public habilitados; en `ActiveStore`, entrada `Block` y salida `Allow` | Valores efectivos de perfil confirmados; reglas particulares no evaluadas |
-| Microsoft Defender | Antivirus y protección en tiempo real activos; Tamper Protection y NIS `True`; firmas de antigüedad cero días | Indicadores favorables; no prueban eficacia completa |
-| Protección avanzada | `MAPSReporting=2`, `SubmitSamplesConsent=1`, `PUAProtection=1`, `DisableBlockAtFirstSeen=False` | Preferencias comprobadas, sin prueba de detección |
-| Auditoría de procesos | `Process Creation: No Auditing` | Posible brecha de visibilidad; cambio **solo propuesto** |
-| Registro Security | **CHG-001: máximo de 20 MiB a 128 MiB**, manteniendo modo Circular | Único cambio ejecutado y validado en su configuración |
-| Retención Security | **1,93 días antes; 1,96 días en validación inmediata posterior** | Meta propuesta de **7 días aún sin validar** |
-| Cifrado BitLocker | C: `FullyDecrypted`, `Off`, `0 %` | Sin cifrado; cambio diferido hasta tener respaldos y recuperación |
-| Seguridad de arranque | TPM preparado, UEFI y disco GPT; Secure Boot `False` | Secure Boot deshabilitado; sin modificación de firmware |
-| PowerShell Operational | Activo; 808 registros, máximo 15 MiB, Circular; intervalo observado 5,05 días | Existe telemetría, pero no cobertura garantizada |
-| Políticas PowerShell | Claves HKLM/HKCU de Script Block Logging, Module Logging y Transcription ausentes en las rutas inspeccionadas | No equivale a afirmar que toda la auditoría esté desactivada |
-| Eventos PowerShell | 4104: 438 en una consulta y 439 advertencias posteriormente; 4103: 0 recuperados | Diferentes momentos de captura; no se comprobó un ataque |
-| Auditoría de acceso | Logon: `Aciertos y errores`; 235 eventos 4624 en 24 horas, sin grupo 4625 | Política configurada y eventos exitosos existentes; no son usuarios únicos |
-| Tipos de sesión | 4624 tipo 5: 229; tipo 11: 4; tipo 7: 2 | Predominan eventos de servicios (97,4 %) |
-| Privilegios especiales | 233 eventos 4672 en 24 horas | Asignación de privilegios, **no uso indebido confirmado** |
+| Área | Qué muestra la evidencia |
+|---|---|
+| **Firewall** | Perfiles Domain, Private y Public habilitados; valores efectivos de entrada **Block** y salida **Allow** |
+| **Microsoft Defender** | Antivirus, protección en tiempo real, Tamper Protection y NIS activos en los campos consultados |
+| **Auditoría de seguridad** | Inicio de sesión configurado para aciertos y errores; creación de procesos en **Sin auditoría** |
+| **Registro Security** | CHG-001 elevó el máximo de **20 a 128 MiB**; intervalo observado inmediato **1,93 → 1,96 días** |
+| **BitLocker** | Volumen del sistema completamente descifrado, protección **Off** |
+| **Arranque** | TPM preparado, UEFI y GPT observados; **Secure Boot deshabilitado** |
+| **PowerShell** | Canal operativo activo; algunas claves de política ausentes en las rutas inspeccionadas; eventos 4104 observados |
+| **Autenticación** | 235 registros 4624 y 233 registros 4672 en consultas independientes de 24 horas; los conteos no demuestran abuso |
 
-Estas cifras provienen de consultas en momentos diferentes. No deben interpretarse como una misma secuencia forense ni como una certificación de cumplimiento.
+## CHG-001 · Cambio controlado
 
-## Ciclo de trabajo utilizado
+**Motivo:** el registro Security circular tenía un límite original de 20 MiB, con una ventana relativamente corta para investigar eventos.
 
-![Diagrama en español del ciclo de evaluación y cambios](diagrams/hardening-workflow.svg)
-
-```mermaid
-flowchart LR
-    A["Línea base<br/>Solo lectura"] --> B["Evaluación<br/>Evidencia y límites"]
-    B --> C["Propuesta<br/>Impacto y reversión"]
-    C --> D{"¿Autorizado?"}
-    D -->|Sí| E["Cambio acotado<br/>CHG-001"]
-    D -->|No| F["Pendiente<br/>Sin ejecutar"]
-    E --> G["Validación<br/>Configuración y efecto"]
-    G --> H["Informe<br/>Riesgos residuales"]
-```
-
-El proyecto diferencia deliberadamente **observar, interpretar, proponer, autorizar, ejecutar y validar**. La ausencia de un ajuste no prueba por sí sola una vulnerabilidad; un control propuesto no constituye implementación.
-
-## Cambio controlado CHG-001
-
-**Problema:** el límite inicial del registro Security era 20 MiB. Se evaluó ampliar capacidad para conservar más eventos disponibles durante investigaciones.
-
-**Autorización:** el propietario del equipo aprobó **únicamente** modificar el límite máximo de Security a 128 MiB.
-
-**Comando realmente ejecutado:**
+**Acción aprobada:** aumentar únicamente la capacidad máxima.
 
 ```powershell
 wevtutil sl Security /ms:134217728
 ```
 
-**Resultado verificado:**
+La comprobación posterior mostró `MaximumSizeInBytes=134217728`, `IsEnabled=True` y `LogMode=Circular`. El intervalo inmediato entre los registros más antiguo y reciente pasó de **1,93** a **1,96 días**. Esto confirma la configuración y el acceso inmediato al historial, **no** siete días de retención futura.
 
-```text
-LogName            : Security
-IsEnabled          : True
-RecordCount        : 33989
-MaximumSizeInBytes : 134217728
-LogMode            : Circular
-```
+[Consultar evidencias antes/después y criterios de validación](docs/validation-plan.md)
 
-La configuración máxima pasó de **20 MiB a 128 MiB**, un aumento de 108 MiB; se verificó que el canal seguía habilitado y circular.
+## Hallazgos y medidas pendientes
 
-La consulta inmediata posterior encontró un intervalo de **1,96 días** entre eventos extremos, frente a **1,93 días** antes del cambio. **Esto no demuestra que ya conserve siete días de registros.** No se ejecutaron comandos de borrado ni una reversión durante las acciones documentadas.
+| Área | Observación | Próxima medida propuesta |
+|---|---|---|
+| **Cifrado** | Protección BitLocker desactivada | Preparar respaldos y recuperación antes de autorizar el cifrado |
+| **Secure Boot** | Deshabilitado pese a UEFI/GPT y TPM preparado | Verificar compatibilidad y recuperación antes de cambiar firmware |
+| **Auditoría de procesos** | Creación de procesos sin auditoría | Considerar piloto acotado según privacidad y volumen de eventos |
+| **Retención** | 128 MiB configurados; siete días sin validar | Volver a medir fechas extremas tras un intervalo suficiente |
+| **PowerShell** | Telemetría parcial y cobertura efectiva desconocida | Revisar requisitos antes de habilitar registros adicionales |
 
-[Consultar la evidencia, fechas y plan de validación de CHG-001](docs/validation-plan.md).
+Son **recomendaciones**, no cambios ejecutados. Durante esta evaluación no se confirmó ningún incidente de seguridad.
 
-## Oportunidades y pendientes
-
-- **Cifrado y arranque:** respaldar información, comprobar recuperación y compatibilidad antes de considerar BitLocker o Secure Boot. No realizar ajustes de firmware sin un plan de recuperación.
-- **Retención:** volver a medir Security después de un intervalo suficiente; la capacidad de 128 MiB no garantiza la meta de siete días.
-- **Auditoría de creación de procesos:** evaluar privacidad, volumen y necesidad antes de proponer una habilitación por cambio separado.
-- **Telemetría PowerShell:** estudiar cobertura efectiva de Script Block, Module Logging y Transcription según política, edición y casos de detección. No se habilitaron esos controles.
-- **Eventos 4624/4672:** establecer una línea base y correlacionar únicamente si hay motivos y autorización; los conteos por sí solos no confirman anomalías.
-
-## Documentación del laboratorio
+## Documentación y evidencias
 
 | Documento | Contenido |
 |---|---|
-| **[Guía de 30 pasos](docs/baseline-guide.md)** | Comandos realmente ejecutados, salidas observadas y explicación de cada resultado |
-| **[Evaluación de seguridad](docs/security-assessment.md)** | Estado de controles, hallazgos, prioridades y límites |
-| **[Plan de validación](docs/validation-plan.md)** | CHG-001, comprobaciones antes/después, riesgos de cambios y acciones pendientes |
-| **[Caso Blue Team previo](../Windows-Security-Event-Analysis/README.md)** | Investigación que motivó el proyecto |
+| **[Guía de laboratorio · 30 pasos](docs/baseline-guide.md)** | Comandos ejecutados, salidas reales e interpretación |
+| **[Matriz de evaluación](docs/security-assessment.md)** | Estado de controles, hallazgos, límites y prioridades |
+| **[Plan de cambios y validación](docs/validation-plan.md)** | Alcance de CHG-001, comprobaciones antes/después y trabajo pendiente |
+| **[Investigación previa de eventos Windows](../Windows-Security-Event-Analysis/README.md)** | Análisis de eventos que motivó la evaluación posterior |
 
-## Habilidades demostradas
+## Competencias aplicadas
 
-- PowerShell y administración de Windows.
-- Evaluación de controles de endpoint y monitoreo.
-- Auditoría de eventos y autenticación.
-- Diagnóstico de BitLocker, TPM, Secure Boot, UEFI y GPT.
-- Clasificación de eventos 4103, 4104, 4624, 4625 y 4672.
-- Gestión de cambios con autorización, evidencia y validación.
-- Comunicación de riesgos, incertidumbre y medidas pendientes.
+**PowerShell · Evaluación de seguridad de Windows · Auditoría de eventos · Microsoft Defender · Protección de endpoints · Gestión de cambios · Validación**
 
-## Integridad y límites
+Este proyecto documenta una **evaluación real basada en evidencias**. No significa que se haya aplicado una línea base empresarial completa ni que el equipo cumpla una certificación de seguridad. Las observaciones detalladas permanecen en los informes enlazados y los resultados no confirmados se señalan explícitamente.
 
-**Caso real de laboratorio**, con evidencia suministrada por el propietario del equipo. No se realizó ataque controlado, prueba de explotación, atribución de usuarios, remediación integral ni certificación de seguridad.
-
-La finalización de los 30 pasos significa que **la fase de evaluación y documentación está completada**, no que el endpoint cumpla un estándar empresarial de hardening.
-
-## Referencias
-
-- [Windows Security Baselines — Microsoft Learn](https://learn.microsoft.com/en-us/windows/security/operating-system-security/device-management/windows-security-configuration-framework/windows-security-baselines)
-- [Security Compliance Toolkit](https://learn.microsoft.com/en-us/windows/security/operating-system-security/device-management/windows-security-configuration-framework/security-compliance-toolkit-10)
-- [Get-NetFirewallProfile](https://learn.microsoft.com/en-us/powershell/module/netsecurity/get-netfirewallprofile)
-- [Get-MpComputerStatus](https://learn.microsoft.com/en-us/powershell/module/defender/get-mpcomputerstatus)
-- [auditpol /get](https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/auditpol-get)
-
-*Las referencias explican metodologías y controles; la evidencia real está documentada en la guía del laboratorio.*
+[← Volver a Ciberseguridad](../README.md)
