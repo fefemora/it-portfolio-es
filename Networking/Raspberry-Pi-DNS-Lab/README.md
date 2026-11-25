@@ -74,3 +74,105 @@ Address:  192.168.1.17
 `NXDOMAIN` confirmó que el servidor DNS respondió durante el fallo controlado. En este caso, la causa fue el registro retirado. El texto `UnKnown` corresponde al nombre de servidor que `nslookup` intenta obtener por resolución inversa. La respuesta `NXDOMAIN` es el dato que usé para el diagnóstico.
 
 La validación cubrió una consulta A directa desde un cliente Windows en la red local y el restablecimiento posterior. El caso corporativo INC-003 conserva su alcance de simulación.
+
+## Seguimiento — Monitoreo automático con systemd
+
+Automaticé la consulta al mismo servidor DNS con `dig` y un temporizador de `systemd`. La comprobación se ejecuta en la propia Raspberry Pi y registra el resultado en el journal local. Lee por separado el estado DNS y el código de salida de `dig`: `NXDOMAIN` es una respuesta válida del servidor, mientras que el código 9 indica que la consulta no recibió una respuesta DNS.
+
+### Configuración instalada
+
+Instalé `bind9-dnsutils` y guardé este script ejecutable en `/usr/local/bin/pi3-dns-check` con permisos `755`.
+
+```sh
+#!/bin/sh
+
+server=192.168.1.17
+name=intranet.pi-lab.test.
+expected=192.168.1.17
+
+reply=$(/usr/bin/dig -r "@$server" "$name" A \
+    +time=2 +tries=1 +noall +comments +answer 2>&1)
+result=$?
+
+case "$result" in
+    0) ;;
+    9) echo "DNS_FAIL reason=NO_REPLY name=$name server=$server"; exit 1 ;;
+    *) echo "DNS_FAIL reason=DIG_ERROR code=$result name=$name"; exit 1 ;;
+esac
+
+status=$(printf '%s\n' "$reply" | sed -n 's/^.*status: \([A-Z0-9]*\),.*$/\1/p')
+if [ "$status" != NOERROR ]; then
+    echo "DNS_FAIL reason=${status:-UNKNOWN_STATUS} name=$name server=$server"
+    exit 1
+fi
+
+address=$(printf '%s\n' "$reply" | awk -v name="$name" '$1 == name && $4 == "A" {print $5}')
+if [ "$address" != "$expected" ]; then
+    echo "DNS_FAIL reason=UNEXPECTED_ANSWER name=$name expected=$expected"
+    exit 1
+fi
+
+echo "DNS_OK name=$name server=$server answer=$address"
+```
+
+`/etc/systemd/system/pi3-dns-check.service`
+
+```ini
+[Unit]
+Description=Raspberry Pi lab DNS check
+
+[Service]
+Type=oneshot
+DynamicUser=yes
+ExecStart=/usr/local/bin/pi3-dns-check
+```
+
+`/etc/systemd/system/pi3-dns-check.timer`
+
+```ini
+[Unit]
+Description=Run the lab DNS check every minute
+
+[Timer]
+OnActiveSec=5s
+OnUnitActiveSec=1min
+AccuracySec=1s
+
+[Install]
+WantedBy=timers.target
+```
+
+Activé el temporizador con `sudo systemctl daemon-reload` y `sudo systemctl enable --now pi3-dns-check.timer`. El servicio ejecuta una consulta por activación y usa una cuenta dinámica de systemd.
+
+### Pruebas y evidencia
+
+Primero comenté el registro A de prueba, reinicié `dnsmasq` y esperé el resultado automático. Después restauré el registro y reinicié el servicio para comprobar que la consulta volvía a funcionar. Para probar la ausencia de respuesta, programé la restauración del servicio antes de detenerlo:
+
+```bash
+sudo systemd-run --unit=pi3-dns-restore --on-active=90s \
+  --timer-property=AccuracySec=1s \
+  /usr/bin/systemctl start dnsmasq.service &&
+sudo systemctl stop dnsmasq.service
+```
+
+| Hora local (UTC−03:00) | Evidencia observada |
+|---|---|
+| 19:15:56 y 19:16:57 | `DNS_OK`, `answer=192.168.1.17` |
+| 19:17:58 | `DNS_FAIL reason=NXDOMAIN` |
+| 19:18:59 | `DNS_OK`, `answer=192.168.1.17` |
+| 19:20:17 | `systemd` registró la detención de `dnsmasq.service`. |
+| 19:21:00 | `DNS_FAIL reason=NO_REPLY` |
+| 19:21:47 | El servicio transitorio de restauración volvió a iniciar `dnsmasq.service`. |
+| 19:24:03 | `DNS_OK`, `answer=192.168.1.17` en el extracto posterior. |
+
+La fecha de prueba fue el 25 de noviembre de 2026. El journal de `dnsmasq` muestra 90 segundos entre la detención y el arranque. El `DNS_OK` de las 19:24:03 es la comprobación posterior visible en el extracto y no establece la hora de la primera resolución exitosa tras el arranque.
+
+Consulta de evidencia:
+
+```bash
+sudo journalctl -u pi3-dns-check.service \
+  --since '2026-11-25 19:15:00' \
+  --grep='DNS_(OK|FAIL)' -o short-iso --no-pager
+```
+
+La validación cubre una consulta A ejecutada desde el mismo equipo que aloja el resolvedor. Sirve para comprobar la respuesta del servicio local. La disponibilidad desde otro equipo de la red requiere una sonda externa.
