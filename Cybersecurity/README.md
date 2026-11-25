@@ -12,7 +12,7 @@ Mi trabajo en ciberseguridad parte de los sistemas que conozco desde soporte TI:
 |---|---|---|
 | **[Análisis de eventos de seguridad de Windows](Windows-Security-Event-Analysis/README.md)** | Correlación 4624/4672, auditoría de procesos y retención | **Investigación real de solo lectura** · Sin incidente confirmado |
 | **[Evaluación de seguridad y hardening de Windows](Windows-Security-Hardening/README.md)** | Firewall, Defender, auditoría, PowerShell, BitLocker y arranque | **Evaluación real de 30 pasos** · Un cambio autorizado |
-| **[Triaje de autenticación SSH en Raspberry Pi](Raspberry-Pi-SSH-Authentication-Triage/README.md)** | Correlación de rechazos de contraseña, cierre previo a autenticación y acceso posterior | **Laboratorio documentado** · Actividad legítima verificada con el operador |
+| **[Triaje de autenticación SSH en Raspberry Pi](Raspberry-Pi-SSH-Authentication-Triage/README.md)** | Correlación de rechazos de contraseña, cierre previo a autenticación y acceso posterior. Incluye la migración verificada a Ed25519 | **Laboratorio documentado** · Actividad legítima verificada con el operador |
 | **[Evaluación de riesgos empresariales](../Information-Security/Enterprise-Risk-Assessment/README.md)** | Inventario, registro de riesgos, controles y tratamiento | **Simulada** · Sin evaluación de controles reales |
 
 ## Dos investigaciones conectadas
