@@ -10,7 +10,7 @@ Cuando investigo un problema de red, comienzo por identificar **qué funciona, q
 
 | Caso | Competencias | Evidencia |
 |---|---|---|
-| [Diagnóstico de DNS con Raspberry Pi](Raspberry-Pi-DNS-Lab/README.md) | Consultas directas, diagnóstico de NXDOMAIN y validación de recuperación | **Ejecutado en laboratorio doméstico** |
+| [Diagnóstico de DNS con Raspberry Pi](Raspberry-Pi-DNS-Lab/README.md) | Consultas directas, diagnóstico DNS y monitoreo con systemd de `NXDOMAIN`, falta de respuesta y recuperación | **Ejecutado en laboratorio doméstico** |
 | [INC-003 — Fallo de resolución DNS](../IT-Support/Service-Desk-Incident-Management/incidents/INC-003-DNS-Resolution.md) | Configuración de DNS, pruebas del cliente y escalamiento | **Simulado** |
 | [INC-004 — Fallo de conectividad VPN](../IT-Support/Service-Desk-Incident-Management/incidents/INC-004-VPN-Connectivity.md) | Estado del túnel, rutas, DNS y acceso interno | **Simulado** |
 | [Árbol de decisión de DNS](../IT-Support/Service-Desk-Incident-Management/incidents/INC-003-DNS-Decision-Tree.md) | Diagnóstico estructurado de resolución de nombres | **Simulado** |
