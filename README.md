@@ -15,7 +15,7 @@ Mis proyectos muestran **qué comprobé, qué encontré y qué pude verificar**.
 | Área | Contenido |
 |---|---|
 | [<img src="assets/icons/it-support.svg" width="32" alt="Icono de soporte TI"> **Soporte TI y diagnóstico**](IT-Support/README.md) | Diagnóstico real de Windows y tres escenarios de mesa de ayuda L2 |
-| [<img src="assets/icons/cybersecurity.svg" width="32" alt="Icono de ciberseguridad"> **Ciberseguridad**](Cybersecurity/README.md) | Análisis de eventos, evaluación de seguridad de endpoints y validación de cambios |
+| [<img src="assets/icons/cybersecurity.svg" width="32" alt="Icono de ciberseguridad"> **Ciberseguridad**](Cybersecurity/README.md) | Análisis de eventos de Windows, [triaje de SSH](Cybersecurity/Raspberry-Pi-SSH-Authentication-Triage/README.md) y seguridad de endpoints |
 | [<img src="assets/icons/information-security.svg" width="32" alt="Icono de seguridad de la información"> **Seguridad de la información / GRC**](Information-Security/Enterprise-Risk-Assessment/README.md) | Evaluación de riesgos ficticia basada en NIST CSF 2.0 y CIS Controls |
 | [<img src="assets/icons/systems-administration.svg" width="32" alt="Icono de administración de sistemas"> **Administración de sistemas**](Systems-Administration/README.md) | Windows Server, Active Directory y gestión de identidades |
 | [<img src="assets/icons/networking.svg" width="32" alt="Icono de redes"> **Redes y conectividad**](Networking/README.md) | [Diagnóstico DNS con Raspberry Pi](Networking/Raspberry-Pi-DNS-Lab/README.md), VPN y conectividad |
