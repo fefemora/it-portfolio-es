@@ -54,6 +54,8 @@ LogMode            : Circular
 
 **Nota:** la consulta previa no incluyó el campo `IsEnabled`; el canal había sido verificado como habilitado en otros pasos.
 
+La medición anterior del proyecto de análisis de eventos tenía **33.898** registros y abarcaba aproximadamente **2,03 días**. La línea base de CHG-001 tenía **33.959** registros y abarcaba **1,93 días**, con **56,81 GiB** libres en C:. Las diferencias de 61 registros y 0,10 días (unas 2 h 24 min) comparan capturas de un registro circular. No establecen el número exacto de eventos nuevos ni una sobrescritura específica.
+
 ### Ejecución autorizada
 
 ```powershell
@@ -136,7 +138,9 @@ NewestRecordId : 2291047
 RetainedDays   : 1,96
 ```
 
-**Conclusión:** siguieron siendo accesibles eventos con fecha anterior a CHG-001 y se confirmó el límite configurado. El intervalo de **1,96 días** no valida el objetivo de siete días y tampoco acredita ausencia de huecos en los identificadores de registro. No se ejecutó una reversión ni una operación de borrado de eventos durante el procedimiento documentado.
+**Conclusión:** siguieron siendo accesibles eventos con fecha anterior a CHG-001 y se confirmó el límite configurado. El evento más antiguo observado pasó de las 00:52:07 a las 00:52:21 del 16 de noviembre, una diferencia de 14 segundos. El intervalo de **1,96 días** no valida el objetivo de siete días y tampoco acredita ausencia de huecos en los identificadores de registro. No se ejecutó una reversión ni una operación de borrado de eventos durante el procedimiento documentado.
+
+Antes de reducir el máximo a 20 MiB, habría que estimar si se perdería historial retenido. La reversión no se ejecutó.
 
 ### Estado de CHG-001
 
@@ -177,7 +181,31 @@ Seguimiento detallado
   Creación del proceso                    Sin auditoría
 ```
 
-Esto puede reducir la visibilidad de eventos futuros **4688**, pero no demuestra un incidente. Un piloto futuro debería establecer alcance, privacidad, volumen, autorización, rollback y comprobaciones antes/después. **No se ejecutó un cambio de auditoría** en este proyecto.
+Esto puede reducir la visibilidad de eventos futuros **4688**. La consulta actual no establece qué política regía cuando se registraron eventos 4688 más antiguos ni confirma un incidente. Un piloto futuro debería establecer alcance, privacidad, volumen, autorización, rollback y comprobaciones antes/después. **No se ejecutó un cambio de auditoría** en este proyecto.
+
+**Piloto propuesto (sin ejecutar).** Evaluar auditoría de aciertos para creación de procesos, con errores y captura de línea de comandos fuera del alcance inicial. Verificar autorización y políticas AD/MDM, espacio, estado anterior, privacidad y una ventana de observación. El aumento de volumen puede reducir la retención.
+
+**Habilitación propuesta:**
+
+```powershell
+auditpol /set /subcategory:"{0cce922b-69ae-11d9-bed3-505054503030}" /success:enable
+```
+
+**Verificación propuesta:**
+
+```powershell
+auditpol /get /subcategory:"{0cce922b-69ae-11d9-bed3-505054503030}"
+```
+
+Después de un cambio autorizado, abrir un proceso benigno acordado, verificar nuevos 4688 con una consulta acotada y comprobar funcionamiento y crecimiento del registro. La configuración y la generación de eventos se validan por separado.
+
+**Reversión propuesta (sin ejecutar):**
+
+```powershell
+auditpol /set /subcategory:"{0cce922b-69ae-11d9-bed3-505054503030}" /success:disable
+```
+
+Esta reversión solo aplica si la línea base guardada confirma que los aciertos estaban deshabilitados y la administración del equipo permite el cambio. Volver a comprobar la directiva y conservar los registros existentes. El piloto no tiene un cambio autorizado asociado.
 
 ## 5. BitLocker y Secure Boot — Cambios diferidos
 

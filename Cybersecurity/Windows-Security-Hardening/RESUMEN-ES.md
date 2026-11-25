@@ -57,5 +57,3 @@ No se activaron BitLocker, Secure Boot ni auditoría de creación de procesos du
 ## Alcance del cierre
 
 **Se completó una evaluación de línea base, no una certificación de seguridad ni un endurecimiento integral del equipo.** No se confirmó incidente alguno. Se preservó la distinción entre evidencias observadas, cambios autorizados y controles pendientes.
-
-**Nota de localización:** este resumen es un documento adicional en español. La documentación exhaustiva enlazada conserva temporalmente párrafos en inglés mientras se realiza su traducción íntegra; los comandos y las salidas originales se mantendrán sin alteraciones.

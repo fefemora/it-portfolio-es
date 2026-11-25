@@ -9,8 +9,8 @@
 
 | Dominio | Objetivo | Evidencia verificada | Riesgo / límite | Estado |
 |---|---|---|---|---|
-| Firewall | Limitar tráfico no solicitado | Tres perfiles habilitados; `ActiveStore`: entrada `Block`, salida `Allow` | No se revisaron todas las reglas ni tráfico efectivo | **Configuración seleccionada verificada** |
-| Defender Antivirus | Protección de endpoints | Servicio, antivirus, protección real, Tamper Protection y NIS activos; firmas con antigüedad 0 | No se probaron firmas, exclusiones ni eficacia frente a malware | **Indicadores verificados** |
+| Firewall | Limitar tráfico no solicitado | Tres perfiles habilitados. Consulta inicial: acciones `NotConfigured`. `ActiveStore`: entrada `Block`, salida `Allow` | No se revisaron todas las reglas ni tráfico efectivo | **Configuración seleccionada verificada** |
+| Defender Antivirus | Protección de endpoints | Servicio, antivirus, protección real, Tamper Protection y NIS activos; firmas con antigüedad 0 días (actualizadas el 2026-11-17 a las 09:41:14, hora de consola) | No se probaron firmas, exclusiones ni eficacia frente a malware | **Indicadores verificados** |
 | Defender avanzado | PUA, nube y bloqueo temprano | `MAPSReporting=2`, `SubmitSamplesConsent=1`, `PUAProtection=1`, `DisableBlockAtFirstSeen=False` | No se verificó toda la cadena de operación cloud | **Preferencias verificadas** |
 | Registro Security | Evidencia para investigaciones | CHG-001: máximo de **20 a 128 MiB**, `Circular`; 33.989 registros después | Intervalo inmediato **1,96 días**; siete días no comprobados | **Configuración verificada; retención pendiente** |
 | Auditoría de procesos | Visibilidad de creación de procesos | `Process Creation: No Auditing` | Puede limitar eventos nuevos 4688 | **Brecha potencial de visibilidad; cambio no aprobado** |
@@ -21,11 +21,13 @@
 | Script Block Logging | Visibilidad de bloques de scripts | Claves HKLM/HKCU ausentes en rutas consultadas; 4104 recuperados: 438 y luego 439 advertencias | Cobertura real y origen de eventos no determinados | **Metadatos verificados, eficacia desconocida** |
 | Module Logging | Telemetría de módulos | Claves HKLM/HKCU ausentes; consulta 4103 devolvió 0 | Errores no terminantes suprimidos y retención circular | **No se recuperaron 4103; cobertura desconocida** |
 | PowerShell Transcription | Registro de sesiones | Claves HKLM/HKCU ausentes en rutas examinadas | Transcripciones de sesión y otras fuentes no revisadas | **Políticas consultadas; cobertura desconocida** |
-| PowerShell Operational | Mantener eventos PowerShell | Activo, 808 registros, 15 MiB, Circular | Intervalo **5,05 días** no constituye SLA | **Canal e intervalo verificados** |
+| PowerShell Operational | Mantener eventos PowerShell | Activo, 808 registros en 11 identificadores, 15 MiB, Circular | Intervalo **5,05 días** no constituye SLA | **Canal e intervalo verificados** |
 | Auditoría de acceso | Registrar autenticación | `Logon = Aciertos y errores` | Política configurada no garantiza retención completa | **Verificada** |
 | Autenticación 4624/4625 | Evaluar actividad de acceso | 235 registros 4624; sin grupo 4625 en 24 horas | Son eventos, no usuarios únicos | **Agregados verificados** |
 | Tipos de sesión 4624 | Diferenciar servicios y personas | Tipo 5: 229; tipo 11: 4; tipo 7: 2 | Predominio de servicios no garantiza benignidad | **Distribución verificada** |
 | Privilegios especiales 4672 | Identificar asignación de privilegios | 233 registros de 24 horas | No es prueba de abuso o de 233 administradores | **Conteo verificado** |
+| Identidad y acceso local | Evaluar exposición de roles locales | Sin medición | Requiere consulta acotada y anonimizada | **No evaluado** |
+| Estado de actualizaciones | Identificar actualizaciones pendientes | Sin medición | Requiere una comprobación de solo lectura | **No evaluado** |
 
 ## Evidencia del cambio CHG-001
 
@@ -68,7 +70,7 @@ Las dos rutas de política consultadas en cada función **no prueban todas las c
 
 ## Interpretación de la autenticación
 
-La política de Logon estaba configurada para auditar **aciertos y errores**. En una consulta de 24 horas se recuperaron **235 eventos 4624** y no apareció grupo para 4625. En otra medición se clasificaron los 235 eventos 4624: **229 tipo 5 (servicio), 4 tipo 11 (inicio interactivo en caché) y 2 tipo 7 (desbloqueo)**.
+La política de Logon estaba configurada para auditar **aciertos y errores**. En una consulta de 24 horas se recuperaron **235 eventos 4624** y no apareció grupo para 4625. En otra medición se clasificaron los 235 eventos 4624: **229 tipo 5 (servicio, 97,4 %), 4 tipo 11 (inicio interactivo en caché) y 2 tipo 7 (desbloqueo)**.
 
 Otra consulta recuperó **233 eventos 4672**. Esta coincidencia aproximada de volumen **no equivale** a vincular uno a uno ambas clases. Eventos 4672 indican **asignación** de privilegios a una sesión, no ejercicio de privilegios ni acceso malicioso.
 

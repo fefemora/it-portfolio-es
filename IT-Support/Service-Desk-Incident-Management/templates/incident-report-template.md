@@ -104,3 +104,6 @@ Toda información sensible debe anonimizarse antes de publicarse.
 ---
 
 **Advertencia:** plantilla educativa y de portafolio. Los resultados simulados nunca deben presentarse como hallazgos productivos verificados.
+## Uso de la plantilla
+
+Esta plantilla está destinada a fines educativos y de portafolio. Identifica los resultados simulados como tales al documentarlos.

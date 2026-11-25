@@ -433,6 +433,14 @@ LogMode            : Circular
 
 **Análisis:** El canal `Microsoft-Windows-PowerShell/Operational` estaba activo, con **808 eventos**, máximo **15 MiB** y retención circular. Esto no demuestra cobertura detallada de todos los scripts.
 
+**Consulta de conteo propuesta en este punto.** El paso 15 conserva la consulta que se ejecutó y su resultado. La propuesta evita mostrar el contenido de los bloques de script.
+
+```powershell
+$log = 'Microsoft-Windows-PowerShell/Operational'
+$events = Get-WinEvent -FilterHashtable @{ LogName = $log; Id = 4104 } -ErrorAction SilentlyContinue
+[PSCustomObject]@{ EventId = 4104; Count = @($events).Count } | Format-List
+```
+
 ## Paso 15 — Cantidad de eventos PowerShell 4104 (verificado)
 
 **Comando ejecutado:**
@@ -611,6 +619,8 @@ HKCU ModuleLogging policy key: Not configured
 ```
 
 **Análisis:** Tampoco existía la clave `ModuleLogging` del usuario actual en HKCU. Esto no constituye prueba definitiva de desactivación en todos los ámbitos.
+
+El siguiente paso conserva la consulta de conteo 4103 y su resultado. Con `SilentlyContinue`, un conteo cero solo indica que la consulta no recuperó coincidencias.
 
 ## Paso 22 — Conteo de eventos Module Logging 4103 (verificado)
 
@@ -812,6 +822,10 @@ Count   : 233
 **Actividades pendientes:** preparar respaldos y recuperación antes de BitLocker/Secure Boot; reevaluar la retención cuando transcurra suficiente tiempo; proponer por separado auditoría de procesos o telemetría avanzada de PowerShell considerando privacidad, rendimiento y reversión.
 
 **Integridad:** se publicaron comandos, indicadores, marcas de tiempo y agregados anonimizados. No hay evidencia confirmada de incidente ni pruebas de explotación. El análisis de privilegios 4672 no representa una elevación maliciosa confirmada.
+
+## Evaluaciones futuras pendientes
+
+Después de revisar la línea base, quedan por definir comprobaciones acotadas y de solo lectura sobre privilegios locales, estado de actualizaciones y controles del equipo. Los registros públicos excluyen inventarios completos, miembros de grupos administrativos, reglas detalladas, valores sensibles del registro y claves de recuperación.
 
 ## Normas para interpretar las evidencias
 

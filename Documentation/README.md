@@ -25,6 +25,8 @@ Una buena documentación facilita el diagnóstico del siguiente incidente. Procu
 
 ## Recursos reutilizables
 
+[Metodología](../metodologia/README.md) · [Plantilla de investigación](../metodologia/plantilla-investigacion.md) · [Evidencia y validación](../metodologia/evidencia-y-validacion.md)
+
 La [plantilla de informe de incidente](../IT-Support/Service-Desk-Incident-Management/templates/incident-report-template.md) ya está disponible. Incorporaré otras plantillas de diagnóstico, laboratorios y gestión de cambios cuando sean útiles para nuevos proyectos.
 
 La documentación pública utiliza datos ficticios o anonimizados. No publico credenciales, secretos ni información confidencial de clientes.

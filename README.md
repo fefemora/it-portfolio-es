@@ -4,7 +4,7 @@
 
 ![Soporte TI](https://img.shields.io/badge/Soporte_TI-L1%2FL2-14283F?style=flat-square) ![Sistemas](https://img.shields.io/badge/Sistemas-Administraci%C3%B3n-14283F?style=flat-square) ![Ciberseguridad](https://img.shields.io/badge/Ciberseguridad-Blue_Team-059669?style=flat-square) ![Evidencias](https://img.shields.io/badge/Evidencias-Reales_y_simuladas-64748B?style=flat-square)
 
-**[English version / Versión en inglés](https://github.com/fefemora/it-portfolio-en)**
+**[English version / Versión en inglés](https://github.com/fefemora/it-portfolio-en)** · [Metodología](metodologia/README.md)
 
 Trabajo en soporte TI, administración de sistemas y seguridad. Buena parte de mi experiencia consiste en diagnosticar problemas, ayudar a los usuarios a recuperar sus herramientas de trabajo y mantener los servicios funcionando. En este portafolio reúno ese trabajo con investigaciones prácticas de seguridad, documentación técnica y evaluación de riesgos.
 
@@ -91,6 +91,8 @@ Completé **28 comprobaciones técnicas y dos etapas de evaluación y cierre** s
 Quiero seguir desarrollando este trabajo con laboratorios de **Active Directory e identidades**, diagnósticos de redes más profundos, **monitoreo SIEM** y **redes y seguridad cloud**. Son líneas de desarrollo, no casos prácticos completados.
 
 ## Tratamiento de evidencias
+
+Consulta [cómo trabajo](metodologia/README.md), la [plantilla de investigación](metodologia/plantilla-investigacion.md) y los [criterios de evidencia y validación](metodologia/evidencia-y-validacion.md).
 
 Cada proyecto diferencia **observaciones reales**, **escenarios simulados** y **cambios propuestos**. Indico las limitaciones cuando una prueba, una causa raíz o un resultado de seguridad no han podido confirmarse. Los ejemplos públicos excluyen credenciales e información confidencial de clientes.
 

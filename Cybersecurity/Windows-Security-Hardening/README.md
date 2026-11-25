@@ -2,7 +2,7 @@
 
 ![Windows](https://img.shields.io/badge/Windows-Seguridad_de_endpoints-14283F?style=flat-square) ![PowerShell](https://img.shields.io/badge/PowerShell-L%C3%ADnea_base-14283F?style=flat-square) ![Estado](https://img.shields.io/badge/EVALUACI%C3%93N-30_pasos_documentados-059669?style=flat-square) ![Pendiente](https://img.shields.io/badge/MEJORAS-Pendientes-E5A000?style=flat-square)
 
-[← Ciberseguridad](../README.md) · [Portafolio](../../README.md) · **[Guía de 30 pasos](docs/baseline-guide.md)** · [Matriz de evaluación](docs/security-assessment.md) · [Plan de cambios y validación](docs/validation-plan.md)
+[← Ciberseguridad](../README.md) · [Portafolio](../../README.md) · **[Guía de 30 pasos](docs/baseline-guide.md)** · [Matriz de evaluación](docs/security-assessment.md) · [Plan de cambios y validación](docs/validation-plan.md) · [Resumen técnico](RESUMEN-ES.md)
 
 [![Flujo de trabajo del laboratorio de seguridad de Windows](diagrams/hardening-workflow.svg)](docs/baseline-guide.md)
 
