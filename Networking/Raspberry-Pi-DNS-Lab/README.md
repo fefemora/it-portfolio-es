@@ -8,7 +8,6 @@ Monté un DNS local en una Raspberry Pi 3 Model B y lo consulté desde Windows. 
 
 ## Entorno y configuración
 
-- **Fecha de prueba** · 25 de noviembre de 2026
 - **Servidor** · Raspberry Pi 3 Model B, Raspbian GNU/Linux 13 (Trixie), `dnsmasq`, Wi-Fi (`wlan0`).
 - **Recursos antes de instalar** · 767 MiB de RAM disponibles y 11 GiB libres en la microSD.
 - **Cliente** · Windows, PowerShell y `nslookup`.
