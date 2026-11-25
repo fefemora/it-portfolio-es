@@ -82,6 +82,8 @@ AntivirusSignatureLastUpdated : 17-11-2026 9:41:14
 
 **Análisis:** El servicio antivirus, el antivirus y la protección en tiempo real estaban activos. La antigüedad de firmas era cero días y la última actualización se registró el 17/11/2026 a las 09:41:14. Es una fotografía de estado, no una prueba de detección de malware.
 
+El último dato se leyó en la hora local de la consola. Esta consulta no inspeccionó exclusiones ni ejecutó un análisis o una actualización de firmas. Las funciones avanzadas se revisaron por separado en el paso siguiente.
+
 ## Paso 3 — Configuraciones avanzadas de Microsoft Defender (verificado)
 
 **Comando ejecutado:**
@@ -112,6 +114,8 @@ SubmitSamplesConsent : 1
 
 **Análisis:** Tamper Protection y Network Inspection System informaron `True`. `MAPSReporting=2` señala participación avanzada y `SubmitSamplesConsent=1` la entrega automática de muestras seguras. No se probó conectividad cloud ni eficacia de protección.
 
+Estas preferencias tampoco demuestran cumplimiento integral. Como MAPS avanzado puede reportar más información sobre amenazas, cualquier cambio debe considerar privacidad y requisitos de la organización.
+
 ## Paso 4 — Protección PUA y Block at First Sight (verificado)
 
 **Comando ejecutado:**
@@ -132,6 +136,8 @@ DisableBlockAtFirstSeen : False
 
 **Análisis:** `PUAProtection=1` representa bloqueo de aplicaciones potencialmente no deseadas; `DisableBlockAtFirstSeen=False` indica que esa funcionalidad no está deshabilitada por la preferencia. No se ejecutaron pruebas de detección.
 
+El valor de Block at First Sight muestra la preferencia consultada. Su funcionamiento efectivo también depende de sus requisitos de conectividad y protección en la nube.
+
 ## Paso 5 — Política de auditoría de creación de procesos (verificado)
 
 **Comando ejecutado:**
@@ -150,6 +156,8 @@ Seguimiento detallado
 ```
 
 **Análisis:** La subcategoría `Creación del proceso` figuraba como `Sin auditoría`. Reduce la visibilidad de nuevos eventos 4688 y constituye una oportunidad de monitoreo, no un ataque confirmado. Habilitarla está pendiente de aprobación.
+
+Los registros 4688 retenidos del análisis anterior siguen sin explicación confirmada. Una comprobación actual de la directiva no reconstruye su historial.
 
 ## Paso 6 — Capacidad y retención del registro Security (verificado)
 
@@ -174,6 +182,8 @@ LogMode            : Circular
 ```
 
 **Análisis:** Security estaba habilitado y en modo `Circular` con límite previo de 20 MiB y 33.959 registros. Su intervalo observado antes del único cambio fue de **1,93 días**, distinto del intervalo de 2,03 días de la investigación anterior. Ninguna medición garantiza retención futura ni acredita pérdida de datos.
+
+La comprobación del caso anterior contó 33.898 registros. La diferencia de 61 frente a 33.959 se obtuvo comparando dos capturas de un registro circular. La diferencia de 0,10 días entre intervalos equivale a unas 2 h 24 min. Estos datos no identifican un evento de sobrescritura, un ritmo de pérdida ni el espacio realmente ocupado.
 
 ### Comprobación adicional 6b — Fechas de retención previas al cambio
 
@@ -303,6 +313,8 @@ EncryptionPercentage : 0
 
 **Análisis:** El volumen C: estaba `FullyDecrypted`, protección `Off` y cifrado `0 %`. Existe una exposición potencial de confidencialidad ante pérdida física; no se encendió BitLocker y se exige respaldo y recuperación antes de considerar hacerlo.
 
+La revisión cubrió C: y la protección provista por BitLocker. Otros volúmenes y mecanismos de cifrado quedaron fuera de la consulta.
+
 ## Paso 9 — Preparación del TPM (verificado)
 
 **Comando ejecutado:**
@@ -327,6 +339,8 @@ TpmActivated : True
 
 **Análisis:** El TPM informó `Present`, `Ready`, `Enabled` y `Activated` en `True`. Esta preparación no demuestra que exista copia de seguridad, clave de recuperación ni compatibilidad completa de BitLocker.
 
+El estado del TPM cubre un requisito de plataforma. La edición de Windows, las políticas de administración y la capacidad de iniciar y recuperar el sistema deben verificarse por separado.
+
 ## Paso 10 — Estado de Secure Boot (verificado)
 
 **Comando ejecutado:**
@@ -342,6 +356,8 @@ False
 ```
 
 **Análisis:** `Confirm-SecureBootUEFI` devolvió `False`: Secure Boot estaba deshabilitado. No se modificó el firmware; una activación futura requiere comprobar recuperación y compatibilidad.
+
+La consulta no identifica por qué Secure Boot estaba deshabilitado. Quedaron fuera la configuración detallada del firmware, los componentes firmados y la compatibilidad del cargador de arranque. Cualquier evaluación de cambio debe incluir compatibilidad con Hyper-V y un medio de recuperación probado.
 
 ## Paso 11 — Modo de arranque UEFI (verificado)
 
@@ -383,6 +399,8 @@ IsSystem       : True
 
 **Análisis:** El disco que contiene C: era el **Disco 0**, particionado **GPT** y mostraba `IsBoot=True` y `IsSystem=True` a nivel de objeto **disco**, no específicamente de partición. No se alteraron particiones.
 
+La combinación GPT y UEFI es compatible con la línea base observada. Para decidir si Secure Boot puede activarse de forma segura, faltan comprobaciones independientes de respaldo, recuperación y compatibilidad.
+
 ## Paso 13 — Política de Script Block Logging en HKLM (verificado)
 
 **Comando ejecutado:**
@@ -406,6 +424,8 @@ Policy registry key: Not configured
 ```
 
 **Análisis:** La clave de política de máquina `ScriptBlockLogging` en HKLM no existía en la ruta examinada. No permite afirmar que todo registro de bloques de scripts esté desactivado.
+
+Se consultó una ruta de Windows PowerShell. La edición de PowerShell, los demás ámbitos de política y los comportamientos de registro automático pueden producir resultados distintos.
 
 ## Paso 14 — Metadatos del canal PowerShell/Operational (verificado)
 
@@ -441,6 +461,8 @@ $events = Get-WinEvent -FilterHashtable @{ LogName = $log; Id = 4104 } -ErrorAct
 [PSCustomObject]@{ EventId = 4104; Count = @($events).Count } | Format-List
 ```
 
+El límite equivale a 15.728.640 bytes. Los 808 eventos son el total observado del canal en esa captura. La métrica de bloques de script se obtuvo en una consulta aparte.
+
 ## Paso 15 — Cantidad de eventos PowerShell 4104 (verificado)
 
 **Comando ejecutado:**
@@ -465,6 +487,8 @@ Count   : 438
 ```
 
 **Análisis:** Una consulta recuperó **438 eventos 4104** retenidos. El contenido de scripts no se consultó; la presencia de eventos no confirma cobertura exhaustiva.
+
+Los 438 eventos pueden incluir bloques divididos en varios registros. Las capturas de 438 eventos 4104 y 808 registros totales se obtuvieron por separado en un canal circular.
 
 ## Paso 16 — Distribución de identificadores del canal PowerShell (verificado)
 
@@ -497,6 +521,8 @@ Name  Count
 ```
 
 **Análisis:** Se identificaron **11 IDs** y **808 registros** en total; el identificador 4104 tenía 438. No se interpretaron contenidos ni se clasificó actividad maliciosa.
+
+La agrupación se limitó a metadatos de hasta 1.000 registros. No se leyeron mensajes de eventos.
 
 ## Paso 17 — Política de Script Block Logging en HKCU (verificado)
 
@@ -546,6 +572,8 @@ Advertencia   439
 
 **Análisis:** Una consulta posterior encontró **439 eventos 4104** de severidad `Advertencia` frente a 438 del conteo anterior. Son dos instantáneas distintas; la advertencia no es prueba de ejecución maliciosa.
 
+El registro adicional podría explicarse por actividad entre las consultas, pero no se verificó. La severidad Advertencia tampoco identifica scripts únicos.
+
 ## Paso 19 — Intervalo observado del historial PowerShell (verificado)
 
 **Comando ejecutado:**
@@ -571,6 +599,8 @@ RetainedDays : 5,05
 ```
 
 **Análisis:** El intervalo entre el evento PowerShell más antiguo y reciente era **5,05 días** (13/11/2026 01:11:52 a 18/11/2026 02:20:33). Es un intervalo observado, no retención mínima ni cobertura propia de ID 4104.
+
+El inicio de la captura, períodos sin actividad o sobrescritura pueden influir en el evento más antiguo disponible. El Security log, ampliado bajo CHG-001, tiene su propia meta de siete días y se valida por separado.
 
 ## Paso 20 — Política de Module Logging en HKLM (verificado)
 
@@ -622,6 +652,8 @@ HKCU ModuleLogging policy key: Not configured
 
 El siguiente paso conserva la consulta de conteo 4103 y su resultado. Con `SilentlyContinue`, un conteo cero solo indica que la consulta no recuperó coincidencias.
 
+Los registros 4104 observados corresponden a Script Block Logging. La disponibilidad de eventos 4103 para Module Logging se comprobó en el paso 22.
+
 ## Paso 22 — Conteo de eventos Module Logging 4103 (verificado)
 
 **Comando ejecutado:**
@@ -646,6 +678,8 @@ Count   : 0
 ```
 
 **Análisis:** La consulta devolvió **0 eventos 4103** retenidos. Como se utilizó `-ErrorAction SilentlyContinue`, posibles errores no terminantes podrían ocultarse; es correcto indicar que no se recuperaron coincidencias, no que jamás existieron.
+
+La distribución anterior de 11 identificadores en 808 registros tampoco incluía 4103. Las rutas HKLM y HKCU sin clave y esas dos consultas acotan la conclusión al canal retenido que se inspeccionó.
 
 ## Paso 23 — Política de Transcription en HKLM (verificado)
 
@@ -695,6 +729,8 @@ HKCU Transcription policy key: Not configured
 
 **Análisis:** La clave `Transcription` en HKCU tampoco existía. Ambas rutas examinadas estaban ausentes, pero la transcripción interactiva y otros ámbitos no fueron evaluados.
 
+La revisión excluyó archivos, rutas de salida y contenido de transcripciones. Los eventos 4104 acreditan cierta telemetría de bloques de script, con alcance efectivo aún indeterminado.
+
 ## Paso 25 — Auditoría de inicios de sesión Windows (verificado)
 
 **Comando ejecutado:**
@@ -713,6 +749,8 @@ Inicio/cierre de sesión
 ```
 
 **Análisis:** `auditpol` informó **`Aciertos y errores`** para inicio de sesión, por lo que Windows está configurado para auditar ambos resultados; esto no verifica su retención o integridad total.
+
+La configuración favorece la recolección de 4624 y 4625 cuando esos eventos se generan y se retienen. La consulta no comprueba el reenvío ni la cobertura de todos los flujos de autenticación.
 
 ## Paso 26 — Eventos de autenticación en 24 horas (verificado)
 
@@ -744,6 +782,8 @@ Name Count
 
 **Análisis:** En la ventana móvil de 24 horas se recuperaron **235 eventos 4624** y **ningún grupo 4625**. Son registros de acceso, no 235 personas; ausencia de 4625 en la consulta no significa que nunca hayan existido errores.
 
+La consulta combinada sí devolvió registros y no entró en la rama de manejo de errores. Esto sustenta que en esa consulta no hubo coincidencias para 4625.
+
 ## Paso 27 — Distribución de tipos de inicio de sesión 4624 (verificado)
 
 **Comando ejecutado:**
@@ -774,6 +814,8 @@ Name Count
 
 **Análisis:** De los 235 registros 4624, **229 eran tipo 5 (Service)**, **4 tipo 11 (CachedInteractive)** y **2 tipo 7 (Unlock)**. El total coincide con la consulta anterior, pero las ventanas pueden avanzar.
 
+La distribución observada fue **97,4 %** de servicios, **1,7 %** de accesos interactivos en caché y **0,9 %** de desbloqueos. Las cifras se refieren a eventos. La identidad y el contexto de cada acceso requieren evidencia adicional.
+
 ## Paso 28 — Eventos de privilegios especiales 4672 (verificado)
 
 **Comando ejecutado:**
@@ -799,6 +841,8 @@ Count   : 233
 ```
 
 **Análisis:** Se recuperaron **233 registros 4672** en la ventana móvil de 24 horas. Reflejan asignación de privilegios especiales en nuevas sesiones, no uso probado de esos permisos ni 233 personas privilegiadas. No se correlacionaron con los 235 registros 4624 en esta consulta.
+
+Las dos consultas de 24 horas se hicieron en momentos distintos. Correlacionar sesiones concretas requeriría recuperar campos adicionales con un alcance de investigación definido.
 
 ## Paso 29 — Priorización de hallazgos (análisis sin nuevos comandos)
 
