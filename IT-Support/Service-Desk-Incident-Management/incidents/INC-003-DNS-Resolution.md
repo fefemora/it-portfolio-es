@@ -9,6 +9,8 @@
 **Entorno:** Windows 11 Enterprise / Red corporativa  
 **Estado:** Simulado — Plan de investigación y resolución
 
+**Laboratorio relacionado:** [Diagnóstico de DNS con Raspberry Pi 3](../../../Networking/Raspberry-Pi-DNS-Lab/README.md) documenta la prueba de un registro ausente y su recuperación desde Windows.
+
 ## Flujo de troubleshooting DNS
 
 ```mermaid
