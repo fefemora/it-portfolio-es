@@ -36,3 +36,44 @@ Extracto transcrito de la captura de PuTTY. Reemplacé el usuario y la IPv6 de o
 Correlacioné las entradas por hora, usuario, IPv6 de origen, puerto de origen y PID de `sshd-session`. Los dos rechazos comparten puerto y PID con el cierre marcado `[preauth]`. El acceso exitoso ocurrió 23 segundos después del cierre, con el mismo usuario e IPv6 y con un puerto y PID distintos. La secuencia muestra que el acceso se aceptó en una nueva conexión.
 
 Clasifiqué este episodio como actividad legítima del laboratorio porque pude relacionarlo con mi error al ingresar la contraseña y mi acceso posterior desde PuTTY. El registro por sí solo permite reconstruir la secuencia de autenticación. La atribución al operador depende del contexto de la prueba y la revisión se limita a los eventos seleccionados.
+
+## Seguimiento — Hardening de SSH con Ed25519
+
+Cambié el acceso SSH de la Raspberry Pi para que la autenticación remota requiriera una clave pública. Mantuve abiertas las sesiones de PuTTY que ya funcionaban mientras probaba una conexión nueva. Así podía revertir la configuración si era necesario.
+
+### Línea base e implementación
+
+OpenSSH informaba inicialmente `pubkeyauthentication yes`, `passwordauthentication yes` y `kbdinteractiveauthentication no`. Generé un par de claves Ed25519 en PuTTYgen, protegí la clave privada `.ppk` con una frase de paso y añadí la clave pública a `~/.ssh/authorized_keys`. Antes de cambiar la política del servidor, el registro SSH mostró `Accepted publickey` con `ED25519` a las **18:03:04 (UTC−03:00)**.
+
+Apliqué estos ajustes en `/etc/ssh/sshd_config.d/00-pi3-lab-key-only.conf`. El procedimiento incluyó validar la sintaxis con `sudo /usr/sbin/sshd -t` antes de recargar `ssh.service`.
+
+```text
+PubkeyAuthentication yes
+PasswordAuthentication no
+KbdInteractiveAuthentication no
+```
+
+### Validación funcional desde Windows
+
+- **Con clave:** Una sesión nueva de PuTTY con la clave Ed25519 `.ppk` llegó a la terminal de la Raspberry Pi.
+- **Con contraseña como método preferido y claves deshabilitadas:** El cliente OpenSSH de Windows recibió un rechazo sin que se le pidiera la contraseña de la cuenta. El comando y la salida usan un nombre de usuario anonimizado.
+
+```powershell
+ssh -o PubkeyAuthentication=no -o PreferredAuthentications=password <lab-user>@pi3-lab.local
+```
+
+```text
+<lab-user>@pi3-lab.local: Permission denied (publickey).
+```
+
+**Configuración efectiva final** informada por `sshd -T`:
+
+```text
+pubkeyauthentication yes
+passwordauthentication no
+kbdinteractiveauthentication no
+```
+
+La configuración y ambas pruebas verifican el cambio para la cuenta y la conexión evaluadas. La frase de paso de PuTTY desbloqueó la clave privada en Windows. Es distinta de la contraseña de la cuenta de la Pi.
+
+**Plan de reversión:** Renombrar el archivo del laboratorio para que quede fuera del patrón `*.conf`, ejecutar `sshd -t` y recargar el servicio desde una sesión abierta.
