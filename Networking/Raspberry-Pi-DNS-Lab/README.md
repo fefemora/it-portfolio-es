@@ -176,3 +176,23 @@ sudo journalctl -u pi3-dns-check.service \
 ```
 
 La validación cubre una consulta A ejecutada desde el mismo equipo que aloja el resolvedor. Sirve para comprobar la respuesta del servicio local. La disponibilidad desde otro equipo de la red requiere una sonda externa.
+
+## Seguimiento — Respaldo y restauración de DNS
+
+Guardé la configuración del resolvedor, el script de comprobación y las unidades de servicio y temporizador de systemd en un archivo comprimido con rutas relativas. El respaldo se limitó a estos cuatro archivos del laboratorio:
+
+- `etc/dnsmasq.d/pi3-lab.conf`
+- `usr/local/bin/pi3-dns-check`
+- `etc/systemd/system/pi3-dns-check.service`
+- `etc/systemd/system/pi3-dns-check.timer`
+
+1. **Respaldo en la Pi.** Creé `pi3-dns-20261125-200756.tar.gz` con `tar`, listé su contenido y verifiqué la suma SHA-256 con `sha256sum -c`. El resultado fue `pi3-dns-20261125-200756.tar.gz: OK`.
+2. **Copia en otro equipo.** Transferí el archivo y el manifiesto a Windows por SFTP con PSCP y la clave de PuTTY. La comparación del manifiesto con `Get-FileHash -Algorithm SHA256` devolvió `True`.
+3. **Restauración desde la copia de Windows.** Envié ese archivo de vuelta con otro nombre, comparé ambos archivos byte a byte con `cmp` y lo extraje en una carpeta de prueba nueva. Validé la configuración recuperada con `dnsmasq --test --conf-file` y el script con `sh -n`. El mensaje final solo se imprimía si todas las comprobaciones terminaban correctamente.
+
+```text
+dnsmasq: syntax check OK.
+Restauración de prueba validada en: /home/<usuario>/pi3-dns-restore.7Btq9O
+```
+
+El nombre de usuario del extracto está anonimizado. La prueba verificó la integridad de la transferencia, la extracción y la sintaxis de DNS y del script. Los archivos restaurados quedaron en la carpeta de prueba y el servicio activo conservó su configuración. Arrancar el servicio y el temporizador con los archivos recuperados quedó fuera del alcance de esta prueba.
