@@ -195,7 +195,27 @@ dnsmasq: syntax check OK.
 Restauración de prueba validada en: /home/<usuario>/pi3-dns-restore.7Btq9O
 ```
 
-El nombre de usuario del extracto está anonimizado. La prueba verificó la integridad de la transferencia, la extracción y la sintaxis de DNS y del script. Los archivos restaurados quedaron en la carpeta de prueba y el servicio activo conservó su configuración. Arrancar el servicio y el temporizador con los archivos recuperados quedó fuera del alcance de esta prueba.
+El nombre de usuario del extracto está anonimizado. La prueba verificó la integridad de la transferencia, la extracción y la sintaxis de DNS y del script. Los archivos restaurados quedaron en la carpeta de prueba y el servicio activo conservó su configuración.
+
+### Comprobación funcional con la configuración DNS restaurada
+
+Extraje el respaldo devuelto desde Windows y preparé una copia de prueba de su archivo `pi3-lab.conf`. Cambié la escucha a `127.0.0.1` e inicié un proceso separado de `dnsmasq` en el puerto `1053`, en primer plano y con un límite de 120 segundos. Conservé el registro A original y la configuración del resolvedor activo.
+
+```text
+dnsmasq: syntax check OK.
+dnsmasq: started, version 2.91 cachesize 150
+```
+
+Desde una segunda sesión de PuTTY consulté primero la instancia de prueba y luego el resolvedor activo. El extracto muestra cada comando junto a su respuesta para facilitar la lectura.
+
+```console
+$ dig @127.0.0.1 -p 1053 intranet.pi-lab.test. A +short +time=2 +tries=1
+192.168.1.17
+$ dig @192.168.1.17 -p 53 intranet.pi-lab.test. A +short +time=2 +tries=1
+192.168.1.17
+```
+
+La configuración recuperada sirvió el registro A esperado en el puerto de prueba. El resolvedor activo también respondió a la consulta en el puerto 53. Esto verifica el funcionamiento de la configuración DNS recuperada en un proceso aislado. El servicio y el temporizador de systemd recuperados quedan fuera de la comprobación funcional.
 
 ## Seguimiento — Sonda desde Windows y alertas por cambio de estado
 
