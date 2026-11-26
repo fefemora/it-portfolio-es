@@ -196,3 +196,56 @@ Restauración de prueba validada en: /home/<usuario>/pi3-dns-restore.7Btq9O
 ```
 
 El nombre de usuario del extracto está anonimizado. La prueba verificó la integridad de la transferencia, la extracción y la sintaxis de DNS y del script. Los archivos restaurados quedaron en la carpeta de prueba y el servicio activo conservó su configuración. Arrancar el servicio y el temporizador con los archivos recuperados quedó fuera del alcance de esta prueba.
+
+## Seguimiento — Sonda desde Windows y alertas por cambio de estado
+
+Ejecuté una sonda desde un segundo equipo de la red. PowerShell consultó directamente el registro A de `intranet.pi-lab.test.` en `192.168.1.17` y comparó la respuesta con la dirección esperada. El bucle espera diez segundos entre consultas. La consola muestra todos los `CHECK` y `Tee-Object` agrega al archivo local el `BASELINE` inicial y los cambios de estado `ALERT` o `RECOVERY`.
+
+### Prueba controlada
+
+Retiré el registro A de prueba y lo restauré tras observar dos fallos consecutivos desde Windows. La salida de consola muestra una alerta a las **23:32:02**, un segundo fallo sin alerta adicional a las **23:32:12** y un aviso de recuperación a las **23:32:22** (UTC−03:00). El siguiente chequeo volvió a indicar `OK`.
+
+```text
+2026-11-25 23:31:31 -03:00 BASELINE OK A=192.168.1.17
+2026-11-25 23:32:02 -03:00 CHECK FAIL DNS_ERROR_RCODE_NAME_ERROR,Microsoft.DnsClient.Commands.ResolveDnsName
+2026-11-25 23:32:02 -03:00 ALERT FAIL DNS_ERROR_RCODE_NAME_ERROR,Microsoft.DnsClient.Commands.ResolveDnsName
+2026-11-25 23:32:12 -03:00 CHECK FAIL DNS_ERROR_RCODE_NAME_ERROR,Microsoft.DnsClient.Commands.ResolveDnsName
+2026-11-25 23:32:22 -03:00 CHECK OK A=192.168.1.17
+2026-11-25 23:32:22 -03:00 RECOVERY OK A=192.168.1.17
+2026-11-25 23:32:32 -03:00 CHECK OK A=192.168.1.17
+```
+
+Los 20 segundos entre la alerta y la recuperación corresponden a los tiempos observados por la sonda. La prueba cubrió la resolución desde Windows en la red local y los avisos durante una ejecución interactiva. La evidencia publicada procede de la consola de PowerShell.
+
+### Comprobador PowerShell
+
+```powershell
+$log = Join-Path $env:USERPROFILE ("pi3-dns-monitor-{0}.log" -f (Get-Date -Format 'yyyyMMdd-HHmmss'))
+$anterior = $null
+Write-Host "Registro: $log"
+
+while ($true) {
+    $estado = 'FAIL'
+    try {
+        $respuesta = Resolve-DnsName -Name 'intranet.pi-lab.test.' -Type A -Server '192.168.1.17' -DnsOnly -NoHostsFile -QuickTimeout -ErrorAction Stop
+        $direcciones = @($respuesta | Where-Object Type -eq 'A' | ForEach-Object IPAddress)
+        $detalle = 'A=' + ($direcciones -join ',')
+        if ($direcciones.Count -eq 1 -and $direcciones[0] -eq '192.168.1.17') {
+            $estado = 'OK'
+        }
+    } catch {
+        $detalle = $_.FullyQualifiedErrorId
+    }
+
+    $hora = Get-Date -Format 'yyyy-MM-dd HH:mm:ss zzz'
+    Write-Host "$hora CHECK $estado $detalle"
+    if ($estado -ne $anterior) {
+        $evento = if ($null -eq $anterior) { 'BASELINE' }
+                  elseif ($estado -eq 'FAIL') { 'ALERT' }
+                  else { 'RECOVERY' }
+        "$hora $evento $estado $detalle" | Tee-Object -FilePath $log -Append
+        $anterior = $estado
+    }
+    Start-Sleep -Seconds 10
+}
+```
